@@ -12,6 +12,7 @@ import PaymentOptions from '../components/PaymentOptions'
 import ContactForm from '../components/ContactForm'
 import Newsletter from '../components/Newsletter'
 import Footer from '../components/Footer'
+import WhatsappButton from '../components/WhatsappButton' // 👈 Importación añadida
 
 export default function Home() {
   return (
@@ -36,10 +37,12 @@ export default function Home() {
         <PaymentOptions />
         <ContactForm />
         <Newsletter />
-        
       </main>
 
       <Footer />
+
+      {/* Botón de WhatsApp flotante */}
+      <WhatsappButton />
     </div>
   )
 }

@@ -9,23 +9,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [isVisible, setIsVisible] = useState(true)
-  const lastScrollY = useRef(0)
   const menuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
     const handleScroll = () => {
-      const currentScrollY = window.scrollY
-
-      if (currentScrollY < lastScrollY.current) {
-        setIsVisible(true)
-      } else if (currentScrollY > lastScrollY.current + 10) {
-        setIsVisible(false)
-        setIsMenuOpen(false)
-      }
-
-      setIsScrolled(currentScrollY > 20)
-      lastScrollY.current = currentScrollY
+      setIsScrolled(window.scrollY > 20)
+      setIsMenuOpen(false)
     }
 
     const handleClickOutside = (event: MouseEvent) => {
@@ -51,7 +40,7 @@ export default function Header() {
     <>
       <motion.header
         initial={{ y: 0 }}
-        animate={{ y: isVisible ? 0 : -100 }}
+        animate={{ y: 0 }}
         transition={{ duration: 0.3 }}
         className={`overflow-hidden fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
           isScrolled
