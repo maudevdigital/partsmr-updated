@@ -181,8 +181,8 @@ export default function ContactoPage() {
               ></textarea>
               <div className="flex justify-between text-sm text-gray-500 mt-1">
                 <span>{mensaje.length} / {maxCaracteres} caracteres</span>
-                {errors.comentario && (
-                  <span className="text-red-500">{errors.comentario.message}</span>
+                {errors.comentario?.message && (
+                  <span className="text-red-500">{String(errors.comentario.message)}</span>
                 )}
               </div>
             </div>

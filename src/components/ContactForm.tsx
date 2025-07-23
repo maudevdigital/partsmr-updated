@@ -233,7 +233,7 @@ export default function ContactForm() {
             />
             <div className="text-sm mt-1 flex justify-between items-center text-gray-500">
               <span>Caracteres restantes: {Math.max(0, 20 - mensaje.length)}</span>
-              {errors.mensaje && (
+              {errors.mensaje?.message && typeof errors.mensaje.message === 'string' && (
                 <span className="text-red-500">{errors.mensaje.message}</span>
               )}
             </div>
