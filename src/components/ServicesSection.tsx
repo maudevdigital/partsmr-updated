@@ -25,7 +25,7 @@ export default function ServicesSection() {
         </p>
         <a
           href="#contacto"
-          className="inline-block bg-[#FF8A00] hover:bg-[#e67e00] text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200"
+          className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200"
         >
           Contáctanos
         </a>

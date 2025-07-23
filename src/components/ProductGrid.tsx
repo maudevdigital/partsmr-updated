@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 
 const products = [
   {
@@ -32,19 +33,25 @@ const products = [
 
 export default function ProductGrid() {
   return (
-    <section className="bg-[#f9fafb] py-16 px-4 sm:px-8 md:px-16 text-[#171717]">
+    <section className="bg-white py-20 px-4 sm:px-8 md:px-16 text-[#111827] font-montserrat">
       <div className="max-w-7xl mx-auto">
-        <p className="text-center text-sm font-semibold text-[#FF8A00] mb-2">Listos para Envío</p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-10">
+        <p className="text-center text-sm font-semibold text-[#FF8A00] mb-2 uppercase tracking-wide">
+          Listos para Envío
+        </p>
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 leading-snug">
           Miles de Repuestos en un solo <br className="sm:hidden" />
           lugar
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {products.map((prod, i) => (
-            <div
+            <motion.div
               key={i}
-              className="bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200 hover:shadow-lg transition duration-300"
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
             >
               <div className="relative w-full h-52">
                 <Image
@@ -52,19 +59,19 @@ export default function ProductGrid() {
                   alt={prod.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 33vw"
-                  className="object-cover"
+                  className="object-cover transition-transform duration-300 hover:scale-105"
                 />
               </div>
-              <div className="bg-[#111827] text-white px-5 py-4">
-                <h3 className="text-lg font-semibold mb-1">{prod.title}</h3>
-                <p className="text-sm opacity-80">{prod.description}</p>
+              <div className="px-5 py-4 bg-gray-50">
+                <h3 className="text-lg font-semibold text-[#1f2937] mb-1">{prod.title}</h3>
+                <p className="text-sm text-gray-600">{prod.description}</p>
               </div>
-              <div className="px-5 py-4 bg-white border-t">
-                <button className="w-full bg-[#FF8A00] hover:bg-[#e67e00] text-white text-sm font-semibold py-2 px-4 rounded-md transition">
+              <div className="px-5 py-4 bg-white">
+                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold py-2.5 rounded-md transition duration-200">
                   Cotiza ahora
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -40,7 +40,7 @@ export default function AboutSection() {
 
           <a
             href="#contacto"
-            className="inline-block bg-[#FF8A00] hover:bg-[#e67e00] text-white font-semibold px-6 py-3 rounded-lg transition"
+            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition"
           >
             Conoce nuestras soluciones
           </a>

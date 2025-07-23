@@ -127,7 +127,7 @@ export default function Hero() {
                 {slide.cta && (
                   <a
                     href={slide.cta.href}
-                    className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-[#FF8A00] hover:bg-[#e67e00] text-white font-semibold px-5 py-2 rounded-lg transition"
+                    className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition"
                   >
                     {slide.cta.texto}
                   </a>
