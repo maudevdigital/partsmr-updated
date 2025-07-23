@@ -85,7 +85,7 @@ export default function ContactForm() {
     'w-full p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition'
 
   return (
-    <section className="bg-[#f9fafb] text-gray-900 py-16 px-4 font-montserrat">
+    <section id="contacto" className="bg-[#f9fafb] text-gray-900 py-16 px-4 font-montserrat">
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
         {/* Izquierda */}
         <div className="space-y-6">

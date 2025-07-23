@@ -81,8 +81,7 @@ const slides = [
       texto: 'Ver Alianza',
       href: '/servicios#symx',
     },
-  }
-  ,
+  },
 ]
 
 export default function Hero() {
@@ -112,7 +111,7 @@ export default function Hero() {
               {/* Capa oscura */}
               <div className="absolute inset-0 bg-black/60 z-10" />
 
-              {/* Contenido principal */}
+              {/* Contenido */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -135,7 +134,7 @@ export default function Hero() {
                 )}
               </motion.div>
 
-              {/* Marcas - Responsive */}
+              {/* Marcas */}
               {slide.marcas.length > 0 && (
                 <>
                   {/* Desktop */}
@@ -145,7 +144,7 @@ export default function Hero() {
                     transition={{ duration: 0.9, delay: 0.4 }}
                     className="hidden sm:flex absolute bottom-16 z-30 bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[90%] w-auto overflow-x-auto whitespace-nowrap scrollbar-hide touch-pan-x"
                   >
-                    <div className="flex justify-start sm:justify-center items-center gap-4 sm:gap-6">
+                    <div className="flex items-center gap-4 sm:gap-6">
                       {slide.marcas.map((marca, i) => {
                         const isBMW = marca.includes('bmw')
                         const isPorsche = marca.includes('porsche')
@@ -157,7 +156,7 @@ export default function Hero() {
                           <div
                             key={i}
                             className="flex items-center justify-center shrink-0"
-                            style={{ width: `${width}px`, height: `${containerHeight}px` }}
+                            style={{ width, height: containerHeight }}
                           >
                             <Image
                               src={marca}
@@ -191,7 +190,7 @@ export default function Hero() {
                           <div
                             key={i}
                             className="flex items-center justify-center shrink-0"
-                            style={{ width: `${width}px`, height: `${containerHeight}px` }}
+                            style={{ width, height: containerHeight }}
                           >
                             <Image
                               src={marca}
@@ -212,8 +211,12 @@ export default function Hero() {
         ))}
       </Swiper>
 
-      {/* Estilos globales */}
+      {/* Scroll suave */}
       <style jsx global>{`
+        html {
+          scroll-behavior: smooth;
+        }
+
         .swiper-pagination-bullet {
           background-color: rgba(255, 255, 255, 0.3);
           width: 10px;
