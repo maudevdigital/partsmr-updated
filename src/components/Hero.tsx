@@ -73,15 +73,16 @@ const slides = [
   {
     tipo: 'SymxAi',
     fondo: '/symx-ai.webp',
-    titulo: 'MANTENIMIENTO PREDICTIVO Y GESTIÓN DE FLOTAS CON AI',
+    titulo: 'Mantenimiento Predictivo y Gestión De Flotas con SYMX AI',
     subtitulo:
       'Inteligencia artificial para predecir fallas y gestión de flota. Ahorra tiempo, reduce paradas y mantén tu flota operativa.',
     marcas: [],
     cta: {
       texto: 'Ver Alianza',
-      href: '#symx',
+      href: '/servicios#symx',
     },
-  },
+  }
+  ,
 ]
 
 export default function Hero() {

@@ -1,0 +1,180 @@
+'use client'
+
+import { useRef, useState, useEffect } from 'react'
+import Link from 'next/link'
+import Breadcrumbs from '../../components/Breadcrumbs'
+import { FaWhatsapp, FaRobot } from 'react-icons/fa'
+import { X } from 'lucide-react'
+import { AnimatePresence, motion } from 'framer-motion'
+import { usePathname } from 'next/navigation'
+
+const servicios = [
+  {
+    titulo: 'Reparación de componentes',
+    descripcion:
+      'Diagnóstico, mantenimiento y reconstrucción de componentes mecánicos e hidráulicos. Extendemos la vida útil de tu maquinaria con repuestos originales o equivalentes certificados.',
+  },
+  {
+    titulo: 'Overhaul y semioverhaul de equipos',
+    descripcion:
+      'Procesos completos o parciales de reacondicionamiento. Recuperamos el rendimiento de equipos críticos como excavadoras, cargadores frontales, bulldozers y más.',
+  },
+  {
+    titulo: 'Fortificación de baldes',
+    descripcion:
+      'Aplicación de placas, refuerzos y soldadura de alta resistencia para extender la durabilidad de baldes en condiciones de alto desgaste, especialmente en minería y construcción pesada.',
+  },
+  {
+    titulo: 'Acreditación y protocolos mineros',
+    descripcion:
+      'Asesoría y ejecución de protocolos de mantenimiento y seguridad exigidos por faenas mineras. Garantizamos cumplimiento normativo y soporte documental.',
+  },
+]
+
+export default function ServiciosPage() {
+  const [showModal, setShowModal] = useState(false)
+  const modalRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
+
+  // Detectar clic fuera del modal
+  useEffect(() => {
+    function handleClickOutside(e: MouseEvent) {
+      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+        setShowModal(false)
+      }
+    }
+
+    if (showModal) {
+      document.addEventListener('mousedown', handleClickOutside)
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside)
+    }
+  }, [showModal])
+
+  // Abrir modal automáticamente si la URL contiene "#symx"
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash
+      if (hash === '#symx') {
+        // Esperar al scroll antes de abrir modal
+        setTimeout(() => {
+          setShowModal(true)
+        }, 300)
+      }
+    }
+  }, [])
+
+  return (
+    <main className="bg-[#f9fafb] font-montserrat text-[#0f172a]">
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <Breadcrumbs />
+
+        <h1 className="text-4xl font-bold mb-4">Nuestros Servicios</h1>
+        <p className="text-lg text-gray-700 max-w-3xl mb-10">
+          Ofrecemos soluciones especializadas para extender la vida útil y el desempeño de tus equipos, cumpliendo con los más altos estándares técnicos y normativos del sector minero e industrial.
+        </p>
+
+        <div className="grid md:grid-cols-2 gap-8 mb-16">
+          {servicios.map((serv, i) => (
+            <div
+              key={i}
+              className="bg-white border border-zinc-200 rounded-xl shadow-md p-6 hover:shadow-lg transition"
+            >
+              <h2 className="text-xl font-semibold mb-2 border-l-4 border-orange-500 pl-3">
+                {serv.titulo}
+              </h2>
+              <p className="text-gray-700 text-sm">{serv.descripcion}</p>
+            </div>
+          ))}
+
+          {/* Tarjeta SYMX AI con ID para ancla */}
+          <div
+            id="symx"
+            onClick={() => setShowModal(true)}
+            className="scroll-mt-32 cursor-pointer border-2 border-[#ff8a00] text-[#0f172a] rounded-xl shadow-lg p-6 hover:shadow-xl transition relative overflow-hidden"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <FaRobot className="w-6 h-6 text-[#ff8a00]" />
+              <h2 className="text-xl font-semibold">
+                Mantenimiento Predictivo con SYMX AI
+              </h2>
+            </div>
+            <p className="text-sm">
+              Inteligencia artificial para detectar fallas antes que ocurran, optimizar mantenimiento y reducir paradas de tus equipos.
+              Haz clic para ver más sobre la alianza.
+            </p>
+          </div>
+        </div>
+
+        <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow flex flex-col md:flex-row items-center justify-between gap-5">
+          <div className="max-w-xl">
+            <h2 className="text-xl font-bold text-[#0f172a] mb-1">
+              ¿Te interesa contratar uno de estos servicios?
+            </h2>
+            <p className="text-gray-700 text-sm">
+              Escríbenos por WhatsApp y te orientaremos según tus requerimientos técnicos o contractuales.
+            </p>
+          </div>
+          <Link
+            href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20interesado%20en%20los%20servicios%20de%20mantenimiento"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
+          >
+            <FaWhatsapp className="w-6 h-6" />
+            Contactar por WhatsApp
+          </Link>
+        </div>
+      </section>
+
+      {/* Modal con animación y cierre al hacer clic fuera */}
+      <AnimatePresence>
+        {showModal && (
+          <motion.div
+            className="fixed inset-0 z-50 flex justify-center items-center px-4 bg-white/30 backdrop-blur-md"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <motion.div
+              ref={modalRef}
+              className="bg-white rounded-xl max-w-2xl w-full shadow-lg p-8 relative text-gray-900 border-2 border-[#ff8a00]"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.2 }}
+            >
+              <button
+                onClick={() => setShowModal(false)}
+                className="absolute top-4 right-4 text-gray-500 hover:text-gray-800"
+              >
+                <X className="w-6 h-6" />
+              </button>
+              <h2 className="text-2xl font-bold text-[#ff8a00] mb-4">
+                Alianza con SYMX AI
+              </h2>
+              <p className="mb-3 text-sm">
+                En PartsMR nos hemos aliado con <strong>SYMX AI</strong>, líder en soluciones de inteligencia artificial aplicada al mantenimiento industrial, para ofrecer una plataforma avanzada de monitoreo predictivo.
+              </p>
+              <ul className="list-disc list-inside text-sm space-y-2 mb-4">
+                <li>Detección anticipada de fallas mecánicas y electrónicas.</li>
+                <li>Optimización de ciclos de mantenimiento y repuestos.</li>
+                <li>Dashboard de salud de flota en tiempo real.</li>
+                <li>Alertas automáticas y reportes personalizables.</li>
+                <li>Integración con sensores, SCADA y plataformas ERP.</li>
+              </ul>
+              <p className="text-sm">
+                Con esta alianza potenciamos la eficiencia operativa de tus activos, reducimos costos y aumentamos la disponibilidad técnica.
+                Escríbenos si deseas agendar una demo o conocer más.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </main>
+  )
+}

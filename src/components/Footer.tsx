@@ -41,8 +41,8 @@ export default function Footer() {
           <h3 className="text-lg font-semibold text-white">Enlaces Rápidos</h3>
           <ul className="space-y-2 text-sm text-gray-200">
             <li><Link href="/" className="hover:text-orange-400 transition">Inicio</Link></li>
-            <li><Link href="/nosotros" className="hover:text-orange-400 transition">Sobre Nosotros</Link></li>
-            <li><Link href="/productos" className="hover:text-orange-400 transition">Productos</Link></li>
+            <li><Link href="/sobre-nosotros" className="hover:text-orange-400 transition">Sobre Nosotros</Link></li>
+            <li><Link href="/repuestos" className="hover:text-orange-400 transition">Repuestos</Link></li>
             <li><Link href="/servicios" className="hover:text-orange-400 transition">Servicios</Link></li>
             <li><Link href="/contacto" className="hover:text-orange-400 transition">Contáctanos</Link></li>
           </ul>
