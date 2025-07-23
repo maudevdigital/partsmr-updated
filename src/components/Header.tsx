@@ -5,12 +5,14 @@ import { Menu, X, Phone, ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
+  const pathname = usePathname()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -36,6 +38,9 @@ export default function Header() {
       document.removeEventListener('mousedown', handleClickOutside)
     }
   }, [isMenuOpen])
+
+  const isActive = (route: string) => pathname === route
+  const isRepuestosActive = pathname.startsWith('/repuestos')
 
   return (
     <>
@@ -68,7 +73,11 @@ export default function Header() {
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium relative">
             <Link
               href="/"
-              className="text-gray-200 hover:text-orange-400 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/')
+                  ? 'text-orange-400'
+                  : 'text-gray-200 hover:text-orange-400'
+              }`}
             >
               Inicio
             </Link>
@@ -78,7 +87,13 @@ export default function Header() {
               onMouseEnter={() => setShowDropdown(true)}
               onMouseLeave={() => setShowDropdown(false)}
             >
-              <button className="flex items-center gap-1 text-gray-200 hover:text-orange-400 transition-colors duration-200">
+              <button
+                className={`flex items-center gap-1 transition-colors duration-200 ${
+                  isRepuestosActive
+                    ? 'text-orange-400'
+                    : 'text-gray-200 hover:text-orange-400'
+                }`}
+              >
                 Repuestos <ChevronDown size={16} />
               </button>
 
@@ -99,7 +114,11 @@ export default function Header() {
                       <Link
                         key={index}
                         href={item.href}
-                        className="block px-4 py-2 text-sm text-gray-800 hover:bg-orange-100 hover:text-orange-600 transition-colors"
+                        className={`block px-4 py-2 text-sm transition-colors rounded ${
+                          isActive(item.href)
+                            ? 'bg-orange-100 text-orange-600 font-medium'
+                            : 'text-gray-800 hover:bg-orange-100 hover:text-orange-600'
+                        }`}
                       >
                         {item.label}
                       </Link>
@@ -111,13 +130,21 @@ export default function Header() {
 
             <Link
               href="/servicios"
-              className="text-gray-200 hover:text-orange-400 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/servicios')
+                  ? 'text-orange-400'
+                  : 'text-gray-200 hover:text-orange-400'
+              }`}
             >
               Servicios
             </Link>
             <Link
               href="/contacto"
-              className="text-gray-200 hover:text-orange-400 transition-colors duration-200"
+              className={`transition-colors duration-200 ${
+                isActive('/contacto')
+                  ? 'text-orange-400'
+                  : 'text-gray-200 hover:text-orange-400'
+              }`}
             >
               Contacto
             </Link>
@@ -159,36 +186,59 @@ export default function Header() {
               <div className="flex flex-col items-start space-y-4">
                 <Link
                   href="/"
-                  className="text-white text-base font-medium hover:text-orange-400 w-full"
+                  className={`text-base font-medium w-full ${
+                    isActive('/')
+                      ? 'text-orange-400'
+                      : 'text-white hover:text-orange-400'
+                  }`}
                 >
                   Inicio
                 </Link>
 
-                {/* Submenú Repuestos mobile */}
+                {/* Submenú Repuestos mobile refinado */}
                 <div className="space-y-2 w-full">
                   <span className="text-white font-medium">Repuestos</span>
-                  <div className="pl-4 space-y-1">
-                    <Link href="/repuestos/maquinaria" className="block text-sm text-gray-300 hover:text-orange-400">
-                      Maquinaria
-                    </Link>
-                    <Link href="/repuestos/autos" className="block text-sm text-gray-300 hover:text-orange-400">
-                      Autos y camionetas
-                    </Link>
-                    <Link href="/repuestos/camiones" className="block text-sm text-gray-300 hover:text-orange-400">
-                      Camiones
-                    </Link>
+                  <div className="pl-2 flex flex-col gap-2 mt-2">
+                    {[
+                      { href: '/repuestos/maquinaria', label: 'Maquinaria' },
+                      { href: '/repuestos/autos', label: 'Autos y camionetas' },
+                      { href: '/repuestos/camiones', label: 'Camiones' },
+                    ].map((item, i) => {
+                      const isActiveItem = isActive(item.href)
+                      return (
+                        <Link
+                          key={i}
+                          href={item.href}
+                          className={`w-full px-4 py-3 text-sm font-medium rounded-md transition-colors duration-200 ${
+                            isActiveItem
+                              ? 'bg-white/5 border-l-4 border-orange-500 text-orange-400'
+                              : 'bg-[#1e293b] text-white hover:bg-orange-500'
+                          }`}
+                        >
+                          {item.label}
+                        </Link>
+                      )
+                    })}
                   </div>
                 </div>
 
                 <Link
                   href="/servicios"
-                  className="text-white text-base font-medium hover:text-orange-400 w-full"
+                  className={`text-base font-medium w-full ${
+                    isActive('/servicios')
+                      ? 'text-orange-400'
+                      : 'text-white hover:text-orange-400'
+                  }`}
                 >
                   Servicios
                 </Link>
                 <Link
                   href="/contacto"
-                  className="text-white text-base font-medium hover:text-orange-400 w-full"
+                  className={`text-base font-medium w-full ${
+                    isActive('/contacto')
+                      ? 'text-orange-400'
+                      : 'text-white hover:text-orange-400'
+                  }`}
                 >
                   Contacto
                 </Link>
