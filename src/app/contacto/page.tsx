@@ -4,6 +4,8 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { Mail, PhoneCall, MapPin, Clock, Star } from 'lucide-react'
 import clsx from 'clsx'
+import { db } from '../../lib/firebase'
+import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 
 export default function ContactoPage() {
   const {
@@ -20,7 +22,7 @@ export default function ContactoPage() {
   const [enviado, setEnviado] = useState(false)
   const maxCaracteres = 300
 
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     if (rating === 0) {
       alert('Por favor selecciona una calificación.')
       return
@@ -29,16 +31,22 @@ export default function ContactoPage() {
     const reseñaCompleta = {
       ...data,
       calificacion: rating,
+      fecha: serverTimestamp(),
     }
 
-    console.log('Reseña enviada:', reseñaCompleta)
+    try {
+      await addDoc(collection(db, 'reseñas'), reseñaCompleta)
+      console.log('Reseña enviada:', reseñaCompleta)
 
-    setEnviado(true)
-    reset()
-    setRating(0)
-    setHover(0)
-
-    setTimeout(() => setEnviado(false), 4000)
+      setEnviado(true)
+      reset()
+      setRating(0)
+      setHover(0)
+      setTimeout(() => setEnviado(false), 4000)
+    } catch (error) {
+      console.error('Error al guardar reseña:', error)
+      alert('Hubo un problema al enviar tu reseña. Intenta nuevamente.')
+    }
   }
 
   return (
@@ -70,7 +78,7 @@ export default function ContactoPage() {
               <Mail className="text-orange-500 w-6 h-6 mt-1" />
               <div>
                 <h3 className="text-lg font-semibold">Correo electrónico</h3>
-                <p className="text-gray-700">contacto@partsmr.cl</p>
+                <p className="text-gray-700">christian@partsmr.com</p>
               </div>
             </div>
 
@@ -86,7 +94,9 @@ export default function ContactoPage() {
               <Clock className="text-orange-500 w-6 h-6 mt-1" />
               <div>
                 <h3 className="text-lg font-semibold">Horario de atención</h3>
-                <p className="text-gray-700">Lunes a Viernes, 09:00 - 18:00 hrs</p>
+                <p className="text-gray-700">Lunes a Viernes: 09:00 - 18:00 hrs</p>
+                <p className="text-gray-700">Sábado: 09:00 - 13:00</p>
+                <p className="text-gray-700">Domingo y festivos: Cerrado</p>
               </div>
             </div>
           </div>
@@ -136,7 +146,6 @@ export default function ContactoPage() {
               />
             </div>
 
-            {/* Calificación */}
             <div className="flex justify-center gap-2">
               {[1, 2, 3, 4, 5].map((i) => (
                 <button
@@ -161,7 +170,6 @@ export default function ContactoPage() {
               <p className="text-sm text-red-500 text-center -mt-2">Selecciona una calificación</p>
             )}
 
-            {/* Reseña */}
             <div>
               <textarea
                 {...register('comentario', {
