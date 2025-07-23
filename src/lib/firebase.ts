@@ -1,15 +1,14 @@
-// src/lib/firebase.ts
 import { initializeApp, getApps, getApp, FirebaseApp } from 'firebase/app'
 import { getFirestore, Firestore } from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: "AIzaSyAfZfQSb7mxnMJQtp7K57JT3wb4yalxeu0",
-  authDomain: "partsmr-a4541.firebaseapp.com",
-  projectId: "partsmr-a4541",
-  storageBucket: "partsmr-a4541.firebasestorage.app",
-  messagingSenderId: "657536532787",
-  appId: "1:657536532787:web:83a38c8f7ef0567fbf7e46",
-  measurementId: "G-QYVF6CR3X8"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY!,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN!,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID!,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET!,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID!,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID!,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID!,
 }
 
 // Asegura instancia única
