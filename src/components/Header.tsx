@@ -126,7 +126,7 @@ export default function Header() {
           {/* Botón de llamada */}
           <div className="hidden md:flex">
             <a
-              href="tel:+56912345678"
+              href="tel:+56928423774"
               className="flex items-center gap-2 bg-orange-500 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-orange-600 transition-all duration-200"
             >
               <Phone size={18} />
@@ -196,7 +196,7 @@ export default function Header() {
                 <div className="w-full border-t border-[#ffffff22] pt-4" />
 
                 <a
-                  href="tel:+56912345678"
+                  href="tel:+56928423774"
                   className="flex items-center justify-center gap-2 bg-orange-500 text-white font-semibold px-5 py-2.5 rounded-md shadow-md hover:bg-orange-600 transition-all w-full"
                 >
                   <Phone size={18} />
