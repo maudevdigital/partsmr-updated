@@ -6,6 +6,7 @@ import { Truck, Car, PackageCheck, CircleEllipsis } from 'lucide-react'
 import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
+import ReCAPTCHA from 'react-google-recaptcha'
 
 import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
@@ -34,6 +35,7 @@ export default function ContactForm() {
   const [telefono, setTelefono] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [confirmacion, setConfirmacion] = useState('')
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
   const tipoRepuestoRef = useRef<HTMLInputElement | null>(null)
 
   const formatPhone = (input: string): string => {
@@ -75,6 +77,11 @@ export default function ContactForm() {
       return
     }
 
+    if (!captchaToken) {
+      alert('Por favor completa el captcha antes de enviar.')
+      return
+    }
+
     const cleanedData: Record<string, any> = {}
     for (const key in data) {
       if (data[key] !== undefined) {
@@ -86,6 +93,7 @@ export default function ContactForm() {
       ...cleanedData,
       telefono: `${pais.codigo} ${telefono}`,
       pais: pais.nombre,
+      captchaToken,
       timestamp: serverTimestamp(),
     }
 
@@ -95,7 +103,7 @@ export default function ContactForm() {
       const res = await fetch('/api/send-cotizacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, timestamp: undefined }), // omitimos el timestamp
+        body: JSON.stringify({ ...formData, timestamp: undefined }),
       })
 
       if (!res.ok) throw new Error('Error al enviar correo')
@@ -105,6 +113,7 @@ export default function ContactForm() {
       reset()
       setTelefono('')
       setPais(null)
+      setCaptchaToken(null)
       setTimeout(() => {
         setEnviado(false)
         setConfirmacion('')
@@ -150,8 +159,8 @@ export default function ContactForm() {
             <label className="block text-sm font-medium mb-1 text-[#0f172a]">¿Qué tipo necesitas?</label>
             <div className="flex gap-3 flex-wrap">
               {[{ value: 'auto', label: 'Auto', icon: <Car className="w-4 h-4" /> },
-                { value: 'camion', label: 'Camión', icon: <Truck className="w-4 h-4" /> },
-                { value: 'maquinaria', label: 'Maquinaria', icon: <CircleEllipsis className="w-4 h-4" /> },
+              { value: 'camion', label: 'Camión', icon: <Truck className="w-4 h-4" /> },
+              { value: 'maquinaria', label: 'Maquinaria', icon: <CircleEllipsis className="w-4 h-4" /> },
               ].map((tipo) => (
                 <button
                   key={tipo.value}
@@ -220,15 +229,14 @@ export default function ContactForm() {
               <div className="flex items-center gap-2">
                 <span className="px-4 py-3 border border-gray-300 bg-gray-100 rounded-lg text-gray-700 text-sm select-none">{pais.codigo}</span>
                 <input
-  type="text"
-  inputMode="numeric"
-  value={telefono}
-  onChange={(e) => setTelefono(formatPhone(e.target.value))}
-  required
-  className="flex-1 border border-gray-300 rounded-lg p-3 text-gray-700 w-full"
-  placeholder={pais.placeholder}
-/>
-
+                  type="text"
+                  inputMode="numeric"
+                  value={telefono}
+                  onChange={(e) => setTelefono(formatPhone(e.target.value))}
+                  required
+                  className="flex-1 border border-gray-300 rounded-lg p-3 text-gray-700 w-full"
+                  placeholder={pais.placeholder}
+                />
               </div>
             </div>
           )}
@@ -260,11 +268,19 @@ export default function ContactForm() {
               placeholder="Escribe tu mensaje aquí"
               className="h-32 resize-none p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition w-full"
             />
-            <div className="text-sm mt-1 flex justify-between items-center text-gray-500">
+            <div className="text-sm mt-1 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-gray-500">
               <span>Caracteres restantes: {Math.max(0, 20 - mensaje.length)}</span>
               {errors.mensaje?.message && typeof errors.mensaje.message === 'string' && (
                 <span className="text-red-500">{errors.mensaje.message}</span>
               )}
+            </div>
+
+            {/* CAPTCHA visual debajo del contador */}
+            <div className="mt-4 flex justify-center">
+              <ReCAPTCHA
+                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
+                onChange={(token) => setCaptchaToken(token)}
+              />
             </div>
           </div>
 
@@ -272,10 +288,10 @@ export default function ContactForm() {
           <div className="sm:col-span-2">
             <button
               type="submit"
-              disabled={mensaje.length < 20}
+              disabled={mensaje.length < 20 || !captchaToken}
               className={clsx(
                 'w-full font-semibold py-3 px-6 rounded-md transition',
-                mensaje.length < 20
+                mensaje.length < 20 || !captchaToken
                   ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                   : 'bg-orange-500 hover:bg-orange-600 text-white'
               )}

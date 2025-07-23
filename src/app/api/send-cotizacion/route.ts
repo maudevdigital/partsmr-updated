@@ -6,7 +6,33 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 export async function POST(req: NextRequest) {
   const data = await req.json()
 
-  // Obtener fecha y hora locales (Chile)
+  const recaptchaToken = data.captchaToken
+  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
+
+  if (!recaptchaToken || !recaptchaSecret) {
+    return NextResponse.json({ ok: false, error: 'Falta token de reCAPTCHA' }, { status: 400 })
+  }
+
+  try {
+    const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: `secret=${recaptchaSecret}&response=${recaptchaToken}`,
+    })
+
+    const verification = await verifyRes.json()
+
+    if (!verification.success) {
+      return NextResponse.json(
+        { ok: false, error: 'reCAPTCHA no válido', details: verification },
+        { status: 403 }
+      )
+    }
+  } catch (error) {
+    console.error('Error al verificar reCAPTCHA:', error)
+    return NextResponse.json({ ok: false, error: 'Error al validar reCAPTCHA' }, { status: 500 })
+  }
+
   const now = new Date()
   const fechaHora = now.toLocaleString('es-CL', {
     timeZone: 'America/Santiago',
@@ -55,12 +81,11 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    // Enviar correo
     await transporter.sendMail(mailOptions)
 
-    // Guardar en Firebase
+    const { captchaToken, ...dataSinToken } = data
     await addDoc(collection(db, 'cotizaciones'), {
-      ...data,
+      ...dataSinToken,
       fechaHora,
       timestamp: serverTimestamp(),
     })
