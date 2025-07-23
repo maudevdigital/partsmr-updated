@@ -89,7 +89,7 @@ export default function Hero() {
     <section className="relative w-screen h-[90vh] sm:h-[95vh] md:h-[100vh] -mt-[64px] overflow-hidden z-0">
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
-        autoplay={{ delay: 7000 }}
+        autoplay={{ delay: 9000 }}
         loop
         pagination={{ clickable: true }}
         navigation
