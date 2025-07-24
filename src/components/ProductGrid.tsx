@@ -2,6 +2,11 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { Truck, Car, Wrench } from 'lucide-react'
+
+const montserrat = {
+  fontFamily: `'Montserrat', sans-serif`,
+}
 
 const products = [
   {
@@ -31,9 +36,15 @@ const products = [
   },
 ]
 
+const etiquetas = [
+  { label: 'autos', icon: <Car className="w-4 h-4 mr-1" /> },
+  { label: 'maquinaria', icon: <Wrench className="w-4 h-4 mr-1" /> },
+  { label: 'camiones', icon: <Truck className="w-4 h-4 mr-1" /> },
+]
+
 export default function ProductGrid() {
   return (
-    <section className="bg-white py-20 px-4 sm:px-8 md:px-16 text-[#111827] font-montserrat">
+    <section className="bg-white py-20 px-4 sm:px-8 md:px-16 text-[#111827]" style={montserrat}>
       <div className="max-w-7xl mx-auto">
         <p className="text-center text-sm font-semibold text-[#FF8A00] mb-2 uppercase tracking-wide">
           Listos para Envío
@@ -47,11 +58,11 @@ export default function ProductGrid() {
           {products.map((prod, i) => (
             <motion.div
               key={i}
-              initial={{ opacity: 0, y: 40 }}
+              initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.1 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300"
+              transition={{ duration: 0.4, ease: 'easeOut', delay: i * 0.1 }}
+              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
             >
               <div className="relative w-full h-52">
                 <Image
@@ -62,14 +73,22 @@ export default function ProductGrid() {
                   className="object-cover transition-transform duration-300 hover:scale-105"
                 />
               </div>
+
               <div className="px-5 py-4 bg-gray-50">
                 <h3 className="text-lg font-semibold text-[#1f2937] mb-1">{prod.title}</h3>
                 <p className="text-sm text-gray-600">{prod.description}</p>
               </div>
-              <div className="px-5 py-4 bg-white">
-                <button className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm font-semibold py-2.5 rounded-md transition duration-200">
-                  Cotiza ahora
-                </button>
+
+              <div className="px-5 py-4 bg-white flex flex-wrap gap-2">
+                {etiquetas.map((etiqueta, idx) => (
+                  <div
+                    key={idx}
+                    className="flex items-center text-sm px-3 py-1.5 rounded-full border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
+                  >
+                    {etiqueta.icon}
+                    <span className="capitalize">Repuestos para {etiqueta.label}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
           ))}
