@@ -15,15 +15,15 @@ const slides = [
     titulo: 'Repuestos certificados para tu auto',
     subtitulo: 'Envíos express y soporte personalizado.',
     marcas: [
-      '/brand/car/mercedes-auto.png',
-      '/brand/car/bmw-auto.png',
-      '/brand/car/porsche-auto.png',
-      '/brand/car/chevrolet-auto.png',
-      '/brand/car/ford-auto.png',
-      '/brand/car/volks-auto.png',
-      '/brand/car/great-auto.png',
-      '/brand/car/haval-auto.png',
-      '/brand/car/chery-auto.png',
+      { src: '/brand/car/mercedes-auto.png', width: 40, height: 35 },
+      { src: '/brand/car/bmw-auto.png', width: 35, height: 30 },
+      { src: '/brand/car/porsche-auto.png', width: 30, height: 30 },
+      { src: '/brand/car/chevrolet-auto.png', width: 60, height: 35 },
+      { src: '/brand/car/ford-auto.png', width: 60, height: 35 },
+      { src: '/brand/car/volks-auto.png', width: 37, height: 35 },
+      { src: '/brand/car/great-auto.png', width: 50, height: 35 },
+      { src: '/brand/car/haval-auto.png', width: 60, height: 35 },
+      { src: '/brand/car/chery-auto.png', width: 50, height: 35 },
     ],
     cta: {
       texto: 'Cotiza Ahora',
@@ -36,15 +36,15 @@ const slides = [
     titulo: 'Componentes robustos para maquinaria pesada',
     subtitulo: 'Para minería, construcción e industria.',
     marcas: [
-      '/brand/machinery/cat-maquina.png',
-      '/brand/machinery/komatsu-maquina.png',
-      '/brand/machinery/jcb-maquina.png',
-      '/brand/machinery/bobcat-maquina.png',
-      '/brand/machinery/doosan-maquina.png',
-      '/brand/machinery/deere-maquina.png',
-      '/brand/machinery/sany-maquina.png',
-      '/brand/machinery/volvo-maquina.png',
-      '/brand/machinery/xcmg-maquina.png',
+      { src: '/brand/machinery/cat-maquina.png', width: 55, height: 35 },
+      { src: '/brand/machinery/komatsu-maquina.png', width: 70, height: 35 },
+      { src: '/brand/machinery/jcb-maquina.png', width: 65, height: 35 },
+      { src: '/brand/machinery/bobcat-maquina.png', width: 70, height: 35 },
+      { src: '/brand/machinery/doosan-maquina.png', width: 65, height: 35 },
+      { src: '/brand/machinery/deere-maquina.png', width: 65, height: 35 },
+      { src: '/brand/machinery/sany-maquina.png', width: 65, height: 35 },
+      { src: '/brand/machinery/volvo-maquina.png', width: 45, height: 35 },
+      { src: '/brand/machinery/xcmg-maquina.png', width: 65, height: 35 },
     ],
     cta: {
       texto: 'Solicita tu Cotización',
@@ -57,13 +57,13 @@ const slides = [
     titulo: 'Repuestos seguros para flotas y camiones',
     subtitulo: 'Soporte 24/7 y cobertura nacional.',
     marcas: [
-      '/brand/truck/mercedes-camion.png',
-      '/brand/truck/volvo-camion.png',
-      '/brand/truck/jac-camion.png',
-      '/brand/truck/higer-camion.png',
-      '/brand/truck/foton-camion.png',
-      '/brand/truck/frei-camion.png',
-      '/brand/truck/scania-camion.png',
+      { src: '/brand/truck/mercedes-camion.png', width: 40, height: 35 },
+      { src: '/brand/truck/volvo-camion.png', width: 45, height: 35 },
+      { src: '/brand/truck/jac-camion.png', width: 60, height: 35 },
+      { src: '/brand/truck/higer-camion.png', width: 60, height: 35 },
+      { src: '/brand/truck/foton-camion.png', width: 70, height: 35 },
+      { src: '/brand/truck/frei-camion.png', width: 60, height: 35 },
+      { src: '/brand/truck/scania-camion.png', width: 38, height: 35 },
     ],
     cta: {
       texto: 'Cotiza para tu Flota',
@@ -83,7 +83,6 @@ const slides = [
     },
   },
 ]
-
 export default function Hero() {
   return (
     <section className="relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] -mt-[64px] overflow-hidden z-0">
@@ -145,29 +144,21 @@ export default function Hero() {
                     className="hidden sm:flex absolute bottom-16 z-30 bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[90%] w-auto overflow-x-auto whitespace-nowrap scrollbar-hide touch-pan-x"
                   >
                     <div className="flex items-center gap-4 sm:gap-6">
-                      {slide.marcas.map((marca, i) => {
-                        const isBMW = marca.includes('bmw')
-                        const isPorsche = marca.includes('porsche')
-                        const width = isBMW ? 65 : isPorsche ? 50 : 75
-                        const height = isBMW ? 45 : isPorsche ? 50 : 55
-                        const containerHeight = 60
-
-                        return (
-                          <div
-                            key={i}
-                            className="flex items-center justify-center shrink-0"
-                            style={{ width, height: containerHeight }}
-                          >
-                            <Image
-                              src={marca}
-                              alt={`Marca ${i}`}
-                              width={width}
-                              height={height}
-                              className="object-contain drop-shadow-md"
-                            />
-                          </div>
-                        )
-                      })}
+                      {slide.marcas.map((marca, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-center shrink-0"
+                          style={{ width: marca.width, height: marca.height + 10 }}
+                        >
+                          <Image
+                            src={marca.src}
+                            alt={`Marca ${i}`}
+                            width={marca.width}
+                            height={marca.height}
+                            className="object-contain drop-shadow-md"
+                          />
+                        </div>
+                      ))}
                     </div>
                   </motion.div>
 
@@ -179,29 +170,21 @@ export default function Hero() {
                     className="sm:hidden absolute bottom-[90px] z-30 bg-white/30 backdrop-blur-sm rounded-lg px-3 py-2 shadow-lg w-full overflow-hidden max-w-[95%] left-1/2 -translate-x-1/2"
                   >
                     <div className="animate-marcas-loop flex items-center gap-4 w-max">
-                      {[...slide.marcas, ...slide.marcas].map((marca, i) => {
-                        const isBMW = marca.includes('bmw')
-                        const isPorsche = marca.includes('porsche')
-                        const width = isBMW ? 45 : isPorsche ? 40 : 55
-                        const height = isBMW ? 30 : isPorsche ? 35 : 40
-                        const containerHeight = 45
-
-                        return (
-                          <div
-                            key={i}
-                            className="flex items-center justify-center shrink-0"
-                            style={{ width, height: containerHeight }}
-                          >
-                            <Image
-                              src={marca}
-                              alt={`Marca ${i}`}
-                              width={width}
-                              height={height}
-                              className="object-contain drop-shadow-md"
-                            />
-                          </div>
-                        )
-                      })}
+                      {[...slide.marcas, ...slide.marcas].map((marca, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-center shrink-0"
+                          style={{ width: marca.width, height: marca.height + 5 }}
+                        >
+                          <Image
+                            src={marca.src}
+                            alt={`Marca ${i}`}
+                            width={marca.width}
+                            height={marca.height}
+                            className="object-contain drop-shadow-md"
+                          />
+                        </div>
+                      ))}
                     </div>
                   </motion.div>
                 </>
@@ -219,8 +202,8 @@ export default function Hero() {
 
         .swiper-pagination-bullet {
           background-color: rgba(255, 255, 255, 0.3);
-          width: 10px;
-          height: 10px;
+          width: 8px;
+          height: 8px;
         }
         .swiper-pagination-bullet-active {
           background-color: #ff8a00 !important;
