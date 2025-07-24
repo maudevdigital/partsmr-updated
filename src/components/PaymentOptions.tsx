@@ -109,7 +109,7 @@ Correo: ventas@partsmr.com
             olvides agregar tu número de cotización para facilitar el proceso.
           </p>
           <a
-            href="#pago"
+            href="https://paypal.me/partsmr"
             className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition"
           >
             Paga Ahora
