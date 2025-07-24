@@ -18,8 +18,8 @@ export default function SobreNosotrosPage() {
   const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
 
   return (
-    <main className="bg-[#f9fafb] text-[#0f172a] font-montserrat">
-      <section className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-20 overflow-x-hidden">
+    <main className="bg-[#f9fafb] text-[#0f172a] font-montserrat overflow-x-hidden">
+      <section className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-20">
         {/* Título principal */}
         <div className="text-center mb-16">
           <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
@@ -31,7 +31,7 @@ export default function SobreNosotrosPage() {
         </div>
 
         {/* Historia y misión + galería */}
-        <div className="grid md:grid-cols-2 gap-16 items-start mb-24">
+        <div className="grid md:grid-cols-2 gap-16 items-start mb-24 min-w-0">
           <div>
             <h2 className="text-3xl font-bold mb-4">Nuestra Historia</h2>
             <p className="text-gray-700 text-base sm:text-lg mb-6">
@@ -45,7 +45,7 @@ export default function SobreNosotrosPage() {
           </div>
 
           {/* Galería Swiper */}
-          <div className="relative w-full">
+          <div className="relative w-full overflow-hidden">
             <div className="p-1 rounded-2xl border-2 border-orange-500 bg-white">
               <Swiper
                 loop
@@ -61,7 +61,7 @@ export default function SobreNosotrosPage() {
                       alt={`Imagen ${i + 1}`}
                       width={800}
                       height={500}
-                      className="w-full h-[300px] sm:h-[380px] object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
+                      className="w-full h-auto sm:h-[300px] object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
                     />
                   </SwiperSlide>
                 ))}
@@ -73,12 +73,11 @@ export default function SobreNosotrosPage() {
                 onSwiper={setThumbsSwiper}
                 loop
                 watchSlidesProgress
-                spaceBetween={12}
-                slidesPerView={4}
+                spaceBetween={8}
+                slidesPerView={3}
                 className="!bg-transparent"
                 breakpoints={{
-                  0: { slidesPerView: 3 },
-                  640: { slidesPerView: 4 },
+                  640: { slidesPerView: 4, spaceBetween: 12 },
                   1024: { slidesPerView: 5 },
                 }}
               >
@@ -101,7 +100,6 @@ export default function SobreNosotrosPage() {
                 ))}
               </Swiper>
             </div>
-
           </div>
         </div>
 
