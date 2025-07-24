@@ -5,7 +5,6 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
-
   const recaptchaToken = data.captchaToken
   const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
 
@@ -13,6 +12,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Falta token de reCAPTCHA' }, { status: 400 })
   }
 
+  // Verificación reCAPTCHA
   try {
     const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
       method: 'POST',
@@ -33,6 +33,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: false, error: 'Error al validar reCAPTCHA' }, { status: 500 })
   }
 
+  // Formateo de fecha/hora
   const now = new Date()
   const fechaHora = now.toLocaleString('es-CL', {
     timeZone: 'America/Santiago',
@@ -44,6 +45,7 @@ export async function POST(req: NextRequest) {
     second: '2-digit',
   })
 
+  // Preparar transporte de correo
   const transporter = nodemailer.createTransport({
     host: 'smtp.hostinger.com',
     port: 465,
@@ -54,6 +56,7 @@ export async function POST(req: NextRequest) {
     },
   })
 
+  // Preparar contenido del correo
   const mailOptions = {
     from: '"Cotizador Web" <ventas@partsmr.com>',
     to: 'ventas@partsmr.com',
@@ -70,10 +73,10 @@ export async function POST(req: NextRequest) {
           <li><b>Marca:</b> ${data.marca}</li>
           <li><b>Modelo:</b> ${data.modelo}</li>
           ${data.año ? `<li><b>Año:</b> ${data.año}</li>` : ''}
-          ${data.chasis ? `<li><b>Chasis:</b> ${data.chasis}</li>` : ''}
+          ${data.chasis ? `<li><b>Chasis o Patente:</b> ${data.chasis}</li>` : ''}
           ${data.tipoRepuesto ? `<li><b>Tipo Repuesto:</b> ${data.tipoRepuesto}</li>` : ''}
         </ul>
-        <p><b>Mensaje:</b><br/>${data.mensaje}</p>
+        <p><b>Mensaje:</b><br/>${(data.mensaje || '').replace(/\n/g, '<br/>')}</p>
         <hr style="margin: 24px 0;" />
         <p><b>Fecha y hora de envío:</b> ${fechaHora}</p>
       </div>
@@ -81,9 +84,13 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    // Enviar correo
     await transporter.sendMail(mailOptions)
 
+    // Eliminar captchaToken antes de guardar
     const { captchaToken, ...dataSinToken } = data
+
+    // Guardar en Firestore
     await addDoc(collection(db, 'cotizaciones'), {
       ...dataSinToken,
       fechaHora,
@@ -91,8 +98,8 @@ export async function POST(req: NextRequest) {
     })
 
     return NextResponse.json({ ok: true })
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error al enviar el correo o guardar en Firestore:', error)
-    return NextResponse.json({ ok: false, error }, { status: 500 })
+    return NextResponse.json({ ok: false, error: error.message || 'Error interno' }, { status: 500 })
   }
 }

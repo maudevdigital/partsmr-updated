@@ -2,13 +2,26 @@
 
 import Link from 'next/link'
 import { FaWhatsapp } from 'react-icons/fa'
+import { useEffect } from 'react'
+import { analytics } from '../lib/firebase' // ajusta si tu path es distinto
+import { logEvent } from 'firebase/analytics'
 
 export default function WhatsappButton() {
+  const handleClick = () => {
+    if (analytics) {
+      logEvent(analytics, 'whatsapp_click', {
+        location: 'floating_button',
+        label: 'boton_flotante',
+      })
+    }
+  }
+
   return (
     <Link
       href="https://wa.me/56928423774"
       target="_blank"
       rel="noopener noreferrer"
+      onClick={handleClick}
       className="fixed bottom-6 right-6 z-50 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg transition-transform hover:scale-105"
       aria-label="Chatear por WhatsApp"
     >

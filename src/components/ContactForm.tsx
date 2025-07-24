@@ -111,8 +111,6 @@ export default function ContactForm() {
     try {
       setLoading(true)
 
-      await addDoc(collection(db, 'cotizaciones'), formData)
-
       const res = await fetch('/api/send-cotizacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -207,13 +205,13 @@ export default function ContactForm() {
         </div>
 
         {/* Datos personales */}
-        <input {...register('nombre', { required: true })} placeholder="Nombre" className={inputStyle} />
-        <input {...register('apellido', { required: true })} placeholder="Apellido" className={inputStyle} />
+        <input {...register('nombre')} required placeholder="Nombre" className={inputStyle} />
+        <input {...register('apellido')} required placeholder="Apellido" className={inputStyle} />
         <input
           {...register('correo', {
-            required: true,
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
           })}
+          required
           placeholder="Correo Electrónico"
           type="email"
           className={inputStyle}
@@ -273,26 +271,32 @@ export default function ContactForm() {
         )}
 
         {/* Vehículo */}
-        <input {...register('marca', { required: true })} placeholder="Marca" className={inputStyle} />
-        <input {...register('modelo', { required: true })} placeholder="Modelo" className={inputStyle} />
-        <input {...register('chasis')} placeholder="N° de Chasis / Serie" className={inputStyle} />
+        <input {...register('marca')} required placeholder="Marca" className={inputStyle} />
+        <input {...register('modelo')} required placeholder="Modelo" className={inputStyle} />
+        <input {...register('chasis')} required placeholder="N° de Chasis o Patente" className={inputStyle} />
         <input
-          {...register('año', { pattern: /^[0-9]{4}$/ })}
+          {...register('año', {
+            pattern: {
+              value: /^[0-9]{4}$/,
+              message: 'Debe ser un año de 4 dígitos',
+            },
+          })}
+          required
           placeholder="Año"
           maxLength={4}
           inputMode="numeric"
           className={inputStyle}
           onChange={handleAñoChange}
         />
-        <input {...register('tipoRepuesto')} placeholder="Tipo de Repuesto" className={inputStyle} ref={tipoRepuestoRef} />
+        <input {...register('tipoRepuesto')} required placeholder="Tipo de Repuesto" className={inputStyle} />
 
         {/* Mensaje y captcha */}
         <div className="sm:col-span-2">
           <textarea
             {...register('mensaje', {
-              required: 'Este campo es obligatorio',
               minLength: { value: 20, message: 'El mensaje debe tener al menos 20 caracteres' },
             })}
+            required
             placeholder="Escribe tu mensaje aquí"
             className="h-32 resize-none p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition w-full"
           />
