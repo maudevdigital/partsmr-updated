@@ -10,12 +10,36 @@ import 'swiper/css'
 const montserrat = Montserrat({ subsets: ['latin'], weight: ['400', '600', '700'] })
 
 const paises = [
-  { nombre: 'Chile', bandera: '/flags/bandera-chile.png' },
-  { nombre: 'Estados Unidos', bandera: '/flags/bandera-usa.png' },
-  { nombre: 'Paraguay', bandera: '/flags/bandera-paraguay.png' },
-  { nombre: 'Bolivia', bandera: '/flags/bandera-bolivia.png' },
-  { nombre: 'Perú', bandera: '/flags/bandera-peru.png' },
-  { nombre: 'Argentina', bandera: '/flags/bandera-argentina.png' },
+  {
+    nombre: 'Chile',
+    descripcion: 'Envíos rápidos a todo el país.',
+    bandera: '/flags/bandera-chile.png',
+  },
+  {
+    nombre: 'Estados Unidos',
+    descripcion: 'Suministro internacional de alta confiabilidad.',
+    bandera: '/flags/bandera-usa.png',
+  },
+  {
+    nombre: 'Paraguay',
+    descripcion: 'Cobertura eficiente para maquinaria y flotas.',
+    bandera: '/flags/bandera-paraguay.png',
+  },
+  {
+    nombre: 'Bolivia',
+    descripcion: 'Repuestos garantizados para todo el país.',
+    bandera: '/flags/bandera-bolivia.png',
+  },
+  {
+    nombre: 'Perú',
+    descripcion: 'Especialistas en equipos para minería y construcción.',
+    bandera: '/flags/bandera-peru.png',
+  },
+  {
+    nombre: 'Argentina',
+    descripcion: 'Entrega rápida y soporte técnico incluido.',
+    bandera: '/flags/bandera-argentina.png',
+  },
 ]
 
 export default function Countries() {
@@ -48,22 +72,19 @@ export default function Countries() {
         className="w-full"
       >
         {paises.map((pais, index) => (
-          <SwiperSlide key={index} className="h-full">
-            <div className="h-full">
-              <div className="h-full overflow-hidden">
-                <div className="h-full bg-white border border-gray-200 hover:border-[#FF8A00]/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] px-6 py-6 flex flex-col items-center justify-center text-center">
-                  <div className="mb-4 flex justify-center items-center h-[44px]">
-                    <Image
-                      src={pais.bandera}
-                      alt={`Bandera de ${pais.nombre}`}
-                      width={64}
-                      height={42}
-                      className="rounded shadow-sm object-contain max-h-full"
-                    />
-                  </div>
-                  <h3 className="text-sm font-semibold text-gray-800">{pais.nombre}</h3>
-                </div>
+          <SwiperSlide key={index}>
+            <div className="bg-white border border-gray-200 hover:border-[#FF8A00]/50 rounded-2xl shadow-sm hover:shadow-md transition-all duration-300 transform hover:scale-[1.02] px-6 py-6 text-center">
+              <div className="mb-4 flex justify-center items-center h-[44px]">
+                <Image
+                  src={pais.bandera}
+                  alt={`Bandera de ${pais.nombre}`}
+                  width={64}
+                  height={42}
+                  className="rounded shadow-sm object-contain max-h-full"
+                />
               </div>
+              <h3 className="text-lg font-semibold text-gray-800">{pais.nombre}</h3>
+              <p className="text-sm text-gray-600 mt-1">{pais.descripcion}</p>
             </div>
           </SwiperSlide>
         ))}
