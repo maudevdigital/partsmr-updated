@@ -1,24 +1,17 @@
 'use client'
 
-import Image from 'next/image'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Thumbs } from 'swiper/modules'
+import { Montserrat } from 'next/font/google'
 import { useState } from 'react'
-import 'swiper/css'
-import 'swiper/css/thumbs'
 
-const images = [
-  '/gallery/rep1.webp',
-  '/gallery/rep2.webp',
-  '/gallery/rep3.webp',
-  '/gallery/rep4.webp',
-]
+// ✅ Importamos y configuramos Montserrat localmente
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 export default function AboutSection() {
-  const [thumbsSwiper, setThumbsSwiper] = useState<any>(null)
-
   return (
-    <section className="bg-[#f9fafb] py-16 px-4 sm:px-8 md:px-16 text-[#171717] overflow-x-hidden">
+    <section className={`${montserrat.className} bg-[#f9fafb] py-16 px-4 sm:px-8 md:px-16 text-[#171717] overflow-x-hidden`}>
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Texto */}
         <div>
@@ -39,67 +32,23 @@ export default function AboutSection() {
           </p>
 
           <a
-            href="#contacto"
+            href="/sobre-nosotros"
             className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition"
           >
-            Conoce nuestras soluciones
+            Conócenos
           </a>
         </div>
 
-        {/* Galería principal + miniaturas */}
-        <div className="relative max-w-full overflow-hidden">
-          {/* Imagen principal */}
-          <div className="p-1 rounded-[20px] border-2 border-[#FF8A00] overflow-hidden bg-white">
-            <Swiper
-              loop
-              grabCursor
-              modules={[Thumbs]}
-              thumbs={{ swiper: thumbsSwiper }}
-              className="rounded-[18px] group"
-            >
-              {images.map((img, i) => (
-                <SwiperSlide key={i}>
-                  <div className="cursor-grab active:cursor-grabbing">
-                    <Image
-                      src={img}
-                      alt={`Imagen ${i + 1}`}
-                      width={800}
-                      height={500}
-                      className="w-full h-[300px] sm:h-[380px] object-cover rounded-[16px] transition-transform group-hover:scale-[1.02]"
-                    />
-                  </div>
-                </SwiperSlide>
-              ))}
-            </Swiper>
-          </div>
-
-          {/* Miniaturas */}
-          <div className="mt-4 max-w-full overflow-hidden">
-            <Swiper
-              onSwiper={setThumbsSwiper}
-              loop
-              watchSlidesProgress
-              spaceBetween={12}
-              slidesPerView={4}
-              breakpoints={{
-                0: { slidesPerView: 3 },
-                640: { slidesPerView: 4 },
-                1024: { slidesPerView: 5 },
-              }}
-            >
-              {images.map((img, i) => (
-                <SwiperSlide key={`thumb-${i}`} className="relative group cursor-pointer">
-                  <Image
-                    src={img}
-                    alt={`Miniatura ${i + 1}`}
-                    width={80}
-                    height={60}
-                    className="rounded-md object-cover h-[60px] border-2 border-transparent transition-transform duration-300 ease-in-out group-hover:scale-105"
-                  />
-                  <div className="swiper-slide-thumb-active absolute inset-0 bg-black/20 rounded-md pointer-events-none transition duration-300" />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+        {/* Video de YouTube en lugar de galería */}
+        <div className="rounded-2xl overflow-hidden border-2 border-[#FF8A00] shadow-md">
+          <div className="relative w-full pb-[56.25%] h-0">
+            <iframe
+              src="https://www.youtube.com/embed/BF4mAr3_EVA?si=ui0_heQkutYJesss"
+              title="Video institucional"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              className="absolute top-0 left-0 w-full h-full rounded-2xl"
+            />
           </div>
         </div>
       </div>

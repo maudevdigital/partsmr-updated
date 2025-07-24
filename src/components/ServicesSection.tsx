@@ -24,10 +24,10 @@ export default function ServicesSection() {
           Ofrecemos transporte, desmontaje y montaje para maquinaria de movimiento de tierra, asegurando eficiencia y seguridad en cada operación.
         </p>
         <a
-          href="#contacto"
+          href="/servicios"
           className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200"
         >
-          Contáctanos
+          Ver Servicios
         </a>
       </div>
     </section>

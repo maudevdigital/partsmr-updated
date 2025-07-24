@@ -4,9 +4,15 @@ import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Autoplay, Pagination, Navigation } from 'swiper/modules'
+import { Montserrat } from 'next/font/google'
 import 'swiper/css'
 import 'swiper/css/pagination'
 import 'swiper/css/navigation'
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 const slides = [
   {
@@ -85,7 +91,9 @@ const slides = [
 ]
 export default function Hero() {
   return (
-    <section className="relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] -mt-[64px] overflow-hidden z-0">
+    <section
+      className={`${montserrat.className} relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] -mt-[64px] overflow-hidden z-0`}
+    >
       <Swiper
         modules={[Autoplay, Pagination, Navigation]}
         autoplay={{ delay: 9000 }}
@@ -97,7 +105,6 @@ export default function Hero() {
         {slides.map((slide, index) => (
           <SwiperSlide key={index}>
             <div className="relative h-full w-full flex flex-col items-center justify-center text-center overflow-hidden bg-black px-4">
-              {/* Fondo */}
               <Image
                 src={slide.fondo}
                 alt={`Fondo ${slide.tipo}`}
@@ -106,11 +113,8 @@ export default function Hero() {
                 priority
                 className="absolute inset-0 z-0 object-cover object-center opacity-90"
               />
-
-              {/* Capa oscura */}
               <div className="absolute inset-0 bg-black/60 z-10" />
 
-              {/* Contenido */}
               <motion.div
                 initial={{ opacity: 0, y: 40 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -133,10 +137,8 @@ export default function Hero() {
                 )}
               </motion.div>
 
-              {/* Marcas */}
               {slide.marcas.length > 0 && (
                 <>
-                  {/* Desktop */}
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -162,7 +164,6 @@ export default function Hero() {
                     </div>
                   </motion.div>
 
-                  {/* Mobile */}
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -194,7 +195,6 @@ export default function Hero() {
         ))}
       </Swiper>
 
-      {/* Scroll suave */}
       <style jsx global>{`
         html {
           scroll-behavior: smooth;

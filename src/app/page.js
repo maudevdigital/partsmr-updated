@@ -25,20 +25,21 @@ export default function Home() {
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <ProductCategories />
         <div className="h-1 w-full bg-[#e2e8f0]" />
-        <AboutSection />
-        <div className="h-1 w-full bg-[#e2e8f0]" />
+
         <ProductGrid />
         <div className="h-1 w-full bg-[#e2e8f0]" />
-        <ServicesSection />
+        <ContactForm />
+
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <PaymentOptions />
         <div className="h-1 w-full bg-[#e2e8f0]" />
-        <ContactForm />
+        <ServicesSection />
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <Reviews />
-                <div className="h-1 w-full bg-[#e2e8f0]" />
-
+        <div className="h-1 w-full bg-[#e2e8f0]" />
         <FAQSection />
+        <div className="h-1 w-full bg-[#e2e8f0]" />
+        <AboutSection />
       </main>
 
       <WhatsappButton />
