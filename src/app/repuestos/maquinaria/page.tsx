@@ -13,7 +13,7 @@ const repuestosPopulares = [
   {
     nombre: 'Bomba hidráulica Komatsu',
     descripcion: 'Rendimiento garantizado para equipos de alto tonelaje.',
-    imagen: '/repuestos/bomba-hidraulica.jpg',
+    imagen: '/repuestos/bomba-hidraulica.png',
   },
   {
     nombre: 'Cadena para excavadora Liebherr',
@@ -23,17 +23,17 @@ const repuestosPopulares = [
   {
     nombre: 'Motor de giro John Deere',
     descripcion: 'Original y con garantía de fábrica.',
-    imagen: '/repuestos/motor-giro.jpg',
+    imagen: '/repuestos/motor-giro.png',
   },
   {
     nombre: 'Cilindro hidráulico Volvo CE',
     descripcion: 'Alta presión y sellos reforzados para uso intensivo.',
-    imagen: '/repuestos/cilindro-hidraulico.jpg',
+    imagen: '/repuestos/cilindro-hidraulico.png',
   },
   {
     nombre: 'Radiador para bulldozer CAT',
     descripcion: 'Excelente rendimiento térmico en climas extremos.',
-    imagen: '/repuestos/radiador-bulldozer.jpg',
+    imagen: '/repuestos/radiador-bulldozer.png',
   },
 ]
 
@@ -49,7 +49,7 @@ export default function MaquinariaPage() {
         </p>
 
         {/* Repuestos populares */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-6">
           {repuestosPopulares.map((item, i) => (
             <div
               key={i}
@@ -58,7 +58,7 @@ export default function MaquinariaPage() {
               <img
                 src={item.imagen}
                 alt={item.nombre}
-                className="w-full h-44 object-cover"
+                className="w-full h-70 object-cover"
               />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
@@ -69,6 +69,11 @@ export default function MaquinariaPage() {
             </div>
           ))}
         </div>
+
+        {/* Nota imágenes referenciales */}
+        <p className="text-sm text-gray-500 mb-10">
+          *Las imágenes mostradas son referenciales y podrían variar del producto real.
+        </p>
 
         {/* CTA WhatsApp */}
         <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow flex flex-col md:flex-row items-center justify-between gap-5">

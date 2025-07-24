@@ -7,18 +7,18 @@ import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
 export default function Footer() {
   return (
     <footer className="bg-[#0f172a] text-white pt-10 px-6 pb-6 md:pb-6 font-sans">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10 text-[13px] font-normal">
         {/* Branding */}
-        <div className="flex-1 flex flex-col items-start text-left space-y-4">
+        <div className="flex-1 flex flex-col items-start text-left space-y-3">
           <h1 className="text-2xl font-bold">PartsMR</h1>
-          <p className="text-sm text-gray-300">
+          <p className="text-gray-300 leading-relaxed">
             Soluciones confiables en repuestos y componentes para tu operación.
           </p>
           <div className="space-y-1">
-            <p className="text-sm text-gray-300">Atención comercial</p>
+            <p className="text-gray-300">Atención comercial</p>
             <a
               href="tel:+56928423774"
-              className="text-lg font-semibold text-white hover:text-orange-400 transition inline-flex items-center gap-2"
+              className="text-base font-semibold text-white hover:text-orange-400 transition inline-flex items-center gap-2"
             >
               <PhoneCall className="w-5 h-5 text-orange-500" /> +56 9 2842 3774
             </a>
@@ -26,9 +26,9 @@ export default function Footer() {
         </div>
 
         {/* Servicios */}
-        <div className="flex-1 flex flex-col items-start text-left space-y-4">
-          <h3 className="text-lg font-semibold text-white">Nuestros Servicios</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+        <div className="flex-1 flex flex-col items-start text-left space-y-3">
+          <h3 className="text-base font-semibold text-white">Nuestros Servicios</h3>
+          <ul className="space-y-1 text-gray-200">
             <li>Reparación de componentes</li>
             <li>Overhaul y semioverhaul de equipos</li>
             <li>Fortificación de baldes</li>
@@ -37,9 +37,9 @@ export default function Footer() {
         </div>
 
         {/* Enlaces rápidos */}
-        <div className="flex-1 flex flex-col items-start text-left space-y-4">
-          <h3 className="text-lg font-semibold text-white">Enlaces Rápidos</h3>
-          <ul className="space-y-2 text-sm text-gray-200">
+        <div className="flex-1 flex flex-col items-start text-left space-y-3">
+          <h3 className="text-base font-semibold text-white">Enlaces Rápidos</h3>
+          <ul className="space-y-1 text-gray-200">
             <li><Link href="/" className="hover:text-orange-400 transition">Inicio</Link></li>
             <li><Link href="/sobre-nosotros" className="hover:text-orange-400 transition">Sobre Nosotros</Link></li>
             <li><Link href="/repuestos" className="hover:text-orange-400 transition">Repuestos</Link></li>
@@ -49,10 +49,10 @@ export default function Footer() {
         </div>
 
         {/* Horario + Redes */}
-        <div className="flex-1 flex flex-col items-start text-left space-y-4">
+        <div className="flex-1 flex flex-col items-start text-left space-y-3">
           <div>
-            <h3 className="text-lg font-semibold text-white">Horario de Atención</h3>
-            <ul className="space-y-2 text-sm text-gray-200">
+            <h3 className="text-base font-semibold text-white">Horario de Atención</h3>
+            <ul className="space-y-1 text-gray-200">
               <li>Lunes a Viernes: 09:00 – 18:00</li>
               <li>Sábado: 09:00 – 13:00</li>
               <li>Domingo y festivos: Cerrado</li>
@@ -84,7 +84,7 @@ export default function Footer() {
 
       {/* Créditos */}
       <div className="border-t border-[#1e293b] pt-4">
-        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center md:items-start text-sm text-gray-400 text-center md:text-left gap-2">
+        <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center md:items-start text-[12px] text-gray-400 text-center md:text-left gap-2">
           <p className="w-full md:w-auto">
             © {new Date().getFullYear()} PartsMR. Todos los derechos reservados.
           </p>

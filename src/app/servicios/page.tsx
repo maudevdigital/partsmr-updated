@@ -3,7 +3,7 @@
 import { useRef, useState, useEffect } from 'react'
 import Link from 'next/link'
 import Breadcrumbs from '../../components/Breadcrumbs'
-import { FaWhatsapp, FaRobot } from 'react-icons/fa'
+import { FaWhatsapp, FaRobot, FaCogs } from 'react-icons/fa'
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
@@ -36,7 +36,6 @@ export default function ServiciosPage() {
   const modalRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
 
-  // Detectar clic fuera del modal
   useEffect(() => {
     function handleClickOutside(e: MouseEvent) {
       if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
@@ -55,12 +54,10 @@ export default function ServiciosPage() {
     }
   }, [showModal])
 
-  // Abrir modal automáticamente si la URL contiene "#symx"
   useEffect(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash
       if (hash === '#symx') {
-        // Esperar al scroll antes de abrir modal
         setTimeout(() => {
           setShowModal(true)
         }, 300)
@@ -91,7 +88,7 @@ export default function ServiciosPage() {
             </div>
           ))}
 
-          {/* Tarjeta SYMX AI con ID para ancla */}
+          {/* Tarjeta SYMX AI */}
           <div
             id="symx"
             onClick={() => setShowModal(true)}
@@ -108,8 +105,30 @@ export default function ServiciosPage() {
               Haz clic para ver más sobre la alianza.
             </p>
           </div>
+
+          {/* Nueva tarjeta: Venta de repuestos */}
+          <div className="bg-white border border-zinc-200 rounded-xl shadow-md p-6 hover:shadow-lg transition">
+            <div className="flex items-center gap-3 mb-3">
+              <FaCogs className="w-5 h-5 text-green-600" />
+              <h2 className="text-xl font-semibold">
+                Venta de Repuestos Variados
+              </h2>
+            </div>
+            <p className="text-gray-700 text-sm">
+              Contamos con un amplio stock de repuestos originales y alternativos certificados para autos, camiones y maquinaria pesada. Cotiza con nosotros y recibe asesoría técnica especializada.
+            </p>
+            <Link
+              href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20necesito%20cotizar%20repuestos"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block mt-4 text-sm font-medium text-green-600 hover:underline"
+            >
+              Cotizar por WhatsApp →
+            </Link>
+          </div>
         </div>
 
+        {/* CTA Final */}
         <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow flex flex-col md:flex-row items-center justify-between gap-5">
           <div className="max-w-xl">
             <h2 className="text-xl font-bold text-[#0f172a] mb-1">
@@ -131,7 +150,7 @@ export default function ServiciosPage() {
         </div>
       </section>
 
-      {/* Modal con animación y cierre al hacer clic fuera */}
+      {/* Modal SYMX */}
       <AnimatePresence>
         {showModal && (
           <motion.div

@@ -8,32 +8,32 @@ const repuestosAutos = [
   {
     nombre: 'Filtro de aceite Bosch',
     descripcion: 'Compatibles con motores a gasolina y diésel de autos y SUVs.',
-    imagen: '/repuestos/filtro-aceite.jpg',
+    imagen: '/repuestos/filtro-aceite.png',
   },
   {
     nombre: 'Pastillas de freno Brembo',
     descripcion: 'Alto rendimiento para vehículos livianos y camionetas.',
-    imagen: '/repuestos/pastillas-freno.jpg',
+    imagen: '/repuestos/pastilla-freno.png',
   },
   {
     nombre: 'Amortiguadores Monroe',
     descripcion: 'Confort y seguridad para caminos urbanos y rurales.',
-    imagen: '/repuestos/amortiguadores.jpg',
+    imagen: '/repuestos/amortiguadores.png',
   },
   {
     nombre: 'Batería AGM para SUV',
     descripcion: 'Alta duración, libre de mantenimiento.',
-    imagen: '/repuestos/bateria-agm.jpg',
+    imagen: '/repuestos/bateria-agm.png',
   },
   {
     nombre: 'Kit de embrague Luk',
     descripcion: 'Ideal para autos compactos y camionetas livianas.',
-    imagen: '/repuestos/kit-embrague.jpg',
+    imagen: '/repuestos/kit-embrague.png',
   },
   {
     nombre: 'Radiador aluminio universal',
     descripcion: 'Eficiencia térmica y fácil instalación.',
-    imagen: '/repuestos/radiador-aluminio.jpg',
+    imagen: '/repuestos/radiador-aluminio.png',
   },
 ]
 
@@ -49,7 +49,7 @@ export default function AutosPage() {
         </p>
 
         {/* Repuestos populares */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-6">
           {repuestosAutos.map((item, i) => (
             <div
               key={i}
@@ -58,7 +58,7 @@ export default function AutosPage() {
               <img
                 src={item.imagen}
                 alt={item.nombre}
-                className="w-full h-44 object-cover"
+                className="w-full h-70 object-cover"
               />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
@@ -69,6 +69,11 @@ export default function AutosPage() {
             </div>
           ))}
         </div>
+
+        {/* Nota de imágenes referenciales */}
+        <p className="text-sm text-gray-500 mb-10">
+          *Las imágenes mostradas son referenciales y podrían no coincidir exactamente con el producto real.
+        </p>
 
         {/* CTA WhatsApp */}
         <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow flex flex-col md:flex-row items-center justify-between gap-5">

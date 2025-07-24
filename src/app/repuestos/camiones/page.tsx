@@ -8,32 +8,32 @@ const repuestosCamiones = [
   {
     nombre: 'Filtro de combustible Fleetguard',
     descripcion: 'Diseñado para motores diésel de alto rendimiento.',
-    imagen: '/repuestos/filtro-combustible.jpg',
+    imagen: '/repuestos/filtro-combustible.png',
   },
   {
     nombre: 'Turbocharger Cummins',
     descripcion: 'Optimiza la potencia y eficiencia del motor.',
-    imagen: '/repuestos/turbo-camion.jpg',
+    imagen: '/repuestos/turbo-camion.png',
   },
   {
     nombre: 'Compresor de aire Knorr-Bremse',
     descripcion: 'Sistema de freno neumático confiable para camiones pesados.',
-    imagen: '/repuestos/compresor-aire.jpg',
+    imagen: '/repuestos/compresor-aire.png',
   },
   {
     nombre: 'Embrague Sachs para camión',
     descripcion: 'Mayor vida útil y rendimiento en cargas pesadas.',
-    imagen: '/repuestos/embrague-camion.jpg',
+    imagen: '/repuestos/embrague-camion.png',
   },
   {
     nombre: 'Eje diferencial Meritor',
     descripcion: 'Robustez y durabilidad para camiones de largo recorrido.',
-    imagen: '/repuestos/eje-diferencial.jpg',
+    imagen: '/repuestos/eje-diferencial.png',
   },
   {
     nombre: 'Radiador reforzado de aluminio',
     descripcion: 'Refrigeración óptima para motores de gran tamaño.',
-    imagen: '/repuestos/radiador-camion.jpg',
+    imagen: '/repuestos/radiador-camion.png',
   },
 ]
 
@@ -49,7 +49,7 @@ export default function CamionesPage() {
         </p>
 
         {/* Repuestos populares */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
+        <div className="grid md:grid-cols-3 gap-8 mb-6">
           {repuestosCamiones.map((item, i) => (
             <div
               key={i}
@@ -58,7 +58,7 @@ export default function CamionesPage() {
               <img
                 src={item.imagen}
                 alt={item.nombre}
-                className="w-full h-44 object-cover"
+                className="w-full h-70 object-cover"
               />
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
@@ -69,6 +69,11 @@ export default function CamionesPage() {
             </div>
           ))}
         </div>
+
+        {/* Nota imágenes referenciales */}
+        <p className="text-sm text-gray-500 mb-10">
+          *Las imágenes de los productos son referenciales y podrían variar respecto al modelo real.
+        </p>
 
         {/* CTA WhatsApp */}
         <div className="bg-orange-50 border border-orange-200 p-6 rounded-xl shadow flex flex-col md:flex-row items-center justify-between gap-5">
