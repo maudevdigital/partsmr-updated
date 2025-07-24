@@ -6,7 +6,7 @@ import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
 
 export default function Footer() {
   return (
-    <footer className="bg-[#0f172a] text-white pt-16 px-6 pb-24 md:pb-6 font-sans">
+    <footer className="bg-[#0f172a] text-white pt-10 px-6 pb-6 md:pb-6 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10">
         {/* Branding */}
         <div className="flex-1 flex flex-col items-start text-left space-y-4">

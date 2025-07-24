@@ -7,9 +7,12 @@ import { Listbox, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
 import ReCAPTCHA from 'react-google-recaptcha'
-
 import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+
+const montserrat = {
+  fontFamily: `'Montserrat', sans-serif`,
+}
 
 const paises = [
   { nombre: 'Chile', codigo: '+56', placeholder: '9 1234 5678', length: 9 },
@@ -29,6 +32,7 @@ export default function ContactForm() {
     reset,
     formState: { errors },
   } = useForm()
+
   const tipoSeleccionado = watch('tipo')
   const mensaje = watch('mensaje') || ''
   const [pais, setPais] = useState<typeof paises[number] | null>(null)
@@ -98,7 +102,7 @@ export default function ContactForm() {
     }
 
     try {
-      const docRef = await addDoc(collection(db, 'cotizaciones'), formData)
+      await addDoc(collection(db, 'cotizaciones'), formData)
 
       const res = await fetch('/api/send-cotizacion', {
         method: 'POST',
@@ -128,13 +132,15 @@ export default function ContactForm() {
     'w-full p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition'
 
   return (
-    <section id="contacto" className="bg-[#f9fafb] text-gray-900 py-16 px-4 font-montserrat">
+    <section id="contacto" className="bg-[#f9fafb] text-gray-900 py-16 px-4" style={montserrat}>
       <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
-        {/* IZQUIERDA */}
+        {/* Lado izquierdo */}
         <div className="space-y-6">
           <p className="text-orange-500 text-sm font-semibold">Estamos Aquí para Ayudar</p>
           <h2 className="text-4xl font-bold text-[#0f172a]">¿Buscas un repuesto?</h2>
-          <p className="text-lg text-gray-700">Completa el formulario y nos pondremos en contacto contigo a la brevedad. Trabajamos con repuestos para:</p>
+          <p className="text-lg text-gray-700">
+            Completa el formulario y nos pondremos en contacto contigo a la brevedad. Trabajamos con repuestos para:
+          </p>
           <ul className="text-base text-gray-800 space-y-3">
             <li className="flex items-center gap-3"><Car className="text-orange-500 w-5 h-5" /> Vehículos Livianos</li>
             <li className="flex items-center gap-3"><Truck className="text-orange-500 w-5 h-5" /> Camiones y transporte</li>
@@ -145,16 +151,16 @@ export default function ContactForm() {
               <PackageCheck className="w-5 h-5 text-orange-500" /> Ventajas
             </h3>
             <ul className="space-y-2 text-gray-700">
-              <li>✓ Envíos a todo Chile</li>
+              <li>✓ Envíos internacionales</li>
               <li>✓ Atención rápida y personalizada</li>
               <li>✓ Asesoría técnica según tu equipo</li>
             </ul>
           </div>
         </div>
 
-        {/* FORMULARIO */}
+        {/* Formulario */}
         <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-xl shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* TIPO */}
+          {/* Selector de tipo */}
           <div className="sm:col-span-2">
             <label className="block text-sm font-medium mb-1 text-[#0f172a]">¿Qué tipo necesitas?</label>
             <div className="flex gap-3 flex-wrap">
@@ -180,7 +186,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* CAMPOS CLIENTE */}
+          {/* Datos personales */}
           <input {...register('nombre', { required: true })} placeholder="Nombre" className={inputStyle} />
           <input {...register('apellido', { required: true })} placeholder="Apellido" className={inputStyle} />
           <input {...register('correo', {
@@ -188,7 +194,7 @@ export default function ContactForm() {
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
           })} placeholder="Correo Electrónico" type="email" className={inputStyle} />
 
-          {/* PAÍS Y TELÉFONO */}
+          {/* País y teléfono */}
           <div className="sm:col-span-2">
             <label className="text-sm font-medium mb-1 text-[#0f172a]">País</label>
             <Listbox value={pais} onChange={(val) => { setPais(val); setTelefono('') }}>
@@ -241,7 +247,7 @@ export default function ContactForm() {
             </div>
           )}
 
-          {/* DETALLES DEL VEHÍCULO */}
+          {/* Vehículo */}
           <input {...register('marca', { required: true })} placeholder="Marca" className={inputStyle} />
           <input {...register('modelo', { required: true })} placeholder="Modelo" className={inputStyle} />
           <input {...register('chasis')} placeholder="N° de Chasis / Serie" className={inputStyle} />
@@ -255,27 +261,24 @@ export default function ContactForm() {
           />
           <input {...register('tipoRepuesto')} placeholder="Tipo de Repuesto" className={inputStyle} ref={tipoRepuestoRef} />
 
-          {/* MENSAJE */}
+          {/* Mensaje y captcha */}
           <div className="sm:col-span-2">
             <textarea
               {...register('mensaje', {
                 required: 'Este campo es obligatorio',
-                minLength: {
-                  value: 20,
-                  message: 'El mensaje debe tener al menos 20 caracteres',
-                },
+                minLength: { value: 20, message: 'El mensaje debe tener al menos 20 caracteres' },
               })}
               placeholder="Escribe tu mensaje aquí"
               className="h-32 resize-none p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition w-full"
             />
             <div className="text-sm mt-1 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between text-gray-500">
               <span>Caracteres restantes: {Math.max(0, 20 - mensaje.length)}</span>
-              {errors.mensaje?.message && typeof errors.mensaje.message === 'string' && (
+              {typeof errors.mensaje?.message === 'string' && (
                 <span className="text-red-500">{errors.mensaje.message}</span>
               )}
             </div>
 
-            {/* CAPTCHA visual debajo del contador */}
+            {/* Captcha aquí */}
             <div className="mt-4 flex justify-center">
               <ReCAPTCHA
                 sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
@@ -284,7 +287,7 @@ export default function ContactForm() {
             </div>
           </div>
 
-          {/* BOTÓN */}
+          {/* Botón */}
           <div className="sm:col-span-2">
             <button
               type="submit"

@@ -22,9 +22,14 @@ export async function POST(req: NextRequest) {
 
     const verification = await verifyRes.json()
 
-    if (!verification.success) {
+    if (!verification.success || verification.score < 0.5) {
       return NextResponse.json(
-        { ok: false, error: 'reCAPTCHA no válido', details: verification },
+        {
+          ok: false,
+          error: 'Falló la verificación reCAPTCHA v3',
+          score: verification.score,
+          details: verification,
+        },
         { status: 403 }
       )
     }

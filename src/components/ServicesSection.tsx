@@ -2,9 +2,16 @@
 
 import Image from 'next/image'
 
+const montserrat = {
+  fontFamily: `'Montserrat', sans-serif`,
+}
+
 export default function ServicesSection() {
   return (
-    <section className="relative w-full h-[400px] sm:h-[500px] lg:h-[550px] flex items-center justify-center overflow-hidden bg-black">
+    <section
+      className="relative w-full h-[400px] sm:h-[500px] lg:h-[550px] flex items-center justify-center overflow-hidden bg-black"
+      style={montserrat}
+    >
       {/* Imagen de fondo */}
       <Image
         src="/services/maquinaria-bg.jpg"
@@ -12,8 +19,11 @@ export default function ServicesSection() {
         fill
         sizes="100vw"
         priority
-        className="object-cover object-center opacity-60"
+        className="object-cover object-center"
       />
+
+      {/* Capa oscura sobre la imagen */}
+      <div className="absolute inset-0 bg-black/70 z-0" />
 
       {/* Overlay de contenido */}
       <div className="relative z-10 text-center px-4">

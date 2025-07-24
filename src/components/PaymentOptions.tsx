@@ -2,6 +2,11 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
+import { ClipboardCheck, Clipboard } from 'lucide-react'
+
+const montserrat = {
+  fontFamily: `'Montserrat', sans-serif`,
+}
 
 export default function PaymentOptions() {
   const [copied, setCopied] = useState(false)
@@ -24,7 +29,10 @@ Correo: ventas@partsmr.com
   }
 
   return (
-    <section className="bg-white text-[#111827] py-20 px-4 sm:px-8 md:px-16 font-montserrat">
+    <section
+      className="bg-white text-[#111827] py-20 px-4 sm:px-8 md:px-16"
+      style={montserrat}
+    >
       <div className="max-w-7xl mx-auto text-center mb-12">
         <p className="text-[#FF8A00] font-bold text-sm uppercase tracking-wide">Métodos de Pago</p>
         <h2 className="text-3xl sm:text-4xl font-extrabold mt-2">
@@ -54,9 +62,19 @@ Correo: ventas@partsmr.com
           </div>
           <button
             onClick={handleCopy}
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition"
+            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition flex items-center gap-2"
           >
-            {copied ? '¡Copiado!' : 'Copiar datos'}
+            {copied ? (
+              <>
+                <ClipboardCheck className="w-5 h-5" />
+                ¡Copiado!
+              </>
+            ) : (
+              <>
+                <Clipboard className="w-5 h-5" />
+                Copiar datos
+              </>
+            )}
           </button>
         </div>
 
