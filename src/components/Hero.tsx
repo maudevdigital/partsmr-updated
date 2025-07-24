@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Montserrat } from 'next/font/google'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
@@ -140,74 +140,48 @@ export default function Hero() {
       </button>
 
       <div className="relative z-20 h-full flex flex-col justify-center items-center text-center text-white px-4">
-        <motion.div
-          key={slides[current].tipo}
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="max-w-4xl"
-        >
-          <h1 className="text-xl sm:text-3xl md:text-5xl font-bold leading-tight mb-2 drop-shadow-lg">
-            {slides[current].titulo}
-          </h1>
-          <p className="text-xs sm:text-sm md:text-lg mb-4 text-gray-300 drop-shadow">
-            {slides[current].subtitulo}
-          </p>
-          <Link
-            href={slides[current].cta.href}
-            className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={slides[current].tipo}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -30 }}
+            transition={{ duration: 0.6 }}
+            className="max-w-4xl"
           >
-            {slides[current].cta.texto}
-          </Link>
-        </motion.div>
+            <h1 className="text-xl sm:text-3xl md:text-5xl font-bold leading-tight mb-2 drop-shadow-lg">
+              {slides[current].titulo}
+            </h1>
+            <p className="text-xs sm:text-sm md:text-lg mb-4 text-gray-300 drop-shadow">
+              {slides[current].subtitulo}
+            </p>
+            <Link
+              href={slides[current].cta.href}
+              className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition"
+            >
+              {slides[current].cta.texto}
+            </Link>
+          </motion.div>
+        </AnimatePresence>
+
         {slides[current].marcas.length > 0 && (
-          <div className="absolute bottom-32 sm:bottom-24 z-30 w-full flex flex-col items-center px-4">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-white text-xs sm:text-sm font-medium mb-2 opacity-80"
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={`marcas-${slides[current].tipo}`}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.6 }}
+              className="absolute bottom-32 sm:bottom-24 z-30 w-full flex flex-col items-center px-4"
             >
-              Marcas con las que trabajamos
-            </motion.p>
+              <p className="text-white text-xs sm:text-sm font-medium mb-2 opacity-80">
+                Marcas con las que trabajamos
+              </p>
 
-            {/* Desktop fijo */}
-            <div className="hidden sm:block bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[95%] overflow-x-auto scrollbar-hide">
-              <div className="flex items-center gap-6 w-max">
-                {slides[current].marcas.map((marca, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center justify-center shrink-0"
-                    style={{
-                      width: marca.width,
-                      height: marca.height + 10,
-                    }}
-                  >
-                    <Image
-                      src={marca.src}
-                      alt={`Marca ${i}`}
-                      width={marca.width}
-                      height={marca.height}
-                      className="object-contain drop-shadow-md"
-                    />
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile animado + scroll + loop */}
-            <div
-              className="sm:hidden bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[95%] overflow-x-auto scrollbar-hide"
-              onTouchStart={handleScrollPause}
-              onScroll={handleScrollPause}
-            >
-              <div
-                className={`flex gap-6 w-max transition-transform duration-1000 ease-linear ${
-                  animateMarcas ? 'animate-marcas-loop' : ''
-                }`}
-              >
-                {[...slides[current].marcas, ...slides[current].marcas].map(
-                  (marca, i) => (
+              {/* Desktop fijo */}
+              <div className="hidden sm:block bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[95%] overflow-x-auto scrollbar-hide">
+                <div className="flex items-center gap-6 w-max">
+                  {slides[current].marcas.map((marca, i) => (
                     <div
                       key={i}
                       className="flex items-center justify-center shrink-0"
@@ -224,11 +198,47 @@ export default function Hero() {
                         className="object-contain drop-shadow-md"
                       />
                     </div>
-                  )
-                )}
+                  ))}
+                </div>
               </div>
-            </div>
-          </div>
+
+              {/* Mobile loop infinito */}
+              <div
+                className="sm:hidden bg-white/30 backdrop-blur-sm rounded-lg px-4 py-3 shadow-lg max-w-[95%] overflow-hidden"
+                onTouchStart={handleScrollPause}
+                onScroll={handleScrollPause}
+              >
+                <div className="relative w-full overflow-hidden">
+                  <div
+                    className={`flex gap-6 w-max animate-marcas-loop ${
+                      !animateMarcas ? 'paused' : ''
+                    }`}
+                  >
+                    {[...slides[current].marcas, ...slides[current].marcas].map(
+                      (marca, i) => (
+                        <div
+                          key={i}
+                          className="flex items-center justify-center shrink-0"
+                          style={{
+                            width: marca.width,
+                            height: marca.height + 10,
+                          }}
+                        >
+                          <Image
+                            src={marca.src}
+                            alt={`Marca ${i}`}
+                            width={marca.width}
+                            height={marca.height}
+                            className="object-contain drop-shadow-md"
+                          />
+                        </div>
+                      )
+                    )}
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </AnimatePresence>
         )}
       </div>
 
@@ -244,6 +254,10 @@ export default function Hero() {
 
         .animate-marcas-loop {
           animation: scrollLoop 45s linear infinite;
+        }
+
+        .paused {
+          animation-play-state: paused !important;
         }
 
         .scrollbar-hide::-webkit-scrollbar {
