@@ -79,18 +79,12 @@ export default function ContactoPage() {
               {
                 icon: <MapPin className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Dirección',
-                content: 'Santiago de Chile, Región Metropolitana',
+                content: 'Tienda online',
               },
               {
                 icon: <Clock className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Horario de atención',
-                content: (
-                  <>
-                    <p>Lunes a Viernes: 09:00 - 18:00 hrs</p>
-                    <p>Sábado: 09:00 - 13:00</p>
-                    <p>Domingo y festivos: Cerrado</p>
-                  </>
-                ),
+                content: 'Atención en línea 24/7',
               },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4">
@@ -150,7 +144,6 @@ export default function ContactoPage() {
               />
             </div>
 
-            {/* Calificación con estrellas */}
             <div className="flex justify-center gap-2">
               {[1, 2, 3, 4, 5].map((i) => (
                 <button
@@ -177,7 +170,6 @@ export default function ContactoPage() {
               </p>
             )}
 
-            {/* Comentario */}
             <div>
               <textarea
                 {...register('comentario', {
@@ -197,7 +189,6 @@ export default function ContactoPage() {
               </div>
             </div>
 
-            {/* Botón */}
             <button
               type="submit"
               disabled={mensaje.length < 20 || rating === 0}

@@ -12,6 +12,7 @@ import ContactForm from '../components/ContactForm'
 import WhatsappButton from '../components/WhatsappButton'
 import FAQSection from '../components/FAQSection'
 import Reviews from '../components/Reviews'
+import TechniciansShowcase from '../components/TechniciansShowcase'
 
 export default function Home() {
   return (
@@ -24,11 +25,9 @@ export default function Home() {
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <ProductCategories />
         <div className="h-1 w-full bg-[#e2e8f0]" />
-
         <ProductGrid />
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <ContactForm />
-
         <div className="h-1 w-full bg-[#e2e8f0]" />
         <PaymentOptions />
         <div className="h-1 w-full bg-[#e2e8f0]" />
