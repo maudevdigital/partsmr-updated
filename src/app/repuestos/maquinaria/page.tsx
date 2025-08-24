@@ -8,32 +8,32 @@ const repuestosPopulares = [
   {
     nombre: 'Filtro de aire Caterpillar',
     descripcion: 'Compatible con excavadoras y cargadores frontales.',
-    imagen: '/repuestos/filtro-aire.jpg',
+    imagen: '/repuestos/maquinaria/filtro-aire.webp',
   },
   {
     nombre: 'Bomba hidráulica Komatsu',
     descripcion: 'Rendimiento garantizado para equipos de alto tonelaje.',
-    imagen: '/repuestos/bomba-hidraulica.png',
+    imagen: '/repuestos/maquinaria/bomba-hidraulica.webp',
   },
   {
     nombre: 'Cadena para excavadora Liebherr',
     descripcion: 'Alta resistencia para faenas de movimiento de tierra.',
-    imagen: '/repuestos/cadena-excavadora.jpg',
+    imagen: '/repuestos/maquinaria/cadena-excavadora.webp',
   },
   {
     nombre: 'Motor de giro John Deere',
     descripcion: 'Original y con garantía de fábrica.',
-    imagen: '/repuestos/motor-giro.png',
+    imagen: '/repuestos/maquinaria/motor-giro.webp',
   },
   {
     nombre: 'Cilindro hidráulico Volvo CE',
     descripcion: 'Alta presión y sellos reforzados para uso intensivo.',
-    imagen: '/repuestos/cilindro-hidraulico.png',
+    imagen: '/repuestos/maquinaria/cilindro-hidraulico.webp',
   },
   {
     nombre: 'Radiador para bulldozer CAT',
     descripcion: 'Excelente rendimiento térmico en climas extremos.',
-    imagen: '/repuestos/radiador-bulldozer.png',
+    imagen: '/repuestos/maquinaria/radiador-bulldozer.webp',
   },
 ]
 

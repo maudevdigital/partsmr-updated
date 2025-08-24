@@ -14,7 +14,7 @@ export default function ServicesSection() {
     >
       {/* Imagen de fondo */}
       <Image
-        src="/services/maquinaria-bg.jpg"
+        src="/services/maquinaria-bg.webp"
         alt="Servicios maquinaria"
         fill
         sizes="100vw"

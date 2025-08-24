@@ -8,32 +8,32 @@ const repuestosAutos = [
   {
     nombre: 'Filtro de aceite Bosch',
     descripcion: 'Compatibles con motores a gasolina y diésel de autos y SUVs.',
-    imagen: '/repuestos/filtro-aceite.png',
+    imagen: '/repuestos/autos-camionetas/filtro-aceite.webp',
   },
   {
     nombre: 'Pastillas de freno Brembo',
     descripcion: 'Alto rendimiento para vehículos livianos y camionetas.',
-    imagen: '/repuestos/pastilla-freno.png',
+    imagen: '/repuestos/autos-camionetas/pastilla-freno.webp',
   },
   {
     nombre: 'Amortiguadores Monroe',
     descripcion: 'Confort y seguridad para caminos urbanos y rurales.',
-    imagen: '/repuestos/amortiguadores.png',
+    imagen: '/repuestos/autos-camionetas/amortiguadores.webp',
   },
   {
     nombre: 'Batería AGM para SUV',
     descripcion: 'Alta duración, libre de mantenimiento.',
-    imagen: '/repuestos/bateria-agm.png',
+    imagen: '/repuestos/autos-camionetas/bateria-agm.webp',
   },
   {
     nombre: 'Kit de embrague Luk',
     descripcion: 'Ideal para autos compactos y camionetas livianas.',
-    imagen: '/repuestos/kit-embrague.png',
+    imagen: '/repuestos/autos-camionetas/kit-embrague.webp',
   },
   {
     nombre: 'Radiador aluminio universal',
     descripcion: 'Eficiencia térmica y fácil instalación.',
-    imagen: '/repuestos/radiador-aluminio.png',
+    imagen: '/repuestos/autos-camionetas/radiador-aluminio.webp',
   },
 ]
 

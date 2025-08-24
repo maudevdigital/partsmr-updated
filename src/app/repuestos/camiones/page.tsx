@@ -8,32 +8,32 @@ const repuestosCamiones = [
   {
     nombre: 'Filtro de combustible Fleetguard',
     descripcion: 'Diseñado para motores diésel de alto rendimiento.',
-    imagen: '/repuestos/filtro-combustible.png',
+    imagen: '/repuestos/camiones/filtro-combustible.webp',
   },
   {
     nombre: 'Turbocharger Cummins',
     descripcion: 'Optimiza la potencia y eficiencia del motor.',
-    imagen: '/repuestos/turbo-camion.png',
+    imagen: '/repuestos/camiones/turbo-camion.webp',
   },
   {
     nombre: 'Compresor de aire Knorr-Bremse',
     descripcion: 'Sistema de freno neumático confiable para camiones pesados.',
-    imagen: '/repuestos/compresor-aire.png',
+    imagen: '/repuestos/camiones/compresor-aire.webp',
   },
   {
     nombre: 'Embrague Sachs para camión',
     descripcion: 'Mayor vida útil y rendimiento en cargas pesadas.',
-    imagen: '/repuestos/embrague-camion.png',
+    imagen: '/repuestos/camiones/embrague-camion.webp',
   },
   {
     nombre: 'Eje diferencial Meritor',
     descripcion: 'Robustez y durabilidad para camiones de largo recorrido.',
-    imagen: '/repuestos/eje-diferencial.png',
+    imagen: '/repuestos/camiones/eje-diferencial.webp',
   },
   {
     nombre: 'Radiador reforzado de aluminio',
     descripcion: 'Refrigeración óptima para motores de gran tamaño.',
-    imagen: '/repuestos/radiador-camion.png',
+    imagen: '/repuestos/camiones/radiador-camion.webp',
   },
 ]
 

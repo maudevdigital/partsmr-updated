@@ -13,32 +13,32 @@ const paises = [
   {
     nombre: 'Chile',
     descripcion: 'Envíos rápidos a todo el país.',
-    bandera: '/flags/bandera-chile.png',
+    bandera: '/flags/bandera-chile.webp',
   },
   {
     nombre: 'Estados Unidos',
     descripcion: 'Suministro internacional de alta confiabilidad.',
-    bandera: '/flags/bandera-usa.png',
+    bandera: '/flags/bandera-usa.webp',
   },
   {
     nombre: 'Paraguay',
     descripcion: 'Cobertura eficiente para maquinaria y flotas.',
-    bandera: '/flags/bandera-paraguay.png',
+    bandera: '/flags/bandera-paraguay.webp',
   },
   {
     nombre: 'Bolivia',
     descripcion: 'Repuestos garantizados para todo el país.',
-    bandera: '/flags/bandera-bolivia.png',
+    bandera: '/flags/bandera-bolivia.webp',
   },
   {
     nombre: 'Perú',
     descripcion: 'Especialistas en equipos para minería y construcción.',
-    bandera: '/flags/bandera-peru.png',
+    bandera: '/flags/bandera-peru.webp',
   },
   {
     nombre: 'Argentina',
     descripcion: 'Entrega rápida y soporte técnico incluido.',
-    bandera: '/flags/bandera-argentina.png',
+    bandera: '/flags/bandera-argentina.webp',
   },
 ]
 
