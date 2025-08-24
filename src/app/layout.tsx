@@ -1,8 +1,10 @@
+// app/layout.tsx
 import { Montserrat } from 'next/font/google'
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import AnalyticsEvents from '../components/AnalyticsEvents'
+import Script from 'next/script'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -47,6 +49,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="es">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+        {/* Google tag (gtag.js) - tal cual indica la guía de Ads */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-16953811243"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-16953811243');
+          `}
+        </Script>
       </head>
       <body
         className={`${montserrat.variable} font-sans antialiased bg-[#f9fafb] text-[#0f172a] overflow-x-hidden`}
