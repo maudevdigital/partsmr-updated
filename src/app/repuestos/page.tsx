@@ -44,7 +44,8 @@ export default function RepuestosPage() {
 
         <h1 className="text-4xl font-bold mb-4">Nuestros Repuestos</h1>
         <p className="text-lg text-gray-700 max-w-3xl mb-10">
-          Contamos con un amplio stock de repuestos originales y alternativos para maquinaria pesada, autos, camionetas y camiones. Enviamos a todo Chile y Latinoamérica, y asesoramos técnicamente en cada compra.
+          Contamos con un amplio stock de repuestos originales y alternativos para maquinaria pesada, autos, camionetas y camiones.
+          Enviamos a todo Chile y Latinoamérica, y asesoramos técnicamente en cada compra.
         </p>
 
         {/* Cards de categorías */}
@@ -53,17 +54,18 @@ export default function RepuestosPage() {
             <Link
               key={cat.href}
               href={cat.href}
-              className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden group"
+              className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden group focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-orange-500"
+              aria-label={`Ir a ${cat.nombre}`}
             >
               {/* Contenedor con proporción fija para evitar CLS */}
               <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <Image
                   src={cat.imagen}
-                  alt={cat.nombre}
+                  alt={`Categoría: ${cat.nombre}`}
                   fill
-                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  priority={i < 2}
                   sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
-                  priority={i < 2} // prioriza las 2 primeras imágenes
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
 
@@ -71,7 +73,9 @@ export default function RepuestosPage() {
                 <h2 className="text-xl font-semibold mb-2 border-l-4 border-orange-500 pl-3">
                   {cat.nombre}
                 </h2>
-                <p className="text-gray-600 text-sm">{cat.descripcion}</p>
+                <p className="text-gray-600 text-sm">
+                  {cat.descripcion}
+                </p>
               </div>
             </Link>
           ))}
@@ -87,13 +91,15 @@ export default function RepuestosPage() {
               Contáctanos por WhatsApp y uno de nuestros asesores te ayudará a ubicarlo o cotizarlo.
             </p>
           </div>
+
           <Link
             href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20buscando%20un%20repuesto"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
+            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
+            aria-label="Abrir conversación de WhatsApp con PartsMR"
           >
-            <FaWhatsapp className="w-6 h-6" />
+            <FaWhatsapp className="w-6 h-6" aria-hidden="true" />
             Escríbenos por WhatsApp
           </Link>
         </div>
