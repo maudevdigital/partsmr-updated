@@ -2,9 +2,16 @@
 
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 
-const repuestosAutos = [
+type Item = {
+  nombre: string
+  descripcion: string
+  imagen: string
+}
+
+const repuestosAutos: Item[] = [
   {
     nombre: 'Filtro de aceite Bosch',
     descripcion: 'Compatibles con motores a gasolina y diésel de autos y SUVs.',
@@ -55,11 +62,20 @@ export default function AutosPage() {
               key={i}
               className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
             >
-              <img
-                src={item.imagen}
-                alt={item.nombre}
-                className="w-full h-70 object-cover"
-              />
+              {/* Contenedor para next/image con fill */}
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src={item.imagen}
+                  alt={item.nombre}
+                  fill
+                  // Ajusta este sizes si quieres otra distribución:
+                  sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
+                  className="object-cover"
+                  // Las imágenes están en /public, así que no hace falta loader.
+                  priority={i < 2} // Prioriza las 2 primeras para mejor LCP
+                />
+              </div>
+
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
                   {item.nombre}

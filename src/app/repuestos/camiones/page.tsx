@@ -2,9 +2,16 @@
 
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 
-const repuestosCamiones = [
+type Item = {
+  nombre: string
+  descripcion: string
+  imagen: string
+}
+
+const repuestosCamiones: Item[] = [
   {
     nombre: 'Filtro de combustible Fleetguard',
     descripcion: 'Diseñado para motores diésel de alto rendimiento.',
@@ -55,11 +62,18 @@ export default function CamionesPage() {
               key={i}
               className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
             >
-              <img
-                src={item.imagen}
-                alt={item.nombre}
-                className="w-full h-70 object-cover"
-              />
+              {/* Contenedor para next/image con fill y proporción estable */}
+              <div className="relative w-full aspect-[4/3]">
+                <Image
+                  src={item.imagen}
+                  alt={item.nombre}
+                  fill
+                  className="object-cover"
+                  sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+                  priority={i < 2}
+                />
+              </div>
+
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
                   {item.nombre}

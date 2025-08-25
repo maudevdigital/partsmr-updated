@@ -58,7 +58,7 @@ export default function Header() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
-              src="/icon.webp"
+              src="/icon.png"
               alt="PartsMR Icon"
               width={32}
               height={32}

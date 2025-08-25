@@ -5,7 +5,14 @@ import Image from 'next/image'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import { FaWhatsapp } from 'react-icons/fa'
 
-const categories = [
+type Categoria = {
+  nombre: string
+  imagen: string
+  href: string
+  descripcion: string
+}
+
+const categories: Categoria[] = [
   {
     nombre: 'Repuestos para Maquinaria Pesada',
     imagen: '/product-categories/maquinaria.webp',
@@ -43,17 +50,22 @@ export default function RepuestosPage() {
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {categories.map((cat, i) => (
             <Link
-              key={i}
+              key={cat.href}
               href={cat.href}
               className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden group"
             >
-              <Image
-                src={cat.imagen}
-                alt={cat.nombre}
-                width={500}
-                height={300}
-                className="w-full h-48 object-cover group-hover:scale-105 transition duration-300"
-              />
+              {/* Contenedor para mantener proporción estable y permitir fill */}
+              <div className="relative w-full aspect-[16/9] overflow-hidden">
+                <Image
+                  src={cat.imagen}
+                  alt={cat.nombre}
+                  fill
+                  className="object-cover group-hover:scale-105 transition-transform duration-300"
+                  sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
+                  priority={i < 2} // prioriza las 2 primeras
+                />
+              </div>
+
               <div className="p-5">
                 <h2 className="text-xl font-semibold mb-2 border-l-4 border-orange-500 pl-3">
                   {cat.nombre}
