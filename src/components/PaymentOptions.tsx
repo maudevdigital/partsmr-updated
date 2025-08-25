@@ -62,7 +62,7 @@ Correo: ventas@partsmr.com
           </div>
           <button
             onClick={handleCopy}
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition flex items-center gap-2"
+            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition items-center gap-2"
           >
             {copied ? (
               <>
@@ -81,8 +81,8 @@ Correo: ventas@partsmr.com
         {/* Webpay */}
         <div className="bg-[#fffdf9] text-black p-6 rounded-2xl shadow-md hover:shadow-lg transition border border-gray-200">
           <div className="flex justify-center items-center gap-3 mb-4">
-            <Image src="/metodos/webpay.png" alt="Webpay" width={60} height={60} />
-            <Image src="/metodos/visa.png" alt="Visa" width={40} height={40} />
+            <Image src="/metodos/webpay.webp" alt="Webpay" width={60} height={60} />
+            <Image src="/metodos/visa.webp" alt="Visa" width={40} height={40} />
             <Image src="/metodos/mastercard.png" alt="Mastercard" width={40} height={40} />
           </div>
           <h3 className="text-xl font-bold mb-4 text-center">Tarjeta de Crédito/Débito</h3>
@@ -101,7 +101,7 @@ Correo: ventas@partsmr.com
         {/* PayPal */}
         <div className="bg-[#fffdf9] text-black p-6 rounded-2xl shadow-md hover:shadow-lg transition border border-gray-200">
           <div className="mb-4 flex justify-center">
-            <Image src="/metodos/paypal.png" alt="PayPal" width={60} height={60} />
+            <Image src="/metodos/paypal.webp" alt="PayPal" width={60} height={60} />
           </div>
           <h3 className="text-xl font-bold mb-4 text-center">PayPal</h3>
           <p className="text-sm text-gray-700 mb-6 text-center">

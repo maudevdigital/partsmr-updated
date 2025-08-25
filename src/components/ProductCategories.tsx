@@ -6,17 +6,17 @@ import Link from 'next/link'
 const categories = [
   {
     nombre: 'Repuestos para Maquinaria',
-    imagen: '/maquinaria.webp',
+    imagen: '/product-categories/maquinaria.webp',
     href: '/repuestos/maquinaria',
   },
   {
     nombre: 'Repuestos para Autos',
-    imagen: '/autos.webp',
+    imagen: '/product-categories/autos.webp',
     href: '/repuestos/autos',
   },
   {
     nombre: 'Repuestos para Camiones',
-    imagen: '/camiones.webp',
+    imagen: '/product-categories/camiones.webp',
     href: '/repuestos/camiones',
   },
 ]

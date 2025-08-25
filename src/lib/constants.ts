@@ -26,17 +26,17 @@ export const PRODUCT_CATEGORIES = {
   auto: {
     name: 'Autos',
     path: '/repuestos/autos',
-    image: '/autos.webp'
+    image: '/product-categories/autos.webp'
   },
   truck: {
     name: 'Camiones',
     path: '/repuestos/camiones',
-    image: '/camiones.webp'
+    image: '/product-categories/camiones.webp'
   },
   machinery: {
     name: 'Maquinaria',
     path: '/repuestos/maquinaria',
-    image: '/maquinaria.webp'
+    image: '/product-categories/maquinaria.webp'
   }
 } as const;
 

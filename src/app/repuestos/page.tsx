@@ -8,21 +8,21 @@ import { FaWhatsapp } from 'react-icons/fa'
 const categories = [
   {
     nombre: 'Repuestos para Maquinaria Pesada',
-    imagen: '/maquinaria.webp',
+    imagen: '/product-categories/maquinaria.webp',
     href: '/repuestos/maquinaria',
     descripcion:
       'Componentes para excavadoras, retroexcavadoras, bulldozers, grúas, cargadores frontales y más. Disponibilidad para marcas como Caterpillar, Komatsu y Volvo.',
   },
   {
     nombre: 'Repuestos para Autos y Camionetas',
-    imagen: '/autos.webp',
+    imagen: '/product-categories/autos.webp',
     href: '/repuestos/autos',
     descripcion:
       'Filtros, pastillas de freno, baterías, amortiguadores y más para autos, SUV y camionetas. Trabajamos con Bosch, Monroe, Brembo y otras marcas.',
   },
   {
     nombre: 'Repuestos para Camiones',
-    imagen: '/camiones.webp',
+    imagen: '/product-categories/camiones.webp',
     href: '/repuestos/camiones',
     descripcion:
       'Soluciones para sistemas de freno, embrague, motor y refrigeración de camiones de carga. Repuestos para flotas y transporte pesado.',
