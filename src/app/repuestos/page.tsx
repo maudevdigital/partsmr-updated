@@ -47,6 +47,7 @@ export default function RepuestosPage() {
           Contamos con un amplio stock de repuestos originales y alternativos para maquinaria pesada, autos, camionetas y camiones. Enviamos a todo Chile y Latinoamérica, y asesoramos técnicamente en cada compra.
         </p>
 
+        {/* Cards de categorías */}
         <div className="grid md:grid-cols-3 gap-8 mb-16">
           {categories.map((cat, i) => (
             <Link
@@ -54,7 +55,7 @@ export default function RepuestosPage() {
               href={cat.href}
               className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden group"
             >
-              {/* Contenedor para mantener proporción estable y permitir fill */}
+              {/* Contenedor con proporción fija para evitar CLS */}
               <div className="relative w-full aspect-[16/9] overflow-hidden">
                 <Image
                   src={cat.imagen}
@@ -62,7 +63,7 @@ export default function RepuestosPage() {
                   fill
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
                   sizes="(min-width:1024px) 33vw, (min-width:768px) 50vw, 100vw"
-                  priority={i < 2} // prioriza las 2 primeras
+                  priority={i < 2} // prioriza las 2 primeras imágenes
                 />
               </div>
 
