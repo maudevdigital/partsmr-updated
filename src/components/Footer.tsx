@@ -3,8 +3,12 @@
 import Link from 'next/link'
 import { PhoneCall } from 'lucide-react'
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
+import { trackConversion } from '../lib/gtag'
 
 export default function Footer() {
+  const handleCallClick = () => {
+    trackConversion('call_click')
+  }
   return (
     <footer className="bg-[#0f172a] text-white pt-10 px-6 pb-6 md:pb-6 font-sans">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10 pb-10 text-[13px] font-normal">
@@ -18,6 +22,7 @@ export default function Footer() {
             <p className="text-gray-300">Atención comercial</p>
             <a
               href="tel:+56928423774"
+              onClick={handleCallClick}
               className="text-base font-semibold text-white hover:text-orange-400 transition inline-flex items-center gap-2"
             >
               <PhoneCall className="w-5 h-5 text-orange-500" /> +56 9 2842 3774

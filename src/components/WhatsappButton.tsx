@@ -3,17 +3,22 @@
 import Link from 'next/link'
 import { FaWhatsapp } from 'react-icons/fa'
 import { useEffect } from 'react'
-import { analytics } from '../lib/firebase' // ajusta si tu path es distinto
+import { analytics } from '../lib/firebase'
 import { logEvent } from 'firebase/analytics'
+import { trackConversion } from '../lib/gtag'
 
 export default function WhatsappButton() {
   const handleClick = () => {
+    // Firebase Analytics
     if (analytics) {
       logEvent(analytics, 'whatsapp_click', {
         location: 'floating_button',
         label: 'boton_flotante',
       })
     }
+
+    // Google Ads Conversion
+    trackConversion('whatsapp_click')
   }
 
   return (
