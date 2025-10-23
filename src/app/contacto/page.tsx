@@ -6,6 +6,7 @@ import { Mail, PhoneCall, MapPin, Clock, Star } from 'lucide-react'
 import clsx from 'clsx'
 import { db } from '../../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
+import { trackConversion } from '../../lib/gtag'
 
 export default function ContactoPage() {
   const {
@@ -70,11 +71,13 @@ export default function ContactoPage() {
                 icon: <PhoneCall className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Teléfono',
                 content: '+56 9 2842 3774',
+                isPhone: true,
               },
               {
                 icon: <Mail className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Correo electrónico',
                 content: 'christian@partsmr.com',
+                isEmail: true,
               },
               {
                 icon: <MapPin className="text-orange-500 w-6 h-6 mt-1" />,
@@ -91,7 +94,24 @@ export default function ContactoPage() {
                 {item.icon}
                 <div>
                   <h3 className="text-lg font-semibold">{item.title}</h3>
-                  <div className="text-gray-700 text-sm">{item.content}</div>
+                  {item.isPhone ? (
+                    <a 
+                      href={`tel:${item.content.replace(/\s/g, '')}`}
+                      onClick={() => trackConversion('call_click')}
+                      className="text-gray-700 text-sm hover:text-orange-500 transition"
+                    >
+                      {item.content}
+                    </a>
+                  ) : item.isEmail ? (
+                    <a 
+                      href={`mailto:${item.content}`}
+                      className="text-gray-700 text-sm hover:text-orange-500 transition"
+                    >
+                      {item.content}
+                    </a>
+                  ) : (
+                    <div className="text-gray-700 text-sm">{item.content}</div>
+                  )}
                 </div>
               </div>
             ))}

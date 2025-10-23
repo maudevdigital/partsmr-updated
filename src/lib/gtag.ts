@@ -1,5 +1,5 @@
 // Google Ads Conversion Tracking
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || ''
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-16953811243'
 
 // Declarar gtag para TypeScript
 declare global {
@@ -12,7 +12,7 @@ declare global {
 // Tipos de conversión disponibles
 type ConversionEvent = 'whatsapp_click' | 'call_click' | 'form_submit'
 
-// IDs de conversión desde variables de entorno
+// IDs de conversión de Google Ads (etiquetas de conversión)
 const conversionIds: Record<ConversionEvent, string> = {
   whatsapp_click: process.env.NEXT_PUBLIC_CONVERSION_WHATSAPP || '',
   call_click: process.env.NEXT_PUBLIC_CONVERSION_CALL || '',
@@ -45,6 +45,7 @@ export const trackConversion = (
       currency: 'CLP',
       event_callback: callback,
     })
+    console.log(`Conversión registrada: ${event}`)
   } else {
     console.warn('Google Ads gtag no está disponible')
     if (callback) callback()

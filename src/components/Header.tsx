@@ -6,6 +6,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { trackConversion } from '../lib/gtag'
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -154,6 +155,7 @@ export default function Header() {
           <div className="hidden md:flex">
             <a
               href="tel:+56928423774"
+              onClick={() => trackConversion('call_click')}
               className="flex items-center gap-2 bg-orange-500 text-white font-semibold px-4 py-2 rounded-md shadow hover:bg-orange-600 transition-all duration-200"
             >
               <Phone size={18} />
@@ -247,6 +249,7 @@ export default function Header() {
 
                 <a
                   href="tel:+56928423774"
+                  onClick={() => trackConversion('call_click')}
                   className="flex items-center justify-center gap-2 bg-orange-500 text-white font-semibold px-5 py-2.5 rounded-md shadow-md hover:bg-orange-600 transition-all w-full"
                 >
                   <Phone size={18} />

@@ -64,6 +64,13 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             gtag('config', 'AW-16953811243');
           `}
         </Script>
+
+        {/* Event snippet for Llamada conversion page */}
+        <Script id="gtag-conversion" strategy="afterInteractive">
+          {`
+            gtag('event', 'conversion', {'send_to': 'AW-16953811243/eAV4COvwvrzUaEKvcmpQ_'});
+          `}
+        </Script>
       </head>
       <body
         className={`${montserrat.variable} font-sans antialiased bg-[#f9fafb] text-[#0f172a] overflow-x-hidden`}
