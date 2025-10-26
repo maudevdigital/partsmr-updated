@@ -50,31 +50,30 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        {/* Google tag (gtag.js) - tal cual indica la guía de Ads */}
-        <Script
-          async
-          src="https://www.googletagmanager.com/gtag/js?id=AW-16953811243"
-          strategy="afterInteractive"
-        />
-        <Script id="gtag-init" strategy="afterInteractive">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'AW-16953811243');
-          `}
+        {/* Google Tag Manager */}
+        <Script id="gtm-script" strategy="afterInteractive">
+          {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MGW5KZ7');`}
         </Script>
-
-        {/* Event snippet for Llamada conversion page */}
-        <Script id="gtag-conversion" strategy="afterInteractive">
-          {`
-            gtag('event', 'conversion', {'send_to': 'AW-16953811243/eAV4COvwvrzUaEKvcmpQ_'});
-          `}
-        </Script>
+        {/* End Google Tag Manager */}
       </head>
       <body
         className={`${montserrat.variable} font-sans antialiased bg-[#f9fafb] text-[#0f172a] overflow-x-hidden`}
       >
+        {/* Google Tag Manager (noscript) */}
+        <noscript>
+          <iframe 
+            src="https://www.googletagmanager.com/ns.html?id=GTM-MGW5KZ7"
+            height="0" 
+            width="0" 
+            style={{display:'none',visibility:'hidden'}}
+          />
+        </noscript>
+        {/* End Google Tag Manager (noscript) */}
+        
         <AnalyticsEvents />
         <Header />
         <main>{children}</main>

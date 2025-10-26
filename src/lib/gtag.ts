@@ -1,10 +1,9 @@
-// Google Ads Conversion Tracking
+// Google Ads Conversion Tracking con GTM
 export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-16953811243'
 
-// Declarar gtag para TypeScript
+// Declarar dataLayer para TypeScript
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void
     dataLayer?: any[]
   }
 }
@@ -20,7 +19,7 @@ const conversionIds: Record<ConversionEvent, string> = {
 }
 
 /**
- * Registra una conversión en Google Ads
+ * Registra una conversión en Google Ads vía GTM
  * @param event - Tipo de evento de conversión
  * @param value - Valor opcional de la conversión
  * @param callback - Función a ejecutar después de registrar la conversión
@@ -38,16 +37,24 @@ export const trackConversion = (
     return
   }
 
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'conversion', {
+  if (typeof window !== 'undefined') {
+    // Inicializar dataLayer si no existe
+    window.dataLayer = window.dataLayer || []
+    
+    // Push del evento de conversión
+    window.dataLayer.push({
+      event: 'conversion',
       send_to: `${GA_TRACKING_ID}/${conversionLabel}`,
       value: value || 1.0,
       currency: 'CLP',
       event_callback: callback,
     })
-    console.log(`Conversión registrada: ${event}`)
+    
+    console.log(`Conversión registrada: ${event}`, {
+      send_to: `${GA_TRACKING_ID}/${conversionLabel}`,
+    })
   } else {
-    console.warn('Google Ads gtag no está disponible')
+    console.warn('Window no está disponible')
     if (callback) callback()
   }
 }
@@ -56,9 +63,11 @@ export const trackConversion = (
  * Log de pageview (opcional)
  */
 export const pageview = (url: string) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', GA_TRACKING_ID, {
-      page_path: url,
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push({
+      event: 'pageview',
+      page: url,
     })
   }
 }
