@@ -3,11 +3,15 @@
 import Link from 'next/link'
 import { PhoneCall } from 'lucide-react'
 import { FaWhatsapp, FaInstagram } from 'react-icons/fa'
-import { trackConversion } from '../lib/gtag'
+import { gtag_report_conversion, gtag_report_conversion_whatsapp } from '../lib/gtag'
 
 export default function Footer() {
   const handleCallClick = () => {
-    trackConversion('call_click')
+    gtag_report_conversion('tel:+56928423774')
+  }
+  
+  const handleWhatsappClick = () => {
+    gtag_report_conversion_whatsapp()
   }
   return (
     <footer className="bg-[#0f172a] text-white pt-10 px-6 pb-6 md:pb-6 font-sans">
@@ -69,6 +73,7 @@ export default function Footer() {
               href="https://wa.me/56928423774"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleWhatsappClick}
               className="text-gray-300 hover:text-green-400 transition"
               aria-label="WhatsApp"
             >

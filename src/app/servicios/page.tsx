@@ -7,6 +7,7 @@ import { FaWhatsapp, FaRobot, FaCogs } from 'react-icons/fa'
 import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
+import { gtag_report_conversion_whatsapp } from '../../lib/gtag'
 
 const servicios = [
   {
@@ -121,6 +122,7 @@ export default function ServiciosPage() {
               href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20necesito%20cotizar%20repuestos"
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
               className="inline-block mt-4 text-sm font-medium text-green-600 hover:underline"
             >
               Cotizar por WhatsApp →
@@ -142,6 +144,7 @@ export default function ServiciosPage() {
             href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20interesado%20en%20los%20servicios%20de%20mantenimiento"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => gtag_report_conversion_whatsapp()}
             className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
           >
             <FaWhatsapp className="w-6 h-6" />

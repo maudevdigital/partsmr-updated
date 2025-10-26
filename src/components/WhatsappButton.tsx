@@ -5,7 +5,7 @@ import { FaWhatsapp } from 'react-icons/fa'
 import { useEffect } from 'react'
 import { analytics } from '../lib/firebase'
 import { logEvent } from 'firebase/analytics'
-import { trackConversion } from '../lib/gtag'
+import { gtag_report_conversion_whatsapp } from '../lib/gtag'
 
 export default function WhatsappButton() {
   const handleClick = () => {
@@ -18,7 +18,7 @@ export default function WhatsappButton() {
     }
 
     // Google Ads Conversion
-    trackConversion('whatsapp_click')
+    gtag_report_conversion_whatsapp()
   }
 
   return (

@@ -6,7 +6,7 @@ import { Mail, PhoneCall, MapPin, Clock, Star } from 'lucide-react'
 import clsx from 'clsx'
 import { db } from '../../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { trackConversion } from '../../lib/gtag'
+import { gtag_report_conversion } from '../../lib/gtag'
 
 export default function ContactoPage() {
   const {
@@ -97,7 +97,7 @@ export default function ContactoPage() {
                   {item.isPhone ? (
                     <a 
                       href={`tel:${item.content.replace(/\s/g, '')}`}
-                      onClick={() => trackConversion('call_click')}
+                      onClick={() => gtag_report_conversion(`tel:${item.content.replace(/\s/g, '')}`)}
                       className="text-gray-700 text-sm hover:text-orange-500 transition"
                     >
                       {item.content}
