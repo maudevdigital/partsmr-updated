@@ -62,7 +62,7 @@ Correo: ventas@partsmr.com
           </div>
           <button
             onClick={handleCopy}
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-fit mx-auto hover:bg-orange-600 transition items-center gap-2"
+            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md w-fit mx-auto hover:bg-orange-600 transition flex items-center gap-2"
           >
             {copied ? (
               <>
