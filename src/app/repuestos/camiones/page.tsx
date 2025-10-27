@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs'
 import Link from 'next/link'
 import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
+import { gtag_report_conversion_whatsapp } from '../../../lib/gtag'
 
 type Item = {
   nombre: string
@@ -103,6 +104,7 @@ export default function CamionesPage() {
             href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20necesito%20repuestos%20para%20camión"
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => gtag_report_conversion_whatsapp()}
             className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
           >
             <FaWhatsapp className="w-5 h-5" />

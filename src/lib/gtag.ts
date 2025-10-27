@@ -1,10 +1,10 @@
-// Google Ads Conversion Tracking
-export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-16953811243'
+// Google Ads Conversion Tracking via GTM
+export const GA_TRACKING_ID = 'AW-16953811243'
+export const GTM_ID = 'GTM-MGW5KZZ7'
 
-// Declarar gtag para TypeScript
+// Declarar dataLayer para TypeScript
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void
     dataLayer?: any[]
   }
 }
@@ -16,25 +16,41 @@ type ConversionEvent = 'whatsapp_click' | 'call_click' | 'form_submit'
 const conversionIds: Record<ConversionEvent, string> = {
   whatsapp_click: 'nCNpCIrszLMbEXvcOmpQ_', // Click boton whatsapp
   call_click: 'mLEnC1zs1MeEXvcOmpQ_', // Click boton llamadas
-  form_submit: process.env.NEXT_PUBLIC_CONVERSION_FORM || '',
+  form_submit: '4ErOCMWgg40bERvCmpQ_', // Formulario de cotización
 }
 
 /**
- * Función específica para reportar conversiones de llamadas (Click boton llamadas)
- * Esta es la función recomendada por Google Ads para conversiones de clic
+ * Push evento a dataLayer de GTM
+ */
+function pushToDataLayer(eventData: any) {
+  if (typeof window !== 'undefined') {
+    window.dataLayer = window.dataLayer || []
+    window.dataLayer.push(eventData)
+    console.log('📊 GTM Event:', eventData)
+  }
+}
+
+/**
+ * Función para reportar conversiones de llamadas (Click boton llamadas)
+ * Envía el evento a GTM dataLayer
  */
 export function gtag_report_conversion(url?: string) {
-  const callback = function () {
-    if (typeof url !== 'undefined') {
+  pushToDataLayer({
+    event: 'conversion',
+    conversion_type: 'call_click',
+    conversion_id: GA_TRACKING_ID,
+    conversion_label: conversionIds.call_click,
+    send_to: `${GA_TRACKING_ID}/${conversionIds.call_click}`,
+    event_category: 'engagement',
+    event_label: 'phone_call',
+    value: 1,
+  })
+
+  // Callback para redirección
+  if (url) {
+    setTimeout(() => {
       window.location.href = url
-    }
-  }
-  
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'conversion', {
-      send_to: 'AW-16953811243/mLEnC1zs1MeEXvcOmpQ_',
-      event_callback: callback,
-    })
+    }, 300)
   }
   
   return false
@@ -42,20 +58,46 @@ export function gtag_report_conversion(url?: string) {
 
 /**
  * Función para conversiones de WhatsApp (Click boton whatsapp)
+ * Envía el evento a GTM dataLayer
  */
 export function gtag_report_conversion_whatsapp(url?: string) {
-  const callback = function () {
-    if (typeof url !== 'undefined') {
+  pushToDataLayer({
+    event: 'conversion',
+    conversion_type: 'whatsapp_click',
+    conversion_id: GA_TRACKING_ID,
+    conversion_label: conversionIds.whatsapp_click,
+    send_to: `${GA_TRACKING_ID}/${conversionIds.whatsapp_click}`,
+    event_category: 'engagement',
+    event_label: 'whatsapp_click',
+    value: 1,
+  })
+
+  // Callback para redirección
+  if (url) {
+    setTimeout(() => {
       window.location.href = url
-    }
+    }, 300)
   }
   
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'conversion', {
-      send_to: 'AW-16953811243/nCNpCIrszLMbEXvcOmpQ_',
-      event_callback: callback,
-    })
-  }
+  return false
+}
+
+/**
+ * Función para conversiones de formulario
+ * Envía el evento a GTM dataLayer
+ */
+export function gtag_report_conversion_form(value: number = 5000) {
+  pushToDataLayer({
+    event: 'conversion',
+    conversion_type: 'form_submit',
+    conversion_id: GA_TRACKING_ID,
+    conversion_label: conversionIds.form_submit,
+    send_to: `${GA_TRACKING_ID}/${conversionIds.form_submit}`,
+    event_category: 'engagement',
+    event_label: 'form_submission',
+    value: value,
+    currency: 'CLP',
+  })
   
   return false
 }
@@ -65,19 +107,23 @@ export function gtag_report_conversion_whatsapp(url?: string) {
  * Esta conversión tiene valor dinámico
  */
 export function gtag_report_conversion_call_click(url?: string) {
-  const callback = function () {
-    if (typeof url !== 'undefined') {
+  pushToDataLayer({
+    event: 'conversion',
+    conversion_type: 'call_click_ads',
+    conversion_id: GA_TRACKING_ID,
+    conversion_label: 'pFxkCT_rzLMbEXvcOmpQ_',
+    send_to: `${GA_TRACKING_ID}/pFxkCT_rzLMbEXvcOmpQ_`,
+    event_category: 'engagement',
+    event_label: 'phone_call_click',
+    value: 1.0,
+    currency: 'CLP',
+  })
+
+  // Callback para redirección
+  if (url) {
+    setTimeout(() => {
       window.location.href = url
-    }
-  }
-  
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'conversion', {
-      send_to: 'AW-16953811243/pFxkCT_rzLMbEXvcOmpQ_',
-      value: 1.0,
-      currency: 'CLP',
-      event_callback: callback,
-    })
+    }, 300)
   }
   
   return false
@@ -102,19 +148,20 @@ export const trackConversion = (
     return
   }
 
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('event', 'conversion', {
-      send_to: `${GA_TRACKING_ID}/${conversionLabel}`,
-      value: value || 1.0,
-      currency: 'CLP',
-      event_callback: callback,
-    })
-    console.log(`Conversión registrada: ${event}`, {
-      send_to: `${GA_TRACKING_ID}/${conversionLabel}`,
-    })
-  } else {
-    console.warn('Google Ads gtag no está disponible')
-    if (callback) callback()
+  pushToDataLayer({
+    event: 'conversion',
+    conversion_type: event,
+    conversion_id: GA_TRACKING_ID,
+    conversion_label: conversionLabel,
+    send_to: `${GA_TRACKING_ID}/${conversionLabel}`,
+    event_category: 'engagement',
+    event_label: event,
+    value: value || 1.0,
+    currency: 'CLP',
+  })
+
+  if (callback) {
+    setTimeout(callback, 300)
   }
 }
 
@@ -122,9 +169,10 @@ export const trackConversion = (
  * Log de pageview (opcional)
  */
 export const pageview = (url: string) => {
-  if (typeof window !== 'undefined' && window.gtag) {
-    window.gtag('config', GA_TRACKING_ID, {
-      page_path: url,
-    })
-  }
+  pushToDataLayer({
+    event: 'page_view',
+    page_path: url,
+    page_location: window.location.href,
+    page_title: document.title,
+  })
 }

@@ -9,7 +9,7 @@ import clsx from 'clsx'
 import ReCAPTCHA from 'react-google-recaptcha'
 import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
-import { trackConversion } from '../lib/gtag'
+import { gtag_report_conversion_form } from '../lib/gtag'
 
 const montserrat = {
   fontFamily: `'Montserrat', sans-serif`,
@@ -120,8 +120,8 @@ export default function ContactForm() {
 
       if (!res.ok) throw new Error('Error al enviar correo')
 
-      // Registrar conversión en Google Ads
-      trackConversion('form_submit', 5000)
+      // Registrar conversión en Google Ads via GTM
+      gtag_report_conversion_form(5000)
 
       setConfirmacion('¡Cotización solicitada con éxito!')
       setSuccess(true)
