@@ -1,13 +1,12 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef, Suspense } from 'react'
-import { usePathname, useSearchParams } from 'next/navigation'
+import { useEffect, useState, useCallback, useRef } from 'react'
+import { usePathname } from 'next/navigation'
 import { logEvent } from 'firebase/analytics'
 import { analytics } from '../lib/firebase'
 
-function AnalyticsEventsContent() {
+export default function AnalyticsEvents() {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [scrollLogged, setScrollLogged] = useState({
     '25': false,
     '50': false,
@@ -40,16 +39,19 @@ function AnalyticsEventsContent() {
     pushToDataLayer(eventName, eventData)
   }, [pushToDataLayer])
 
-  // 1. Session start (una sola vez)
+  // 1. Session start (una sola vez) - Obtenemos UTM params del window.location
   useEffect(() => {
-    if (!sessionStartRef.current && analytics) {
+    if (!sessionStartRef.current && analytics && typeof window !== 'undefined') {
       sessionStartRef.current = true
+      
+      // Obtener UTM params de la URL
+      const urlParams = new URLSearchParams(window.location.search)
       const utmParams = {
-        utm_source: searchParams.get('utm_source') || 'direct',
-        utm_medium: searchParams.get('utm_medium') || 'none',
-        utm_campaign: searchParams.get('utm_campaign') || 'none',
-        utm_content: searchParams.get('utm_content') || 'none',
-        utm_term: searchParams.get('utm_term') || 'none',
+        utm_source: urlParams.get('utm_source') || 'direct',
+        utm_medium: urlParams.get('utm_medium') || 'none',
+        utm_campaign: urlParams.get('utm_campaign') || 'none',
+        utm_content: urlParams.get('utm_content') || 'none',
+        utm_term: urlParams.get('utm_term') || 'none',
       }
 
       trackEvent('session_start', {
@@ -67,7 +69,7 @@ function AnalyticsEventsContent() {
         })
       }
     }
-  }, [searchParams, trackEvent])
+  }, [trackEvent])
 
   // 2. Page view con tiempo de carga
   useEffect(() => {
@@ -235,12 +237,4 @@ function AnalyticsEventsContent() {
   }, [pathname, trackEvent])
 
   return null
-}
-
-export default function AnalyticsEvents() {
-  return (
-    <Suspense fallback={null}>
-      <AnalyticsEventsContent />
-    </Suspense>
-  )
 }
