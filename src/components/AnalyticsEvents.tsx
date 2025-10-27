@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useState, useCallback, useRef } from 'react'
+import { useEffect, useState, useCallback, useRef, Suspense } from 'react'
 import { usePathname, useSearchParams } from 'next/navigation'
 import { logEvent } from 'firebase/analytics'
 import { analytics } from '../lib/firebase'
 
-export default function AnalyticsEvents() {
+function AnalyticsEventsContent() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
   const [scrollLogged, setScrollLogged] = useState({
@@ -235,4 +235,12 @@ export default function AnalyticsEvents() {
   }, [pathname, trackEvent])
 
   return null
+}
+
+export default function AnalyticsEvents() {
+  return (
+    <Suspense fallback={null}>
+      <AnalyticsEventsContent />
+    </Suspense>
+  )
 }
