@@ -4,7 +4,6 @@ import Link from 'next/link'
 import Image from 'next/image'
 import Breadcrumbs from '../../components/Breadcrumbs'
 import { FaWhatsapp } from 'react-icons/fa'
-import { gtag_report_conversion_whatsapp } from '../../lib/gtag'
 
 type Categoria = {
   nombre: string
@@ -97,7 +96,6 @@ export default function RepuestosPage() {
             href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20buscando%20un%20repuesto"
             target="_blank"
             rel="noopener noreferrer"
-            onClick={() => gtag_report_conversion_whatsapp()}
             className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
             aria-label="Abrir conversación de WhatsApp con PartsMR"
           >
