@@ -46,15 +46,20 @@ export default function Countries() {
   return (
     <section className={`bg-[#f9fafb] py-20 px-4 sm:px-8 md:px-16 ${montserrat.className}`}>
       <div className="max-w-7xl mx-auto text-center mb-12">
-        <div className="flex items-center justify-center mb-3">
-          <Globe2 className="text-[#FF8A00] w-6 h-6 mr-2" />
-          <h2 className="text-3xl sm:text-4xl font-bold text-gray-800">
-            Presencia en <span className="text-[#FF8A00]">Latinoamérica y USA</span>
-          </h2>
+        <div className="flex items-center justify-center gap-2 mb-3">
+          <Globe2 className="text-[#FF8A00] w-6 h-6" />
+          <p className="text-[#FF8A00] font-bold text-sm uppercase tracking-wide">Cobertura Internacional</p>
         </div>
+        <h2 className="text-3xl sm:text-4xl font-bold text-gray-800 mb-4">
+          Presencia en <span className="text-[#FF8A00]">Latinoamérica y USA</span>
+        </h2>
         <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto">
           Entregamos repuestos en múltiples países de forma rápida, segura y con cobertura especializada.
         </p>
+        <div className="mt-4 inline-flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-4 py-2">
+          <div className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></div>
+          <span className="text-sm font-medium text-gray-700">{paises.length} países cubiertos</span>
+        </div>
       </div>
 
       <Swiper

@@ -1,19 +1,19 @@
 'use client'
 
 import { useForm } from 'react-hook-form'
-import { useRef, useState, Fragment } from 'react'
-import { Truck, Car, PackageCheck, CircleEllipsis, Check } from 'lucide-react'
-import { Listbox, Transition } from '@headlessui/react'
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
-import clsx from 'clsx'
-import ReCAPTCHA from 'react-google-recaptcha'
+import { useRef, useState } from 'react'
+import { Truck, Car, PackageCheck, CircleEllipsis, Check, Zap, Mail } from 'lucide-react'
+import * as Select from '@radix-ui/react-select'
+import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
 import { db } from '../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { trackConversion } from '../lib/gtag'
+import { Montserrat } from 'next/font/google'
 
-const montserrat = {
-  fontFamily: `'Montserrat', sans-serif`,
-}
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
 const paises = [
   { nombre: 'Chile', codigo: '+56', placeholder: '9 1234 5678', length: 9 },
@@ -40,7 +40,7 @@ export default function ContactForm() {
   const [telefono, setTelefono] = useState('')
   const [enviado, setEnviado] = useState(false)
   const [confirmacion, setConfirmacion] = useState('')
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null)
+  const [honeypot, setHoneypot] = useState('') // Honeypot field
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const tipoRepuestoRef = useRef<HTMLInputElement | null>(null)
@@ -73,6 +73,12 @@ export default function ContactForm() {
   }
 
   const onSubmit = async (data: any) => {
+    // Honeypot check - if filled, it's a bot
+    if (honeypot) {
+      console.log('Bot detected via honeypot')
+      return // Silently reject
+    }
+
     if (!pais) {
       alert('Selecciona un país antes de continuar.')
       return
@@ -81,11 +87,6 @@ export default function ContactForm() {
     const raw = telefono.replace(/\D/g, '')
     if (raw.length !== pais.length) {
       alert(`El número debe tener ${pais.length} dígitos para ${pais.nombre}.`)
-      return
-    }
-
-    if (!captchaToken) {
-      alert('Por favor completa el captcha antes de enviar.')
       return
     }
 
@@ -105,7 +106,7 @@ export default function ContactForm() {
       ...cleanedData,
       telefono: `${pais.codigo} ${telefono}`,
       pais: pais.nombre,
-      captchaToken,
+      website: honeypot, // Include honeypot field for backend validation
       timestamp: serverTimestamp(),
     }
 
@@ -129,7 +130,7 @@ export default function ContactForm() {
       reset()
       setTelefono('')
       setPais(null)
-      setCaptchaToken(null)
+      setHoneypot('') // Reset honeypot
 
       setTimeout(() => {
         setLoading(false)
@@ -149,11 +150,14 @@ export default function ContactForm() {
     'w-full p-3 rounded-md bg-white text-black placeholder-gray-500 border border-zinc-300 focus:outline-none focus:ring-2 focus:ring-orange-500 transition'
 
   return (
-  <section id="contacto" className="bg-[#f9fafb] text-gray-900 py-16 px-4" style={montserrat}>
-    <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-12">
+  <section id="contacto" className={`${montserrat.className} bg-white text-gray-900 py-16 px-4`}>
+    <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10">
       {/* Lado izquierdo */}
       <div className="space-y-6">
-        <p className="text-orange-500 text-sm font-semibold">Estamos Aquí para Ayudar</p>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+          <p className="text-orange-500 text-sm font-semibold">Equipo disponible ahora</p>
+        </div>
         <h2 className="text-4xl font-bold text-[#0f172a]">¿Buscas un repuesto?</h2>
         <p className="text-lg text-gray-700">
           Completa el formulario y nos pondremos en contacto contigo a la brevedad. Trabajamos con repuestos para:
@@ -173,13 +177,29 @@ export default function ContactForm() {
             <li>✓ Asesoría técnica según tu equipo</li>
           </ul>
         </div>
+        
+        {/* Trust indicators */}
+        <div className="bg-orange-50 border-l-4 border-orange-500 p-4 rounded">
+          <p className="text-sm text-gray-700">
+            <span className="font-semibold text-orange-600">🔒 Información segura:</span> Tus datos están protegidos y solo serán usados para cotizaciones.
+          </p>
+        </div>
       </div>
 
       {/* Formulario */}
-      <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-xl shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white p-8 rounded-xl shadow-xl grid grid-cols-1 sm:grid-cols-2 gap-4 border-2 border-orange-100">
+        {/* Badge de urgencia */}
+        <div className="sm:col-span-2 -mt-4 -mx-4 mb-2 bg-gradient-to-r from-orange-500 to-orange-600 text-white px-4 py-2 rounded-t-xl text-center">
+          <p className="text-sm font-medium flex items-center justify-center gap-2">
+            <Zap className="w-4 h-4" />
+            Respuesta garantizada en menos de 24 horas
+          </p>
+        </div>
         {/* Tipo de carrocería */}
         <div className="sm:col-span-2">
-          <label className="block text-sm font-medium mb-1 text-[#0f172a]">¿Para qué tipo de carrocería necesitas?</label>
+          <label className="block text-sm font-medium mb-1 text-[#0f172a]">
+            ¿Para qué tipo de carrocería necesitas? <span className="text-red-500">*</span>
+          </label>
           <div className="flex gap-3 flex-wrap">
             {[
               { value: 'auto', label: 'Auto', icon: <Car className="w-4 h-4" /> },
@@ -190,12 +210,11 @@ export default function ContactForm() {
                 key={tipo.value}
                 type="button"
                 onClick={() => setValue('tipo', tipo.value, { shouldValidate: true })}
-                className={clsx(
-                  'flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition',
+                className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition ${
                   tipoSeleccionado === tipo.value
                     ? 'bg-orange-500 text-white border-orange-500'
                     : 'bg-white text-zinc-700 border-zinc-300 hover:border-orange-400'
-                )}
+                }`}
               >
                 {tipo.icon}
                 {tipo.label}
@@ -203,7 +222,7 @@ export default function ContactForm() {
             ))}
           </div>
           {errors.tipo && (
-            <p className="text-red-500 text-sm mt-2">Este campo es obligatorio.</p>
+            <p className="text-red-500 text-sm mt-2 font-medium">⚠️ Selecciona un tipo de carrocería para continuar</p>
           )}
           <input type="hidden" {...register('tipo', { required: true })} />
         </div>
@@ -224,36 +243,40 @@ export default function ContactForm() {
         {/* País y teléfono */}
         <div className="sm:col-span-2">
           <label className="text-sm font-medium mb-1 text-[#0f172a]">País</label>
-          <Listbox value={pais} onChange={(val) => { setPais(val); setTelefono('') }}>
-            <div className="relative">
-              <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm">
-                <span className="block truncate">{pais?.nombre || 'Selecciona tu país'}</span>
-                <span className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                  <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
-                </span>
-              </Listbox.Button>
-              <Transition as={Fragment} leave="transition ease-in duration-100" leaveFrom="opacity-100" leaveTo="opacity-0">
-                <Listbox.Options className="absolute z-10 mt-1 max-h-60 w-full overflow-auto rounded-lg bg-white py-1 text-base shadow-lg ring-1 ring-black/5">
+          <Select.Root 
+            value={pais?.nombre} 
+            onValueChange={(val) => {
+              const selectedPais = paises.find(p => p.nombre === val)
+              setPais(selectedPais || null)
+              setTelefono('')
+            }}
+          >
+            <Select.Trigger className="relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:border-transparent">
+              <Select.Value placeholder="Selecciona tu país" />
+              <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
+              </Select.Icon>
+            </Select.Trigger>
+
+            <Select.Portal>
+              <Select.Content className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                <Select.Viewport className="p-1">
                   {paises.map((paisItem) => (
-                    <Listbox.Option key={paisItem.nombre} value={paisItem} className={({ active }) =>
-                      `relative cursor-pointer select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-100 text-indigo-900' : 'text-gray-900'}`
-                    }>
-                      {({ selected }) => (
-                        <>
-                          <span className={`block truncate ${selected ? 'font-medium' : 'font-normal'}`}>{paisItem.nombre}</span>
-                          {selected && (
-                            <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                              <CheckIcon className="h-5 w-5 text-indigo-600" />
-                            </span>
-                          )}
-                        </>
-                      )}
-                    </Listbox.Option>
+                    <Select.Item
+                      key={paisItem.nombre}
+                      value={paisItem.nombre}
+                      className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-900 cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 focus:text-indigo-900 outline-none"
+                    >
+                      <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
+                        <CheckIcon className="h-4 w-4 text-indigo-600" />
+                      </Select.ItemIndicator>
+                      <Select.ItemText>{paisItem.nombre}</Select.ItemText>
+                    </Select.Item>
                   ))}
-                </Listbox.Options>
-              </Transition>
-            </div>
-          </Listbox>
+                </Select.Viewport>
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
         </div>
 
         {pais && (
@@ -311,11 +334,15 @@ export default function ContactForm() {
             )}
           </div>
 
-          {/* Captcha aquí */}
-          <div className="mt-4 flex justify-center">
-            <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY as string}
-              onChange={(token) => setCaptchaToken(token)}
+          {/* Honeypot field - hidden from users, visible to bots */}
+          <div className="absolute left-[-9999px]" aria-hidden="true">
+            <input
+              type="text"
+              name="website"
+              value={honeypot}
+              onChange={(e) => setHoneypot(e.target.value)}
+              tabIndex={-1}
+              autoComplete="off"
             />
           </div>
         </div>
@@ -324,20 +351,42 @@ export default function ContactForm() {
         <div className="sm:col-span-2">
           <button
             type="submit"
-            disabled={mensaje.length < 20 || !captchaToken || loading}
-            className={clsx(
-              'w-full font-semibold py-3 px-6 rounded-md flex items-center justify-center transition',
-              mensaje.length < 20 || !captchaToken || loading
+            disabled={mensaje.length < 20 || loading}
+            className={`w-full font-semibold py-4 px-6 rounded-md flex items-center justify-center transition shadow-lg ${
+              mensaje.length < 20 || loading
                 ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                 : success
                 ? 'bg-green-500 text-white'
-                : 'bg-orange-500 hover:bg-orange-600 text-white'
-            )}
+                : 'bg-orange-500 hover:bg-orange-600 text-white transform hover:scale-[1.02]'
+            }`}
           >
-            {loading ? 'Enviando...' : success ? '¡Enviado con éxito!' : 'Contáctanos'}
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                Enviando...
+              </span>
+            ) : success ? (
+              <span className="flex items-center gap-2">
+                <Check className="w-5 h-5" />
+                ¡Enviado con éxito!
+              </span>
+            ) : (
+              <span className="flex items-center gap-2">
+                <Mail className="w-5 h-5" />
+                Obtener Cotización Gratis
+              </span>
+            )}
           </button>
+          
           {enviado && (
             <p className="text-sm text-green-600 mt-2 font-medium text-center">{confirmacion}</p>
+          )}
+          
+          {!enviado && (
+            <p className="text-xs text-gray-500 mt-3 text-center">
+              <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></span>
+              23 personas solicitaron cotización esta semana
+            </p>
           )}
         </div>
       </form>

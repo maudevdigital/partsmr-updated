@@ -1,14 +1,17 @@
 'use client'
 
+import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import { Truck, Car, Wrench } from 'lucide-react'
+import { Truck, Car, Wrench, Package } from 'lucide-react'
+import { Montserrat } from 'next/font/google'
 
-const montserrat = {
-  fontFamily: `'Montserrat', sans-serif`,
-}
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+})
 
-const products = [
+const productos = [
   {
     title: 'Neumáticos Especializados',
     description: 'Neumáticos de alta calidad, diseñados para rendimiento óptimo en diversas condiciones.',
@@ -37,32 +40,37 @@ const products = [
 ]
 
 const etiquetas = [
-  { label: 'autos', icon: <Car className="w-4 h-4 mr-1" /> },
-  { label: 'maquinaria', icon: <Wrench className="w-4 h-4 mr-1" /> },
-  { label: 'camiones', icon: <Truck className="w-4 h-4 mr-1" /> },
+  { label: 'Autos', icon: <Car className="w-4 h-4 mr-1" /> },
+  { label: 'Maquinaria', icon: <Wrench className="w-4 h-4 mr-1" /> },
+  { label: 'Camiones', icon: <Truck className="w-4 h-4 mr-1" /> },
 ]
 
 export default function ProductGrid() {
   return (
-    <section className="bg-white py-20 px-4 sm:px-8 md:px-16 text-[#111827]" style={montserrat}>
+    <section className={`${montserrat.className} bg-white py-20 px-4 sm:px-8 md:px-16 text-[#111827]`}>
       <div className="max-w-7xl mx-auto">
-        <p className="text-center text-sm font-semibold text-[#FF8A00] mb-2 uppercase tracking-wide">
-          Listos para Envío
-        </p>
-        <h2 className="text-3xl sm:text-4xl font-extrabold text-center mb-12 leading-snug">
-          Miles de Repuestos en un solo <br className="sm:hidden" />
-          lugar
+        <div className="flex items-center justify-center gap-2 mb-2">
+          <Package className="w-5 h-5 text-[#FF8A00]" />
+          <p className="text-center text-sm font-bold text-[#FF8A00] uppercase tracking-wide">
+            Listos para Envío
+          </p>
+        </div>
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 leading-snug">
+          Miles de Repuestos en un solo lugar
         </h2>
+        <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto text-center mb-12">
+          Encuentra todo lo que necesitas para tus vehículos y maquinaria
+        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-          {products.map((prod, i) => (
+          {productos.map((prod, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.4, ease: 'easeOut', delay: i * 0.1 }}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-orange-200"
             >
               <div className="relative w-full h-52">
                 <Image
@@ -74,19 +82,19 @@ export default function ProductGrid() {
                 />
               </div>
 
-              <div className="px-5 py-4 bg-gray-50">
-                <h3 className="text-lg font-semibold text-[#1f2937] mb-1">{prod.title}</h3>
-                <p className="text-sm text-gray-600">{prod.description}</p>
+              <div className="px-5 py-4 bg-gray-50 border-t border-gray-100">
+                <h3 className="text-lg font-semibold text-[#1f2937] mb-2">{prod.title}</h3>
+                <p className="text-sm text-gray-600 leading-relaxed">{prod.description}</p>
               </div>
 
               <div className="px-5 py-4 bg-white flex flex-wrap gap-2">
                 {etiquetas.map((etiqueta, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center text-sm px-3 py-1.5 rounded-full border border-gray-300 text-gray-700 bg-gray-100 hover:bg-gray-200 transition-all duration-200"
+                    className="flex items-center text-xs px-3 py-1.5 rounded-full border border-orange-200 text-gray-700 bg-orange-50 hover:bg-orange-100 transition-all duration-200"
                   >
-                    {etiqueta.icon}
-                    <span className="capitalize">Repuestos para {etiqueta.label}</span>
+                    <span className="text-[#FF8A00]">{etiqueta.icon}</span>
+                    <span className="capitalize font-medium">{etiqueta.label}</span>
                   </div>
                 ))}
               </div>

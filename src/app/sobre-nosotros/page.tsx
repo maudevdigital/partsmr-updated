@@ -22,7 +22,7 @@ export default function SobreNosotrosPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-20">
         {/* Título principal */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
             Sobre <span className="text-orange-500">PartsMR</span>
           </h1>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl mx-auto">

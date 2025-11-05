@@ -5,33 +5,15 @@ import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
-  const recaptchaToken = data.captchaToken
-  const recaptchaSecret = process.env.RECAPTCHA_SECRET_KEY
 
-  if (!recaptchaToken || !recaptchaSecret) {
-    return NextResponse.json({ ok: false, error: 'Falta token de reCAPTCHA' }, { status: 400 })
+  // Honeypot validation - if 'website' field is filled, it's a bot
+  if (data.website) {
+    console.log('Bot detected via honeypot field')
+    // Return success to not alert the bot
+    return NextResponse.json({ ok: true })
   }
 
-  // Verificación reCAPTCHA
-  try {
-    const verifyRes = await fetch('https://www.google.com/recaptcha/api/siteverify', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: `secret=${recaptchaSecret}&response=${recaptchaToken}`,
-    })
-
-    const verification = await verifyRes.json()
-
-    if (!verification.success) {
-      return NextResponse.json(
-        { ok: false, error: 'reCAPTCHA no válido', details: verification },
-        { status: 403 }
-      )
-    }
-  } catch (error) {
-    console.error('Error al verificar reCAPTCHA:', error)
-    return NextResponse.json({ ok: false, error: 'Error al validar reCAPTCHA' }, { status: 500 })
-  }
+  // Basic rate limiting could be added here (check IP, timestamp, etc.)
 
   // Formateo de fecha/hora
   const now = new Date()
@@ -87,12 +69,12 @@ export async function POST(req: NextRequest) {
     // Enviar correo
     await transporter.sendMail(mailOptions)
 
-    // Eliminar captchaToken antes de guardar
-    const { captchaToken, ...dataSinToken } = data
+    // Eliminar campos internos antes de guardar
+    const { website, ...cleanData } = data
 
     // Guardar en Firestore
     await addDoc(collection(db, 'cotizaciones'), {
-      ...dataSinToken,
+      ...cleanData,
       fechaHora,
       timestamp: serverTimestamp(),
     })
@@ -100,6 +82,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ ok: true })
   } catch (error: any) {
     console.error('Error al enviar el correo o guardar en Firestore:', error)
-    return NextResponse.json({ ok: false, error: error.message || 'Error interno' }, { status: 500 })
+    return NextResponse.json({ ok: false, error: 'Error al enviar correo' }, { status: 500 })
   }
 }

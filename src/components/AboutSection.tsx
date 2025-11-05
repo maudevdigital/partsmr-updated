@@ -2,6 +2,7 @@
 
 import { Montserrat } from 'next/font/google'
 import { useState } from 'react'
+import { CheckCircle, Award, TrendingUp } from 'lucide-react'
 
 // ✅ Importamos y configuramos Montserrat localmente
 const montserrat = Montserrat({
@@ -11,12 +12,15 @@ const montserrat = Montserrat({
 
 export default function AboutSection() {
   return (
-    <section className={`${montserrat.className} bg-[#f9fafb] py-16 px-4 sm:px-8 md:px-16 text-[#171717] overflow-x-hidden`}>
+    <section className={`${montserrat.className} bg-white py-16 px-4 sm:px-8 md:px-16 text-[#171717] overflow-x-hidden`}>
       <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
         {/* Texto */}
         <div>
-          <p className="text-[#FF8A00] font-bold mb-2">Sobre Nosotros</p>
-          <h2 className="text-3xl sm:text-4xl font-extrabold leading-tight mb-4">
+          <div className="flex items-center gap-2 mb-2">
+            <Award className="w-5 h-5 text-[#FF8A00]" />
+            <p className="text-[#FF8A00] font-bold">Sobre Nosotros</p>
+          </div>
+          <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
             Variedad de soluciones y servicio <span className="text-[#FF8A00]">de Excelencia</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-700 mb-6">
@@ -24,16 +28,26 @@ export default function AboutSection() {
             nos compromete a brindar un servicio efectivo, serio y garantizado 100% online.
           </p>
 
-          <h3 className="text-2xl font-bold mb-3">Nuestra Diferencia</h3>
-          <p className="text-base sm:text-lg text-gray-700 mb-6">
-            Nos destacamos por ofrecer los mejores precios del mercado y acceso a todo tipo de repuestos y
-            componentes multimarca. En PartsMR, usted encontrará la solución perfecta para optimizar el
-            rendimiento de su maquinaria y vehículos.
-          </p>
+          <div className="flex items-start gap-3 mb-4">
+            <TrendingUp className="w-6 h-6 text-[#FF8A00] flex-shrink-0 mt-1" />
+            <div>
+              <h3 className="text-xl font-semibold mb-2">Nuestra Diferencia</h3>
+              <p className="text-base sm:text-lg text-gray-700">
+                Nos destacamos por ofrecer los mejores precios del mercado y acceso a todo tipo de repuestos y
+                componentes multimarca. En PartsMR, usted encontrará la solución perfecta para optimizar el
+                rendimiento de su maquinaria y vehículos.
+              </p>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 mb-6 text-sm text-gray-600">
+            <CheckCircle className="w-5 h-5 text-green-600" />
+            <span className="font-medium">Servicio 100% online garantizado</span>
+          </div>
 
           <a
             href="/sobre-nosotros"
-            className="inline-block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition"
+            className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition shadow-md hover:shadow-lg"
           >
             Conócenos
           </a>

@@ -2,7 +2,7 @@
 
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { Mail, PhoneCall, MapPin, Clock, Star } from 'lucide-react'
+import { Mail, PhoneCall, MapPin, Clock, Star, CheckCircle } from 'lucide-react'
 import clsx from 'clsx'
 import { db } from '../../lib/firebase'
 import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
@@ -55,7 +55,7 @@ export default function ContactoPage() {
       {/* Sección de contacto */}
       <section className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-16">
         <div className="text-center mb-14">
-          <h1 className="text-4xl sm:text-5xl font-extrabold mb-4 leading-tight">
+          <h1 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
             Contáctanos
           </h1>
           <p className="text-lg text-gray-700 max-w-2xl mx-auto">
@@ -135,95 +135,141 @@ export default function ContactoPage() {
       {/* Sección de reseñas */}
       <section className="bg-white border-t border-zinc-200 py-20 px-4 sm:px-8 md:px-16">
         <div className="max-w-3xl mx-auto bg-[#f9fafb] rounded-xl shadow-md border border-zinc-100 p-8 sm:p-12">
-          <h2 className="text-3xl font-extrabold text-center mb-2">
-            Déjanos tu opinión
-          </h2>
-          <p className="text-center text-gray-600 mb-6">
-            Valoramos tu experiencia con PartsMR. Comparte tus comentarios para ayudarnos a mejorar.
-          </p>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl font-bold mb-2">
+              Déjanos tu opinión
+            </h2>
+            <p className="text-gray-600 mb-4">
+              Valoramos tu experiencia con PartsMR. Comparte tus comentarios para ayudarnos a mejorar.
+            </p>
+            <div className="inline-flex items-center gap-2 bg-orange-50 text-orange-700 px-4 py-2 rounded-full text-sm">
+              <Star className="w-4 h-4 fill-orange-500 text-orange-500" />
+              <span className="font-medium">Tu opinión nos ayuda a crecer</span>
+            </div>
+          </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
             <div className="grid sm:grid-cols-2 gap-4">
-              <input
-                {...register('nombre', { required: 'El nombre es obligatorio' })}
-                type="text"
-                placeholder="Tu nombre"
-                className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
-              <input
-                {...register('correo', {
-                  required: 'El correo es obligatorio',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Correo inválido',
-                  },
-                })}
-                type="email"
-                placeholder="Tu correo"
-                className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Nombre <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register('nombre', { required: 'El nombre es obligatorio' })}
+                  type="text"
+                  placeholder="Tu nombre"
+                  className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                />
+                {errors.nombre && (
+                  <p className="text-xs text-red-500 mt-1">{String(errors.nombre.message)}</p>
+                )}
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Correo electrónico <span className="text-red-500">*</span>
+                </label>
+                <input
+                  {...register('correo', {
+                    required: 'El correo es obligatorio',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Correo inválido',
+                    },
+                  })}
+                  type="email"
+                  placeholder="tu@email.com"
+                  className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 transition"
+                />
+                {errors.correo && (
+                  <p className="text-xs text-red-500 mt-1">{String(errors.correo.message)}</p>
+                )}
+              </div>
             </div>
 
-            <div className="flex justify-center gap-2">
-              {[1, 2, 3, 4, 5].map((i) => (
-                <button
-                  type="button"
-                  key={i}
-                  onClick={() => setRating(i)}
-                  onMouseEnter={() => setHover(i)}
-                  onMouseLeave={() => setHover(0)}
-                  className="transition"
-                >
-                  <Star
-                    className={clsx(
-                      'w-6 h-6',
-                      (hover || rating) >= i ? 'text-orange-500 fill-orange-500' : 'text-gray-300'
-                    )}
-                    fill={(hover || rating) >= i ? '#f97316' : 'none'}
-                  />
-                </button>
-              ))}
+            <div className="bg-white rounded-lg p-6 border-2 border-dashed border-gray-300">
+              <label className="block text-sm font-medium text-gray-700 mb-3 text-center">
+                Calificación <span className="text-red-500">*</span>
+              </label>
+              <div className="flex justify-center gap-2">
+                {[1, 2, 3, 4, 5].map((i) => (
+                  <button
+                    type="button"
+                    key={i}
+                    onClick={() => setRating(i)}
+                    onMouseEnter={() => setHover(i)}
+                    onMouseLeave={() => setHover(0)}
+                    className="transition transform hover:scale-110"
+                  >
+                    <Star
+                      className={clsx(
+                        'w-8 h-8 transition-colors',
+                        (hover || rating) >= i ? 'text-orange-500 fill-orange-500' : 'text-gray-300'
+                      )}
+                      fill={(hover || rating) >= i ? '#f97316' : 'none'}
+                    />
+                  </button>
+                ))}
+              </div>
+              {rating > 0 && (
+                <p className="text-center text-sm text-gray-600 mt-2">
+                  {rating === 5 ? '¡Excelente! 🎉' : rating === 4 ? 'Muy bueno 👍' : rating === 3 ? 'Bueno 👌' : rating === 2 ? 'Regular 😐' : 'Necesitamos mejorar 😔'}
+                </p>
+              )}
+              {rating === 0 && (
+                <p className="text-sm text-red-500 text-center mt-2">
+                  Selecciona una calificación
+                </p>
+              )}
             </div>
-            {rating === 0 && (
-              <p className="text-sm text-red-500 text-center -mt-2">
-                Selecciona una calificación
-              </p>
-            )}
 
             <div>
+              <label className="block text-sm font-medium text-gray-700 mb-1">
+                Tu experiencia <span className="text-red-500">*</span>
+              </label>
               <textarea
                 {...register('comentario', {
                   required: 'Este campo es obligatorio',
                   minLength: { value: 20, message: 'Debe tener al menos 20 caracteres' },
                   maxLength: { value: maxCaracteres, message: `Máximo ${maxCaracteres} caracteres` },
                 })}
-                placeholder="Escribe tu experiencia..."
+                placeholder="Cuéntanos sobre tu experiencia con PartsMR..."
                 maxLength={maxCaracteres}
-                className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none"
+                rows={5}
+                className="w-full border border-gray-300 rounded-md px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-orange-400 resize-none transition"
               />
-              <div className="flex justify-between text-sm text-gray-500 mt-1">
-                <span>{mensaje.length} / {maxCaracteres} caracteres</span>
-                {errors.comentario?.message && (
-                  <span className="text-red-500">{String(errors.comentario.message)}</span>
-                )}
+              <div className="flex justify-between text-xs text-gray-500 mt-2">
+                <span className={clsx(mensaje.length < 20 ? 'text-red-500' : 'text-green-600')}>
+                  {mensaje.length < 20 ? `Mínimo ${20 - mensaje.length} caracteres más` : '✓ Longitud adecuada'}
+                </span>
+                <span>{mensaje.length} / {maxCaracteres}</span>
               </div>
+              {errors.comentario?.message && (
+                <p className="text-xs text-red-500 mt-1">{String(errors.comentario.message)}</p>
+              )}
             </div>
 
             <button
               type="submit"
               disabled={mensaje.length < 20 || rating === 0}
               className={clsx(
-                'w-auto mx-auto block bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-md transition',
-                mensaje.length < 20 || rating === 0 ? 'opacity-50 cursor-not-allowed' : ''
+                'w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 rounded-md transition shadow-lg flex items-center justify-center gap-2',
+                mensaje.length < 20 || rating === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02] transform'
               )}
             >
+              <Star className="w-5 h-5" />
               Enviar reseña
             </button>
 
             {enviado && (
-              <p className="text-sm text-green-600 mt-4 text-center font-medium">
-                ¡Gracias por tu reseña!
-              </p>
+              <div className="mt-6 bg-green-50 border-2 border-green-200 rounded-lg p-6 text-center animate-fade-in">
+                <div className="flex items-center justify-center gap-2 text-green-700 mb-2">
+                  <CheckCircle className="w-6 h-6" />
+                  <h3 className="text-lg font-bold">¡Reseña enviada con éxito!</h3>
+                </div>
+                <p className="text-green-600 text-sm">
+                  Tu opinión nos ayuda a mejorar nuestro servicio. Gracias por confiar en nosotros.
+                </p>
+              </div>
             )}
           </form>
         </div>
