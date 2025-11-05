@@ -2,6 +2,7 @@
 
 import Breadcrumbs from '../../../components/Breadcrumbs'
 import Link from 'next/link'
+import Image from 'next/image'
 import { FaWhatsapp } from 'react-icons/fa'
 import { gtag_report_conversion_whatsapp } from '../../../lib/gtag'
 
@@ -56,11 +57,15 @@ export default function MaquinariaPage() {
               key={i}
               className="bg-white border border-zinc-200 rounded-xl shadow-md hover:shadow-lg transition overflow-hidden"
             >
-              <img
-                src={item.imagen}
-                alt={item.nombre}
-                className="w-full h-70 object-cover"
-              />
+              <div className="relative w-full h-70">
+                <Image
+                  src={item.imagen}
+                  alt={item.nombre}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  className="object-cover"
+                />
+              </div>
               <div className="p-5">
                 <h3 className="text-xl font-semibold mb-1 text-[#0f172a]">
                   {item.nombre}

@@ -83,7 +83,7 @@ export default function Reviews() {
                 ))}
               </div>
               <p className="text-gray-700 leading-relaxed text-sm sm:text-base italic">
-                "{review.comentario}"
+                &ldquo;{review.comentario}&rdquo;
               </p>
               <div className="border-t pt-3">
                 <div className="text-sm font-bold text-[#0f172a]">
