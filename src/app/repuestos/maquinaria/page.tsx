@@ -89,16 +89,28 @@ export default function MaquinariaPage() {
               Contáctanos por WhatsApp y te ayudamos a encontrar la mejor solución para tu maquinaria.
             </p>
           </div>
-          <Link
-            href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20necesito%20cotizar%20repuestos%20para%20maquinaria%20pesada"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => gtag_report_conversion_whatsapp()}
-            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
-          >
-            <FaWhatsapp className="w-5 h-5" />
-            Cotizar por WhatsApp
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="https://wa.me/56928423774?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20necesito%20cotizar%20repuestos%20para%20maquinaria%20pesada.%20%C2%BFPodr%C3%ADan%20ayudarme%20con%20precios%3F%20Mi%20equipo%20es%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+            >
+              <FaWhatsapp className="w-4 h-4" />
+              CL
+            </Link>
+            <Link
+              href="https://wa.me/595992110955?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20necesito%20cotizar%20repuestos%20para%20maquinaria%20pesada.%20%C2%BFPodr%C3%ADan%20ayudarme%20con%20precios%3F%20Mi%20equipo%20es%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+            >
+              <FaWhatsapp className="w-4 h-4" />
+              PY
+            </Link>
+          </div>
         </div>
       </section>
     </main>

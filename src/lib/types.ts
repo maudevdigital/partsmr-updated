@@ -6,6 +6,8 @@ export interface SiteConfig {
   email: string;
   phone: string;
   whatsapp: string;
+  phoneParaguay: string;
+  whatsappParaguay: string;
 }
 
 // Tipos de navegación

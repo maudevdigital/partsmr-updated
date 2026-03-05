@@ -93,17 +93,30 @@ export default function RepuestosPage() {
             </p>
           </div>
 
-          <Link
-            href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20buscando%20un%20repuesto"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => gtag_report_conversion_whatsapp()}
-            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-600"
-            aria-label="Abrir conversación de WhatsApp con PartsMR"
-          >
-            <FaWhatsapp className="w-6 h-6" aria-hidden="true" />
-            Escríbenos por WhatsApp
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="https://wa.me/56928423774?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20estoy%20buscando%20un%20repuesto.%20%C2%BFPodr%C3%ADan%20ayudarme%20con%20disponibilidad%20y%20precios%3F%20Mi%20consulta%20es%20sobre%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+              aria-label="WhatsApp Chile"
+            >
+              <FaWhatsapp className="w-4 h-4" aria-hidden="true" />
+              CL
+            </Link>
+            <Link
+              href="https://wa.me/595992110955?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20estoy%20buscando%20un%20repuesto.%20%C2%BFPodr%C3%ADan%20ayudarme%20con%20disponibilidad%20y%20precios%3F%20Mi%20consulta%20es%20sobre%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+              aria-label="WhatsApp Paraguay"
+            >
+              <FaWhatsapp className="w-4 h-4" aria-hidden="true" />
+              PY
+            </Link>
+          </div>
         </div>
       </section>
     </main>

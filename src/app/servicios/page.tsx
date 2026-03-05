@@ -118,15 +118,28 @@ export default function ServiciosPage() {
             <p className="text-gray-700 text-sm">
               Contamos con un amplio stock de repuestos originales y alternativos certificados para autos, camiones y maquinaria pesada. Cotiza con nosotros y recibe asesoría técnica especializada.
             </p>
-            <Link
-              href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20necesito%20cotizar%20repuestos"
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => gtag_report_conversion_whatsapp()}
-              className="inline-block mt-4 text-sm font-medium text-green-600 hover:underline"
-            >
-              Cotizar por WhatsApp →
-            </Link>
+            <div className="flex flex-col gap-1.5 mt-4">
+              <Link
+                href="https://wa.me/56928423774?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20necesito%20cotizar%20repuestos.%20%C2%BFPodr%C3%ADan%20ayudarme%3F%20Busco%3A"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => gtag_report_conversion_whatsapp()}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-green-600 hover:text-green-700 transition"
+              >
+                <FaWhatsapp className="w-3.5 h-3.5" />
+                CL →
+              </Link>
+              <Link
+                href="https://wa.me/595992110955?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20necesito%20cotizar%20repuestos.%20%C2%BFPodr%C3%ADan%20ayudarme%3F%20Busco%3A"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => gtag_report_conversion_whatsapp()}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-green-600 hover:text-green-700 transition"
+              >
+                <FaWhatsapp className="w-3.5 h-3.5" />
+                PY →
+              </Link>
+            </div>
           </div>
         </div>
 
@@ -140,16 +153,28 @@ export default function ServiciosPage() {
               Escríbenos por WhatsApp y te orientaremos según tus requerimientos técnicos o contractuales.
             </p>
           </div>
-          <Link
-            href="https://wa.me/56928423774?text=Hola%20PartsMR%2C%20estoy%20interesado%20en%20los%20servicios%20de%20mantenimiento"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => gtag_report_conversion_whatsapp()}
-            className="flex items-center gap-3 bg-green-500 hover:bg-green-600 text-white font-semibold px-6 py-3 rounded-md transition shadow"
-          >
-            <FaWhatsapp className="w-6 h-6" />
-            Contactar por WhatsApp
-          </Link>
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Link
+              href="https://wa.me/56928423774?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20estoy%20interesado%20en%20los%20servicios%20de%20mantenimiento.%20%C2%BFPodr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n%3F%20El%20servicio%20que%20necesito%20es%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+            >
+              <FaWhatsapp className="w-4 h-4" />
+              CL
+            </Link>
+            <Link
+              href="https://wa.me/595992110955?text=Hola%20PartsMR%20%F0%9F%91%8B%2C%20estoy%20interesado%20en%20los%20servicios%20de%20mantenimiento.%20%C2%BFPodr%C3%ADan%20darme%20m%C3%A1s%20informaci%C3%B3n%3F%20El%20servicio%20que%20necesito%20es%3A"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => gtag_report_conversion_whatsapp()}
+              className="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold text-sm px-5 py-2.5 rounded-md transition shadow"
+            >
+              <FaWhatsapp className="w-4 h-4" />
+              PY
+            </Link>
+          </div>
         </div>
       </section>
 

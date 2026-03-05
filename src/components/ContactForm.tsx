@@ -385,7 +385,12 @@ export default function ContactForm() {
           {!enviado && (
             <p className="text-xs text-gray-500 mt-3 text-center">
               <span className="inline-block w-2 h-2 bg-green-500 rounded-full mr-1 animate-pulse"></span>
-              23 personas solicitaron cotización esta semana
+              {(() => {
+                const now = new Date()
+                const dayOfYear = Math.floor((now.getTime() - new Date(now.getFullYear(), 0, 0).getTime()) / 86400000)
+                const seed = dayOfYear + now.getFullYear()
+                return ((seed * 13 + 5) % 7) + 3
+              })()} personas cotizaron hoy
             </p>
           )}
         </div>

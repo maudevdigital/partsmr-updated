@@ -9,7 +9,7 @@ import ProductGrid from '../components/ProductGrid'
 import ServicesSection from '../components/ServicesSection'
 import PaymentOptions from '../components/PaymentOptions'
 import ContactForm from '../components/ContactForm'
-import WhatsappButton from '../components/WhatsappButton'
+
 import FAQSection from '../components/FAQSection'
 import Reviews from '../components/Reviews'
 import TechniciansShowcase from '../components/TechniciansShowcase'
@@ -53,8 +53,6 @@ export default function Home() {
       
       {/* 11. RESOLUCIÓN DE DUDAS - FAQ al final */}
       <FAQSection />
-      
-      <WhatsappButton />
     </>
   )
 }

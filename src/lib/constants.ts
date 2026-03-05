@@ -4,8 +4,10 @@ export const SITE_CONFIG = {
   description: 'Repuestos para autos, camiones y maquinaria',
   url: 'https://partsmr.com',
   email: 'contacto@partsmr.com',
-  phone: '+56 9 1234 5678',
-  whatsapp: '+56912345678'
+  phone: '+56 9 2842 3774',
+  whatsapp: '+56928423774',
+  phoneParaguay: '+595 992 110 955',
+  whatsappParaguay: '+595992110955'
 } as const;
 
 // Rutas de navegación
@@ -42,11 +44,11 @@ export const PRODUCT_CATEGORIES = {
 
 // Países soportados
 export const COUNTRIES = [
-  { code: 'CL', name: 'Chile', flag: '/flags/bandera-chile.png' },
-  { code: 'PE', name: 'Perú', flag: '/flags/bandera-peru.png' },
-  { code: 'BO', name: 'Bolivia', flag: '/flags/bandera-bolivia.png' },
-  { code: 'AR', name: 'Argentina', flag: '/flags/bandera-argentina.png' },
-  { code: 'PY', name: 'Paraguay', flag: '/flags/bandera-paraguay.png' }
+  { code: 'CL', name: 'Chile', flag: '/flags/bandera-chile.webp' },
+  { code: 'PE', name: 'Perú', flag: '/flags/bandera-peru.webp' },
+  { code: 'BO', name: 'Bolivia', flag: '/flags/bandera-bolivia.webp' },
+  { code: 'AR', name: 'Argentina', flag: '/flags/bandera-argentina.webp' },
+  { code: 'PY', name: 'Paraguay', flag: '/flags/bandera-paraguay.webp' }
 ] as const;
 
 // Métodos de pago

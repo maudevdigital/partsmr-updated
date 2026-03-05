@@ -3,6 +3,7 @@ import { Montserrat } from 'next/font/google'
 import './globals.css'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import WhatsappButton from '../components/WhatsappButton'
 import AnalyticsEvents from '../components/AnalyticsEvents'
 import Script from 'next/script'
 
@@ -77,6 +78,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         <AnalyticsEvents />
         <Header />
         <main>{children}</main>
+        <WhatsappButton />
         <Footer />
       </body>
     </html>

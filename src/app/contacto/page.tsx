@@ -69,8 +69,14 @@ export default function ContactoPage() {
             {[
               {
                 icon: <PhoneCall className="text-orange-500 w-6 h-6 mt-1" />,
-                title: 'Teléfono',
+                title: 'Teléfono CL',
                 content: '+56 9 2842 3774',
+                isPhone: true,
+              },
+              {
+                icon: <PhoneCall className="text-orange-500 w-6 h-6 mt-1" />,
+                title: 'Teléfono PY',
+                content: '+595 992 110 955',
                 isPhone: true,
               },
               {
