@@ -4,8 +4,8 @@ import { useForm } from 'react-hook-form'
 import { useRef, useState } from 'react'
 import { Truck, Car, PackageCheck, Check, Zap, Mail } from 'lucide-react'
 import IconExcavadora from './ui/IconExcavadora'
-import * as Select from '@radix-ui/react-select'
-import { ChevronUpDownIcon, CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
+import CampoModelo from './ui/CampoModelo'
+import CampoSelect from './ui/CampoSelect'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
 import Image from 'next/image'
@@ -63,6 +63,8 @@ export default function ContactForm() {
 
   const tipoSeleccionado = watch('tipo')
   const marcaSeleccionada = watch('marca')
+  const modeloValor = watch('modelo') || ''
+  register('modelo')
   const marcasDisponibles = marcasPorTipo(tipoSeleccionado)
   const modelosSugeridos = modelosPorMarca(marcaSeleccionada)
   const mensaje = watch('mensaje') || ''
@@ -285,76 +287,32 @@ export default function ContactForm() {
         {/* País y teléfono */}
         <div className="sm:col-span-2">
           <label className="text-sm font-medium mb-1 text-[#0f172a]">País</label>
-          <Select.Root 
-            value={pais?.nombre} 
-            onValueChange={(val) => {
-              const selectedPais = paises.find(p => p.nombre === val)
-              setPais(selectedPais || null)
+          <CampoSelect
+            valor={pais?.nombre}
+            etiquetaAria="País"
+            placeholder="Selecciona tu país"
+            opciones={paises.map((p) => ({
+              valor: p.nombre,
+              etiqueta: p.nombre,
+              visual: (
+                <Image
+                  src={p.bandera}
+                  alt=""
+                  width={22}
+                  height={16}
+                  className="rounded-sm shrink-0 object-cover"
+                />
+              ),
+              accesorio: (
+                <span className="text-xs text-gray-500 tabular-nums">{p.codigo}</span>
+              ),
+            }))}
+            onCambio={(val) => {
+              const elegido = paises.find((p) => p.nombre === val)
+              setPais(elegido || null)
               setTelefono('')
             }}
-          >
-            <Select.Trigger className="relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:border-transparent">
-              {/* Contenido propio en vez de Select.Value: asi el campo cerrado
-                  muestra la misma bandera y prefijo que la lista abierta. */}
-              <Select.Value placeholder="Selecciona tu país">
-                {pais && (
-                  <span className="flex items-center gap-2.5">
-                    <Image
-                      src={pais.bandera}
-                      alt=""
-                      width={22}
-                      height={16}
-                      className="rounded-sm shrink-0 object-cover"
-                    />
-                    <span>{pais.nombre}</span>
-                    <span className="text-xs text-gray-500 tabular-nums">{pais.codigo}</span>
-                  </span>
-                )}
-              </Select.Value>
-              <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
-              </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Portal>
-              <Select.Content
-                position="popper"
-                sideOffset={6}
-                className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50 w-[var(--radix-select-trigger-width)] max-h-[min(18rem,var(--radix-select-content-available-height))]"
-              >
-                <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
-                  <ChevronUpIcon className="h-4 w-4" />
-                </Select.ScrollUpButton>
-                <Select.Viewport className="p-1">
-                  {paises.map((paisItem) => (
-                    <Select.Item
-                      key={paisItem.nombre}
-                      value={paisItem.nombre}
-                      className="relative flex items-center gap-3 pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
-                    >
-                      <Select.ItemIndicator className="absolute left-2.5 inline-flex items-center">
-                        <CheckIcon className="h-4 w-4 text-[#c2410c]" />
-                      </Select.ItemIndicator>
-                      <Image
-                        src={paisItem.bandera}
-                        alt=""
-                        width={22}
-                        height={16}
-                        className="rounded-sm shrink-0 object-cover"
-                      />
-                      <Select.ItemText>{paisItem.nombre}</Select.ItemText>
-                      <span className="ml-auto text-xs text-gray-500 tabular-nums">
-                        {paisItem.codigo}
-                      </span>
-                    </Select.Item>
-                  ))}
-                </Select.Viewport>
-                <Select.ScrollDownButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
-                  <ChevronDownIcon className="h-4 w-4" />
-                </Select.ScrollDownButton>
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
+          />
         </div>
 
         {pais && (
@@ -378,81 +336,27 @@ export default function ContactForm() {
         {/* Vehículo */}
         <div className="sm:col-span-2">
           <label className="text-sm font-medium mb-1 text-[#0f172a]">Marca</label>
-          <Select.Root
-            value={marcaSeleccionada || undefined}
-            disabled={!tipoSeleccionado}
-            onValueChange={(val) => {
+          <CampoSelect
+            valor={marcaSeleccionada || undefined}
+            deshabilitado={!tipoSeleccionado}
+            etiquetaAria="Marca del vehículo"
+            placeholder={
+              tipoSeleccionado ? 'Selecciona la marca' : 'Primero elige el tipo de carrocería'
+            }
+            opciones={[
+              ...marcasDisponibles.map((m) => ({
+                valor: m,
+                etiqueta: m,
+                visual: <MarcaVisual tipo={tipoSeleccionado} marca={m} />,
+              })),
+              // Salida para marcas fuera del catalogo: no perdemos la cotizacion.
+              { valor: OTRA_MARCA, etiqueta: 'Otra marca…', atenuada: true },
+            ]}
+            onCambio={(val) => {
               setValue('marca', val, { shouldValidate: true })
               if (val !== OTRA_MARCA) setValue('marcaOtra', '')
             }}
-          >
-            <Select.Trigger
-              className={`relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:border-transparent ${
-                !tipoSeleccionado ? 'opacity-60 cursor-not-allowed' : ''
-              }`}
-            >
-              <Select.Value
-                placeholder={
-                  tipoSeleccionado
-                    ? 'Selecciona la marca'
-                    : 'Primero elige el tipo de carrocería'
-                }
-              >
-                {marcaSeleccionada && (
-                  <span className="flex items-center gap-2.5">
-                    {marcaSeleccionada !== OTRA_MARCA && (
-                      <MarcaVisual tipo={tipoSeleccionado} marca={marcaSeleccionada} />
-                    )}
-                    <span>
-                      {marcaSeleccionada === OTRA_MARCA ? 'Otra marca…' : marcaSeleccionada}
-                    </span>
-                  </span>
-                )}
-              </Select.Value>
-              <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
-              </Select.Icon>
-            </Select.Trigger>
-
-            <Select.Portal>
-              <Select.Content
-                position="popper"
-                sideOffset={6}
-                className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50 w-[var(--radix-select-trigger-width)] max-h-[min(18rem,var(--radix-select-content-available-height))]"
-              >
-                <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
-                  <ChevronUpIcon className="h-4 w-4" />
-                </Select.ScrollUpButton>
-                <Select.Viewport className="p-1">
-                  {marcasDisponibles.map((m) => (
-                    <Select.Item
-                      key={m}
-                      value={m}
-                      className="relative flex items-center gap-3 pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
-                    >
-                      <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                        <CheckIcon className="h-4 w-4 text-[#c2410c]" />
-                      </Select.ItemIndicator>
-                      <Select.ItemText>{m}</Select.ItemText>
-                    </Select.Item>
-                  ))}
-                  {/* Salida para marcas fuera del catalogo: no perdemos la cotizacion. */}
-                  <Select.Item
-                    value={OTRA_MARCA}
-                    className="relative flex items-center pl-9 pr-3 py-2.5 rounded-md text-sm text-gray-600 italic cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6]"
-                  >
-                    <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                      <CheckIcon className="h-4 w-4 text-[#c2410c]" />
-                    </Select.ItemIndicator>
-                    <Select.ItemText>Otra marca…</Select.ItemText>
-                  </Select.Item>
-                </Select.Viewport>
-                <Select.ScrollDownButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
-                  <ChevronDownIcon className="h-4 w-4" />
-                </Select.ScrollDownButton>
-              </Select.Content>
-            </Select.Portal>
-          </Select.Root>
+          />
           <input type="hidden" {...register('marca', { required: true })} />
           {errors.marca && (
             <p className="text-red-500 text-sm mt-2 font-medium">⚠️ Selecciona la marca</p>
@@ -468,28 +372,15 @@ export default function ContactForm() {
           />
         )}
 
-        <div>
-          <input
-            {...register('modelo')}
-            placeholder={
-              modelosSugeridos.length
-                ? `Modelo (opcional, ej: ${modelosSugeridos[0]})`
-                : 'Modelo (opcional)'
-            }
-            list={modelosSugeridos.length ? 'modelos-sugeridos' : undefined}
-            autoComplete="off"
-            className={inputStyle}
-          />
-          {/* Sugerencias, no lista cerrada: el campo sigue aceptando cualquier
-              modelo que el cliente escriba. */}
-          {modelosSugeridos.length > 0 && (
-            <datalist id="modelos-sugeridos">
-              {modelosSugeridos.map((m) => (
-                <option key={m} value={m} />
-              ))}
-            </datalist>
-          )}
-        </div>
+        {/* Antes usaba <datalist>, que el navegador dibuja con su propio
+            estilo y no admite CSS: se veia como un menu oscuro y cuadrado en
+            medio de un formulario claro y redondeado. */}
+        <CampoModelo
+          valor={modeloValor}
+          sugerencias={modelosSugeridos}
+          onCambio={(v) => setValue('modelo', v)}
+          className={inputStyle}
+        />
         <input
           {...register('chasis')}
           placeholder="N° de Chasis o Patente (opcional, agiliza tu cotización)"

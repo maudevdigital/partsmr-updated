@@ -61,34 +61,12 @@
 /* ============================================================
    Estabilidad de la barra de scroll
    ------------------------------------------------------------
-   Al abrir un desplegable, Radix bloquea el scroll de la pagina
-   y la barra del navegador desaparece. Como esa barra ocupaba
-   ancho, todo el contenido salta unos 15px al abrir y otros 15
-   al cerrar.
-
-   scrollbar-gutter: stable reserva ese espacio de forma
-   permanente, exista o no la barra, con lo que no hay nada que
-   recalcular al ocultarla.
-
-   Radix ademas compensa por su cuenta agregando margin-right al
-   body cuando bloquea el scroll. Con el espacio ya reservado esa
-   compensacion sobra y produce el salto en sentido contrario,
-   asi que se anula.
+   Reserva el ancho de la barra de forma permanente, exista o no.
+   Evita que la pagina se desplace lateralmente cuando algo la
+   oculta o cuando una vista es mas corta que la ventana.
    ============================================================ */
 html {
   scrollbar-gutter: stable;
-  /* Se declara tambien aqui para navegadores que aplican la reserva al
-     elemento que efectivamente scrollea. */
-  overflow-y: scroll;
-}
-
-body[data-scroll-locked] {
-  /* Solo se anula la compensacion de ancho. El bloqueo de scroll en si se
-     respeta: es intencional que la pagina no se mueva detras del menu.
-     react-remove-scroll usa margin o padding segun el caso, asi que se
-     neutralizan ambos. */
-  margin-right: 0 !important;
-  padding-right: 0 !important;
 }
 
 body {
