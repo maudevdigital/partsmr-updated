@@ -50,12 +50,20 @@ export default function ServiciosPage() {
       <section className="max-w-7xl mx-auto px-4 py-12">
         <Breadcrumbs />
 
-        <h1 className="text-4xl font-bold mb-4">Nuestros Servicios</h1>
-        <p className="text-lg text-gray-700 max-w-3xl mb-10">
-          Ofrecemos soluciones especializadas para extender la vida útil y el desempeño de tus equipos, cumpliendo con los más altos estándares técnicos y normativos del sector minero e industrial.
+        <h1 className="text-3xl sm:text-4xl font-bold mb-4 max-w-3xl leading-tight">
+          Servicio técnico para maquinaria en faena
+        </h1>
+        <p className="text-lg text-gray-700 max-w-3xl mb-3 leading-relaxed">
+          Además de importar repuestos, intervenimos el equipo. Trabajamos con operaciones
+          mineras y de construcción, donde una máquina detenida cuesta por hora y el proveedor
+          debe cumplir los estándares de la faena para poder entrar.
+        </p>
+        <p className="text-gray-600 max-w-3xl mb-10 leading-relaxed">
+          Evaluamos si conviene reparar el componente, hacer un semioverhaul o reemplazar la
+          pieza, y entregamos el costo de cada alternativa antes de intervenir.
         </p>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-16">
+        <div className="grid md:grid-cols-2 gap-6 mb-10">
           {SERVICIOS.map((serv, i) => (
             <div
               key={i}
@@ -70,8 +78,11 @@ export default function ServiciosPage() {
               <p className="text-gray-500 text-sm mt-3 leading-relaxed">{serv.detalle}</p>
             </div>
           ))}
+        </div>
 
-          {/* Tarjeta SYMX AI */}
+        {/* SYMX no es uno de los servicios tecnicos: iba dentro del mismo grid
+            y dejaba la ultima fila coja, ademas de mezclar dos cosas distintas. */}
+        <div className="mb-12">
           <div
             id="symx"
             onClick={() => setShowModal(true)}
