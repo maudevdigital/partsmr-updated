@@ -32,15 +32,23 @@ const paises = [
 function MarcaVisual({ tipo, marca }: { tipo?: string; marca: string }) {
   const logo = logoDeMarca(tipo, marca)
   if (logo) {
+    // Los vectoriales van con <img>: next/image bloquea SVG salvo que se active
+    // dangerouslyAllowSVG, y un SVG de 4KB no gana nada con optimizarse.
+    const esVector = logo.endsWith('.svg')
     return (
       <span className="w-6 h-5 shrink-0 flex items-center justify-center">
-        <Image
-          src={logo}
-          alt=""
-          width={24}
-          height={20}
-          className="max-w-full max-h-full object-contain"
-        />
+        {esVector ? (
+          // eslint-disable-next-line @next/next/no-img-element
+          <img src={logo} alt="" width={20} height={20} className="max-w-full max-h-full object-contain" />
+        ) : (
+          <Image
+            src={logo}
+            alt=""
+            width={24}
+            height={20}
+            className="max-w-full max-h-full object-contain"
+          />
+        )}
       </span>
     )
   }

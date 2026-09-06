@@ -94,8 +94,54 @@ const CARPETA: Record<TipoVehiculo, string> = {
   maquinaria: 'machinery',
 }
 
+// Logos vectoriales de Simple Icons (licencia CC0), en el color oficial de
+// cada marca. Cubren marcas que no tenian logo propio. Al ser SVG se ven
+// nitidos en cualquier tamaño y las veinte juntas pesan 90KB.
+// No dependen del tipo de vehiculo: Hyundai o Volvo aparecen en mas de una
+// vertical y comparten el mismo logo.
+const VECTORES: Record<string, string> = {
+  Toyota: 'toyota',
+  Nissan: 'nissan',
+  Hyundai: 'hyundai',
+  Kia: 'kia',
+  Mazda: 'mazda',
+  Honda: 'honda',
+  Suzuki: 'suzuki',
+  Peugeot: 'peugeot',
+  Renault: 'renault',
+  Subaru: 'subaru',
+  Jeep: 'jeep',
+  Mitsubishi: 'mitsubishi',
+  'Citroën': 'citroen',
+  MG: 'mg',
+  RAM: 'ram',
+  DAF: 'daf',
+  Iveco: 'iveco',
+  Scania: 'scania',
+  MAN: 'man',
+  Hitachi: 'hitachi',
+  // Estas ya tienen logo propio en alguna vertical, pero no en todas: Chevrolet
+  // y Ford, por ejemplo, tenian version de auto y no de camion. El vectorial
+  // cubre el hueco sin duplicar archivos por carpeta.
+  Chevrolet: 'chevrolet',
+  Ford: 'ford',
+  Volvo: 'volvo',
+  Caterpillar: 'caterpillar',
+  JCB: 'jcb',
+  'John Deere': 'johndeere',
+  Audi: 'audi',
+  BMW: 'bmw',
+  Porsche: 'porsche',
+  Volkswagen: 'volkswagen',
+}
+
 export function logoDeMarca(tipo: string | undefined, marca: string): string | null {
-  if (!tipo || !(tipo in LOGOS)) return null
-  const archivo = LOGOS[tipo as TipoVehiculo][marca]
-  return archivo ? `/brand/${CARPETA[tipo as TipoVehiculo]}/${archivo}.webp` : null
+  // Primero el logo propio de la vertical, que ya estaba en el proyecto.
+  if (tipo && tipo in LOGOS) {
+    const archivo = LOGOS[tipo as TipoVehiculo][marca]
+    if (archivo) return `/brand/${CARPETA[tipo as TipoVehiculo]}/${archivo}.webp`
+  }
+  // Si no lo hay, el vectorial.
+  const vector = VECTORES[marca]
+  return vector ? `/brand/vector/${vector}.svg` : null
 }
