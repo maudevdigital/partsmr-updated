@@ -8,29 +8,8 @@ import { X } from 'lucide-react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation'
 import { gtag_report_conversion_whatsapp } from '../../lib/gtag'
+import { SERVICIOS } from '../../data/servicios'
 
-const servicios = [
-  {
-    titulo: 'Reparación de componentes',
-    descripcion:
-      'Diagnóstico, mantenimiento y reconstrucción de componentes mecánicos e hidráulicos. Extendemos la vida útil de tu maquinaria con repuestos originales o equivalentes certificados.',
-  },
-  {
-    titulo: 'Overhaul y semioverhaul de equipos',
-    descripcion:
-      'Procesos completos o parciales de reacondicionamiento. Recuperamos el rendimiento de equipos críticos como excavadoras, cargadores frontales, bulldozers y más.',
-  },
-  {
-    titulo: 'Fortificación de baldes',
-    descripcion:
-      'Aplicación de placas, refuerzos y soldadura de alta resistencia para extender la durabilidad de baldes en condiciones de alto desgaste, especialmente en minería y construcción pesada.',
-  },
-  {
-    titulo: 'Acreditación y protocolos mineros',
-    descripcion:
-      'Asesoría y ejecución de protocolos de mantenimiento y seguridad exigidos por faenas mineras. Garantizamos cumplimiento normativo y soporte documental.',
-  },
-]
 
 export default function ServiciosPage() {
   const [showModal, setShowModal] = useState(false)
@@ -77,7 +56,7 @@ export default function ServiciosPage() {
         </p>
 
         <div className="grid md:grid-cols-2 gap-8 mb-16">
-          {servicios.map((serv, i) => (
+          {SERVICIOS.map((serv, i) => (
             <div
               key={i}
               className="bg-white border border-zinc-200 rounded-xl shadow-md p-6 hover:shadow-lg transition"
@@ -86,6 +65,9 @@ export default function ServiciosPage() {
                 {serv.titulo}
               </h2>
               <p className="text-gray-700 text-sm">{serv.descripcion}</p>
+              {/* El detalle explica cuando conviene cada servicio; antes vivia
+                  en un bloque aparte que repetia toda la lista. */}
+              <p className="text-gray-500 text-sm mt-3 leading-relaxed">{serv.detalle}</p>
             </div>
           ))}
 

@@ -44,21 +44,11 @@ export default function DetalleServicios() {
           <h2 className="text-2xl sm:text-3xl font-bold text-[#0f172a] mb-4">
             Servicio técnico para maquinaria en faena
           </h2>
-          <p className="text-gray-700 leading-relaxed mb-10">
+          <p className="text-gray-700 leading-relaxed">
             Además de importar repuestos, intervenimos el equipo. Trabajamos con operaciones
             mineras y de construcción en Chile, donde una máquina detenida cuesta por hora y
             el proveedor tiene que cumplir los estándares de la faena para poder entrar.
           </p>
-
-          <div className="space-y-8">
-            {SERVICIOS.map((s) => (
-              <article key={s.slug} className="border-l-4 border-[#ff8a00] pl-5">
-                <h3 className="text-lg font-semibold text-[#0f172a] mb-2">{s.titulo}</h3>
-                <p className="text-gray-700 leading-relaxed mb-2">{s.descripcion}</p>
-                <p className="text-gray-600 text-sm leading-relaxed">{s.detalle}</p>
-              </article>
-            ))}
-          </div>
 
           <div className="mt-10 rounded-xl bg-[#fff4e6] border border-[#ffd9a8] p-6">
             <h3 className="font-semibold text-[#0f172a] mb-2">
