@@ -41,11 +41,11 @@ export default function FAQSection() {
             Preguntas Frecuentes Sobre Repuestos
           </h2>
           <p className="text-[#4B5563] text-base sm:text-lg leading-relaxed">
-            Aclara tus dudas antes de hacer tu compra. Nuestro equipo está siempre disponible para ayudarte.
+            Aclara tus dudas antes de cotizar. Si no encuentras tu respuesta aquí, escríbenos y te contactamos.
           </p>
           <div className="mt-6 inline-flex items-center gap-2 bg-orange-50 border border-orange-200 rounded-full px-4 py-2">
             <div className="w-2 h-2 bg-[#FF8A00] rounded-full animate-pulse"></div>
-            <span className="text-sm font-medium text-gray-700">Soporte 24/7 disponible</span>
+            <span className="text-sm font-medium text-gray-700">Respuesta en menos de 24 horas hábiles</span>
           </div>
         </div>
 

@@ -27,11 +27,11 @@ export const FAQS: Faq[] = [
   {
     pregunta: '¿Puedo devolver repuestos si es necesario?',
     respuesta:
-      'Sí, tenemos una política de devoluciones de 30 días. Los repuestos deben estar en condiciones originales para reembolso.',
+      'Sí. Tienes 30 días para devolver un repuesto sin usar y en su empaque original. Aparte de eso, cada pieza que despachamos incluye 6 meses de garantía por defectos de fabricación.',
   },
   {
     pregunta: '¿Cómo puedo contactar servicio al cliente?',
     respuesta:
-      'Puedes contactarnos por teléfono, correo electrónico o chat en vivo. Estamos aquí para ayudarte 24/7.',
+      'Escríbenos por WhatsApp, teléfono o a ventas@partsmr.com. Atendemos de lunes a viernes de 09:00 a 18:00 (hora de Chile) y respondemos toda cotización en menos de 24 horas hábiles.',
   },
 ]

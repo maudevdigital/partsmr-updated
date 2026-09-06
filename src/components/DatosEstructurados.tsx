@@ -1,4 +1,5 @@
 import { FAQS } from '../data/faqs'
+import { EMPRESA, PAISES } from '../lib/constants'
 
 // Datos estructurados (JSON-LD) para Google.
 //
@@ -12,41 +13,29 @@ import { FAQS } from '../data/faqs'
 // Las preguntas se leen de src/data/faqs.ts, la misma fuente que renderiza el
 // acordeon visible: el marcado debe coincidir con lo que el usuario ve.
 
-const PAISES = ['CL', 'PE', 'BO', 'AR', 'PY', 'US']
-
 const organizacion = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
-  name: 'PartsMR',
-  url: 'https://www.partsmr.com',
-  logo: 'https://www.partsmr.com/icon.png',
-  description:
-    'Importación y venta de repuestos para maquinaria pesada, camiones, autos y camionetas, con despacho a Latinoamérica.',
-  email: 'ventas@partsmr.com',
-  areaServed: PAISES.map((c) => ({ '@type': 'Country', identifier: c })),
-  contactPoint: [
-    {
-      '@type': 'ContactPoint',
-      telephone: '+56928423774',
-      contactType: 'sales',
-      areaServed: 'CL',
-      availableLanguage: ['es'],
-    },
-    {
-      '@type': 'ContactPoint',
-      telephone: '+595992110955',
-      contactType: 'sales',
-      areaServed: 'PY',
-      availableLanguage: ['es'],
-    },
-  ],
+  name: EMPRESA.nombre,
+  url: EMPRESA.url,
+  logo: `${EMPRESA.url}/icon.png`,
+  description: EMPRESA.descripcion,
+  email: EMPRESA.email,
+  areaServed: PAISES.map((p) => ({ '@type': 'Country', identifier: p.code })),
+  contactPoint: EMPRESA.telefonos.map((t) => ({
+    '@type': 'ContactPoint',
+    telephone: t.e164,
+    contactType: 'sales',
+    areaServed: t.codigo,
+    availableLanguage: ['es'],
+  })),
 }
 
 const sitio = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
-  name: 'PartsMR',
-  url: 'https://www.partsmr.com',
+  name: EMPRESA.nombre,
+  url: EMPRESA.url,
   inLanguage: 'es-CL',
 }
 

@@ -81,7 +81,7 @@ export default function ContactoPage() {
               {
                 icon: <Mail className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Correo electrónico',
-                content: 'christian@partsmr.com',
+                content: 'ventas@partsmr.com',
                 isEmail: true,
               },
               {
@@ -92,7 +92,7 @@ export default function ContactoPage() {
               {
                 icon: <Clock className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Horario de atención',
-                content: 'Atención en línea 24/7',
+                content: 'Lunes a viernes, 09:00 a 18:00 (hora de Chile)',
               },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4">

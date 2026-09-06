@@ -53,7 +53,7 @@ const slides = [
     tipo: 'Camión',
     fondo: '/hero/hero-camion.webp',
     titulo: 'Repuestos premium para flotas de camiones',
-    subtitulo: 'Disponibilidad inmediata con cobertura nacional 24/7.',
+    subtitulo: 'Cotiza hoy y recibe tu repuesto con envío a seis países.',
     marcas: [
       { src: '/brand/truck/mercedes-camion.webp', width: 40, height: 35 },
       { src: '/brand/truck/volvo-camion.webp', width: 45, height: 35 },
