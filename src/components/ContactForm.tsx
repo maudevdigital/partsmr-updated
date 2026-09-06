@@ -74,7 +74,7 @@ export default function ContactForm() {
   const modeloValor = watch('modelo') || ''
   register('modelo')
   const marcasDisponibles = marcasPorTipo(tipoSeleccionado)
-  const modelosSugeridos = modelosPorMarca(marcaSeleccionada)
+  const modelosSugeridos = modelosPorMarca(tipoSeleccionado, marcaSeleccionada)
   const mensaje = watch('mensaje') || ''
   const [pais, setPais] = useState<typeof paises[number] | null>(null)
   const [telefono, setTelefono] = useState('')
