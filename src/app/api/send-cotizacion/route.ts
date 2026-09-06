@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
-import { db } from '../../../lib/firebase'
-import { collection, addDoc, serverTimestamp } from 'firebase/firestore'
+import { getAdminDb } from '../../../lib/firebase-admin'
+import { FieldValue } from 'firebase-admin/firestore'
 
 export async function POST(req: NextRequest) {
   const data = await req.json()
@@ -65,23 +65,31 @@ export async function POST(req: NextRequest) {
     `,
   }
 
+  // El correo es lo que realmente entrega el lead: si falla, es un error de verdad.
   try {
-    // Enviar correo
     await transporter.sendMail(mailOptions)
+  } catch (error) {
+    console.error('Error al enviar el correo de cotizacion:', error)
+    return NextResponse.json(
+      { ok: false, error: 'Error al enviar correo' },
+      { status: 500 }
+    )
+  }
 
-    // Eliminar campos internos antes de guardar
+  // El guardado en Firestore es un respaldo. Si falla, el lead ya llego por correo,
+  // asi que se registra el error pero NO se le devuelve un fallo al cliente: antes
+  // esto provocaba que el usuario viera "error" y reenviara el formulario duplicado.
+  try {
     const { website, ...cleanData } = data
 
-    // Guardar en Firestore
-    await addDoc(collection(db, 'cotizaciones'), {
+    await getAdminDb().collection('cotizaciones').add({
       ...cleanData,
       fechaHora,
-      timestamp: serverTimestamp(),
+      timestamp: FieldValue.serverTimestamp(),
     })
-
-    return NextResponse.json({ ok: true })
-  } catch (error: any) {
-    console.error('Error al enviar el correo o guardar en Firestore:', error)
-    return NextResponse.json({ ok: false, error: 'Error al enviar correo' }, { status: 500 })
+  } catch (error) {
+    console.error('Correo enviado, pero fallo el guardado en Firestore:', error)
   }
+
+  return NextResponse.json({ ok: true })
 }

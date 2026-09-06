@@ -5,8 +5,6 @@ import { useRef, useState } from 'react'
 import { Truck, Car, PackageCheck, CircleEllipsis, Check, Zap, Mail } from 'lucide-react'
 import * as Select from '@radix-ui/react-select'
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
-import { db } from '../lib/firebase'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
 
@@ -107,7 +105,6 @@ export default function ContactForm() {
       telefono: `${pais.codigo} ${telefono}`,
       pais: pais.nombre,
       website: honeypot, // Include honeypot field for backend validation
-      timestamp: serverTimestamp(),
     }
 
     try {
@@ -116,7 +113,7 @@ export default function ContactForm() {
       const res = await fetch('/api/send-cotizacion', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...formData, timestamp: undefined }),
+        body: JSON.stringify(formData),
       })
 
       if (!res.ok) throw new Error('Error al enviar correo')

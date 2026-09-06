@@ -1,5 +1,3 @@
-'use client'
-
 import Hero from '../components/Hero'
 import Benefits from '../components/Benefits'
 import Countries from '../components/Countries'
@@ -12,7 +10,6 @@ import ContactForm from '../components/ContactForm'
 
 import FAQSection from '../components/FAQSection'
 import Reviews from '../components/Reviews'
-import TechniciansShowcase from '../components/TechniciansShowcase'
 
 export default function Home() {
   return (

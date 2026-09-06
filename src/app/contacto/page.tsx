@@ -4,8 +4,6 @@ import { useForm } from 'react-hook-form'
 import { useState } from 'react'
 import { Mail, PhoneCall, MapPin, Clock, Star, CheckCircle } from 'lucide-react'
 import clsx from 'clsx'
-import { db } from '../../lib/firebase'
-import { addDoc, collection, serverTimestamp } from 'firebase/firestore'
 import { gtag_report_conversion } from '../../lib/gtag'
 
 export default function ContactoPage() {
@@ -29,15 +27,16 @@ export default function ContactoPage() {
       return
     }
 
-    const reseñaCompleta = {
-      ...data,
-      calificacion: rating,
-      fecha: serverTimestamp(),
-    }
-
+    // La escritura ocurre en el servidor (/api/resenas) con el Admin SDK, para que
+    // las reglas de Firestore puedan seguir cerradas a cualquier acceso externo.
     try {
-      await addDoc(collection(db, 'reseñas'), reseñaCompleta)
-      console.log('Reseña enviada:', reseñaCompleta)
+      const res = await fetch('/api/resenas', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...data, calificacion: rating }),
+      })
+
+      if (!res.ok) throw new Error('La API rechazó la reseña')
 
       setEnviado(true)
       reset()
