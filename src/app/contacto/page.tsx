@@ -2,7 +2,8 @@
 
 import { useForm } from 'react-hook-form'
 import { useState } from 'react'
-import { Mail, PhoneCall, MapPin, Clock, Star, CheckCircle } from 'lucide-react'
+import { Mail, PhoneCall, MapPin, Clock, Star, CheckCircle, Building2 } from 'lucide-react'
+import { EMPRESA } from '../../lib/constants'
 import clsx from 'clsx'
 import { gtag_report_conversion } from '../../lib/gtag'
 
@@ -86,8 +87,13 @@ export default function ContactoPage() {
               },
               {
                 icon: <MapPin className="text-orange-500 w-6 h-6 mt-1" />,
-                title: 'Dirección',
-                content: 'Tienda online',
+                title: 'Cobertura',
+                content: 'Chile, Perú, Bolivia, Argentina, Paraguay y EE.UU.',
+              },
+              {
+                icon: <Building2 className="text-orange-500 w-6 h-6 mt-1" />,
+                title: 'Datos de la empresa',
+                content: `PartsMR · RUT ${EMPRESA.rut}`,
               },
               {
                 icon: <Clock className="text-orange-500 w-6 h-6 mt-1" />,
