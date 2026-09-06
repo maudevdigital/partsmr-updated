@@ -8,7 +8,8 @@ import { PROMESAS, CIFRAS, PAISES } from '../lib/constants'
 // sola linea: cada pixel que crece aqui es un pixel que el hero pierde en la
 // primera pantalla, y el hero es el que carga el mensaje principal.
 //
-// El pt-16 compensa el header, que es fixed y no ocupa espacio en el flujo.
+// No lleva compensacion por el header: el propio Header ya renderiza un spacer
+// de h-16 al final. Agregar pt-16 aqui duplicaba ese espacio.
 
 const BENEFICIOS = [
   { icono: Truck, texto: `Envíos a ${PAISES.length} países` },
@@ -25,7 +26,7 @@ const TRAYECTORIA = [
 export default function BarraConfianza() {
   return (
     <section
-      className="bg-[#0f172a] pt-16 border-b border-white/10"
+      className="bg-[#0f172a] border-b border-white/10"
       aria-label="Garantías, cobertura y trayectoria"
     >
       {/* Scroll horizontal en movil en vez de apilar: apilar multiplicaria la
@@ -38,7 +39,9 @@ export default function BarraConfianza() {
               className="flex items-center gap-2 whitespace-nowrap shrink-0"
             >
               <Icono className="w-4 h-4 text-[#ff8a00]" strokeWidth={2.5} />
-              <span className="text-[13px] font-medium text-white/90">{texto}</span>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">
+                {texto}
+              </span>
             </span>
           ))}
 
@@ -49,8 +52,10 @@ export default function BarraConfianza() {
               <div key={unidad} className="flex items-baseline gap-1.5 whitespace-nowrap">
                 <dt className="sr-only">{unidad}</dt>
                 <dd className="flex items-baseline gap-1.5">
-                  <span className="text-[13px] font-bold text-[#ff8a00]">{valor}</span>
-                  <span className="text-[13px] text-white/60">{unidad}</span>
+                  <span className="text-[12px] font-bold text-[#ff8a00]">{valor}</span>
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/60">
+                    {unidad}
+                  </span>
                 </dd>
               </div>
             ))}
