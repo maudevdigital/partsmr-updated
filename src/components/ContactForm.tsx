@@ -2,7 +2,8 @@
 
 import { useForm } from 'react-hook-form'
 import { useRef, useState } from 'react'
-import { Truck, Car, PackageCheck, CircleEllipsis, Check, Zap, Mail } from 'lucide-react'
+import { Truck, Car, PackageCheck, Check, Zap, Mail } from 'lucide-react'
+import IconExcavadora from './ui/IconExcavadora'
 import * as Select from '@radix-ui/react-select'
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
 import { trackConversion } from '../lib/gtag'
@@ -173,7 +174,7 @@ export default function ContactForm() {
         <ul className="text-base text-gray-800 space-y-3">
           <li className="flex items-center gap-3"><Car className="text-orange-500 w-5 h-5" /> Vehículos Livianos</li>
           <li className="flex items-center gap-3"><Truck className="text-orange-500 w-5 h-5" /> Camiones y transporte</li>
-          <li className="flex items-center gap-3"><CircleEllipsis className="text-orange-500 w-5 h-5" /> Maquinaria pesada y tolvas</li>
+          <li className="flex items-center gap-3"><IconExcavadora className="text-orange-500 w-5 h-5" /> Maquinaria pesada y tolvas</li>
         </ul>
         <div className="border-t border-zinc-200 pt-6">
           <h3 className="text-lg font-semibold text-[#0f172a] mb-2 flex items-center gap-2">
@@ -212,7 +213,7 @@ export default function ContactForm() {
             {[
               { value: 'auto', label: 'Auto', icon: <Car className="w-4 h-4" /> },
               { value: 'camion', label: 'Camión', icon: <Truck className="w-4 h-4" /> },
-              { value: 'maquinaria', label: 'Maquinaria', icon: <CircleEllipsis className="w-4 h-4" /> },
+              { value: 'maquinaria', label: 'Maquinaria', icon: <IconExcavadora className="w-4 h-4" /> },
             ].map((tipo) => (
               <button
                 key={tipo.value}
