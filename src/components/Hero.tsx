@@ -19,15 +19,21 @@ const slides = [
     titulo: 'Tu auto merece repuestos certificados',
     subtitulo: 'Cotiza rápido y recibe con envío express garantizado.',
     marcas: [
-      { src: '/brand/car/mercedes-auto.webp', width: 40, height: 35 },
-      { src: '/brand/car/bmw-auto.webp', width: 35, height: 30 },
-      { src: '/brand/car/porsche-auto.webp', width: 30, height: 30 },
-      { src: '/brand/car/chevrolet-auto.webp', width: 60, height: 35 },
-      { src: '/brand/car/ford-auto.webp', width: 60, height: 35 },
-      { src: '/brand/car/volks-auto.webp', width: 37, height: 35 },
-      { src: '/brand/car/great-auto.webp', width: 50, height: 35 },
-      { src: '/brand/car/haval-auto.webp', width: 60, height: 35 },
-      { src: '/brand/car/chery-auto.webp', width: 50, height: 35 },
+      { src: '/brand/car/mercedes-auto.webp', nombre: 'Mercedes-Benz', width: 40, height: 35 },
+      { src: '/brand/car/bmw-auto.webp', nombre: 'BMW', width: 35, height: 30 },
+      { src: '/brand/car/porsche-auto.webp', nombre: 'Porsche', width: 30, height: 30 },
+      { src: '/brand/car/chevrolet-auto.webp', nombre: 'Chevrolet', width: 60, height: 35 },
+      { src: '/brand/car/ford-auto.webp', nombre: 'Ford', width: 60, height: 35 },
+      { src: '/brand/car/volks-auto.webp', nombre: 'Volkswagen', width: 37, height: 35 },
+      { src: '/brand/car/great-auto.webp', nombre: 'Great Wall', width: 50, height: 35 },
+      { src: '/brand/car/haval-auto.webp', nombre: 'Haval', width: 60, height: 35 },
+      { src: '/brand/car/chery-auto.webp', nombre: 'Chery', width: 50, height: 35 },
+      { src: '/brand/vector/toyota.svg', nombre: 'Toyota', width: 34, height: 30 },
+      { src: '/brand/vector/nissan.svg', nombre: 'Nissan', width: 32, height: 30 },
+      { src: '/brand/vector/hyundai.svg', nombre: 'Hyundai', width: 34, height: 30 },
+      { src: '/brand/vector/kia.svg', nombre: 'Kia', width: 34, height: 30 },
+      { src: '/brand/vector/mazda.svg', nombre: 'Mazda', width: 32, height: 30 },
+      { src: '/brand/vector/suzuki.svg', nombre: 'Suzuki', width: 32, height: 30 },
     ],
     cta: { texto: 'Cotiza Ahora', href: '#contacto' },
   },
@@ -46,6 +52,11 @@ const slides = [
       { src: '/brand/machinery/sany-maquina.webp', width: 65, height: 35 },
       { src: '/brand/machinery/volvo-maquina.webp', width: 45, height: 35 },
       { src: '/brand/machinery/xcmg-maquina.webp', width: 65, height: 35 },
+      { src: '/brand/vector/hitachi.svg', nombre: 'Hitachi', width: 34, height: 30 },
+      { src: '/brand/vector/liebherr.svg', nombre: 'Liebherr', width: 34, height: 30 },
+      { src: '/brand/vector/kubota.svg', nombre: 'Kubota', width: 34, height: 30 },
+      { src: '/brand/vector/takeuchi.svg', nombre: 'Takeuchi', width: 34, height: 30 },
+      { src: '/brand/vector/manitou.svg', nombre: 'Manitou', width: 34, height: 30 },
     ],
     cta: { texto: 'Solicita tu Cotización', href: '#contacto' },
   },
@@ -62,6 +73,11 @@ const slides = [
       { src: '/brand/truck/foton-camion.webp', width: 70, height: 35 },
       { src: '/brand/truck/frei-camion.webp', width: 60, height: 35 },
       { src: '/brand/truck/scania-camion.webp', width: 38, height: 35 },
+      { src: '/brand/vector/hino.svg', nombre: 'Hino', width: 34, height: 30 },
+      { src: '/brand/vector/iveco.svg', nombre: 'Iveco', width: 34, height: 30 },
+      { src: '/brand/vector/man.svg', nombre: 'MAN', width: 34, height: 30 },
+      { src: '/brand/vector/daf.svg', nombre: 'DAF', width: 34, height: 30 },
+      { src: '/brand/vector/udtrucks.svg', nombre: 'UD Trucks', width: 40, height: 30 },
     ],
     cta: { texto: 'Cotiza para tu Flota', href: '#contacto' },
   },
@@ -190,13 +206,26 @@ export default function Hero() {
                         height: marca.height + 10,
                       }}
                     >
+                      {/* Los SVG van con <img>: next/image los bloquea salvo
+                          que se active dangerouslyAllowSVG. */}
+                      {marca.src.endsWith('.svg') ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={marca.src}
+                          alt={`Repuestos para ${marca.nombre}`}
+                          width={marca.width}
+                          height={marca.height}
+                          className="object-contain"
+                        />
+                      ) : (
                       <Image
                         src={marca.src}
-                        alt={`Marca ${i}`}
+                        alt={`Repuestos para ${marca.nombre}`}
                         width={marca.width}
                         height={marca.height}
                         className="object-contain drop-shadow-md"
                       />
+                      )}
                     </div>
                   ))}
                 </div>
@@ -224,13 +253,24 @@ export default function Hero() {
                             height: marca.height + 10,
                           }}
                         >
-                          <Image
-                            src={marca.src}
-                            alt={`Marca ${i}`}
-                            width={marca.width}
-                            height={marca.height}
-                            className="object-contain drop-shadow-md"
-                          />
+                          {marca.src.endsWith('.svg') ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img
+                              src={marca.src}
+                              alt={`Repuestos para ${marca.nombre}`}
+                              width={marca.width}
+                              height={marca.height}
+                              className="object-contain"
+                            />
+                          ) : (
+                            <Image
+                              src={marca.src}
+                              alt={`Repuestos para ${marca.nombre}`}
+                              width={marca.width}
+                              height={marca.height}
+                              className="object-contain drop-shadow-md"
+                            />
+                          )}
                         </div>
                       )
                     )}
