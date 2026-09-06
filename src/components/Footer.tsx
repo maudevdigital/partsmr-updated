@@ -121,6 +121,24 @@ export default function Footer() {
       <div className="border-t border-white/5 pt-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-[11px] text-gray-500 text-center md:text-left gap-2">
           <p>© {new Date().getFullYear()} PartsMR. Todos los derechos reservados.</p>
+
+          {/* Enlaces legales: presentes y accesibles, sin competir con la
+              navegacion comercial. */}
+          <nav className="flex items-center gap-3" aria-label="Enlaces legales">
+            <Link
+              href="/legal/terminos"
+              className="text-gray-500 hover:text-gray-300 transition"
+            >
+              Términos y condiciones
+            </Link>
+            <span className="text-gray-700" aria-hidden="true">·</span>
+            <Link
+              href="/legal/privacidad"
+              className="text-gray-500 hover:text-gray-300 transition"
+            >
+              Política de privacidad
+            </Link>
+          </nav>
           <p>
             Desarrollado por{' '}
             <a

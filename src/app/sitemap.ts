@@ -14,6 +14,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { ruta: '/servicios', prioridad: 0.7, frecuencia: 'monthly' },
     { ruta: '/sobre-nosotros', prioridad: 0.5, frecuencia: 'monthly' },
     { ruta: '/contacto', prioridad: 0.8, frecuencia: 'monthly' },
+    // Prioridad baja: deben ser accesibles e indexables, pero no competir con
+    // las paginas comerciales.
+    { ruta: '/legal/terminos', prioridad: 0.2, frecuencia: 'monthly' },
+    { ruta: '/legal/privacidad', prioridad: 0.2, frecuencia: 'monthly' },
   ]
 
   const ahora = new Date()
