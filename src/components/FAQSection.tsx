@@ -5,42 +5,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, HelpCircle } from 'lucide-react'
 import { Montserrat } from 'next/font/google'
 
+import { FAQS as faqs } from '../data/faqs'
+
 const montserrat = Montserrat({
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
 })
 
-const faqs = [
-  {
-    pregunta: '¿Cómo hago un pedido?',
-    respuesta: 'Simplemente solicita tu cotización por whatsapp o email.',
-  },
-  {
-    pregunta: '¿Para qué vehículos ofrecen repuestos?',
-    respuesta:
-      'Ofrecemos repuestos para camiones, automóviles y maquinaria diversa, garantizando una amplia selección para todas las necesidades.',
-  },
-  {
-    pregunta: '¿Ofrecen opciones de envío internacional?',
-    respuesta:
-      'Sí, hacemos envíos internacionales. Consulta a nuestros ejecutivos las políticas de envío para tiempos de entrega y países disponibles.',
-  },
-  {
-    pregunta: '¿Qué métodos de pago aceptan?',
-    respuesta:
-      'Aceptamos tarjetas de crédito, débito y PayPal. Todos los pagos se procesan de manera segura en nuestra plataforma.',
-  },
-  {
-    pregunta: '¿Puedo devolver repuestos si es necesario?',
-    respuesta:
-      'Sí, tenemos una política de devoluciones de 30 días. Los repuestos deben estar en condiciones originales para reembolso.',
-  },
-  {
-    pregunta: '¿Cómo puedo contactar servicio al cliente?',
-    respuesta:
-      'Puedes contactarnos por teléfono, correo electrónico o chat en vivo. Estamos aquí para ayudarte 24/7.',
-  },
-]
 
 export default function FAQSection() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null)

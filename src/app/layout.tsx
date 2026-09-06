@@ -6,6 +6,7 @@ import Footer from '../components/Footer'
 import WhatsappButton from '../components/WhatsappButton'
 import AnalyticsEvents from '../components/AnalyticsEvents'
 import Script from 'next/script'
+import DatosEstructurados from '../components/DatosEstructurados'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -14,7 +15,16 @@ const montserrat = Montserrat({
 })
 
 export const metadata = {
-  title: 'PartsMR - Repuestos para maquinaria, autos, camiones | Envíos a toda LATAM',
+  // metadataBase permite usar rutas relativas en canonical y openGraph: sin
+  // esto Next no puede resolverlas y las descarta silenciosamente.
+  metadataBase: new URL('https://www.partsmr.com'),
+  title: {
+    // Las paginas internas definen su propio titulo y este le agrega la marca;
+    // la home usa el absoluto de abajo.
+    template: '%s | PartsMR',
+    default:
+      'PartsMR - Repuestos para maquinaria, autos, camiones | Envíos a toda LATAM',
+  },
   description:
     'Encuentra repuestos de calidad para maquinaria pesada, autos, camionetas y camiones. Enviamos a Chile, Perú, Bolivia, Argentina, Paraguay y más. Atención profesional y asesoría técnica.',
   keywords: [
@@ -26,6 +36,9 @@ export const metadata = {
     'partes de maquinaria',
     'partes de vehículos',
   ],
+  alternates: {
+    canonical: '/',
+  },
   openGraph: {
     title: 'PartsMR - Repuestos para Maquinaria, Autos y Camiones',
     description:
@@ -88,6 +101,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         
         <AnalyticsEvents />
         <Header />
+        <DatosEstructurados />
         <main>{children}</main>
         <WhatsappButton />
         <Footer />
