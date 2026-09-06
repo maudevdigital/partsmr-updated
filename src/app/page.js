@@ -8,51 +8,55 @@ import ProductGrid from '../components/ProductGrid'
 import ServicesSection from '../components/ServicesSection'
 import PaymentOptions from '../components/PaymentOptions'
 import ContactForm from '../components/ContactForm'
-
 import FAQSection from '../components/FAQSection'
 import Reviews from '../components/Reviews'
 
+// Orden de la home: necesidad -> prueba -> accion.
+//
+// El visitante llega buscando una pieza concreta. Primero tiene que ver que la
+// tenemos (categorias y catalogo), despues por que comprarnos a nosotros
+// (beneficios y testimonios), y recien entonces se le pide la cotizacion.
+// Antes el formulario estaba en sexto lugar, por delante del catalogo: se le
+// pedia cotizar antes de mostrarle que existia lo que buscaba.
 export default function Home() {
   return (
     <>
-      {/* 1. CAPTURA INICIAL - Hero con CTA claro */}
+      {/* Cobertura, plazos y garantia: bajo el navbar, antes de todo. */}
+      <BarraConfianza />
+
+      {/* 1. Captura: propuesta de valor y CTA principal */}
       <Hero />
 
-      {/* Plazos, cobertura y garantia: lo primero al bajar del hero. */}
-      <BarraConfianza />
-      
-      {/* 2. GENERACIÓN DE CONFIANZA - Beneficios clave */}
+      {/* 2. Necesidad: las tres verticales del negocio */}
+      <ProductCategories />
+
+      {/* 3. Por que nosotros */}
       <Benefits />
-      
-      {/* 3. CREDIBILIDAD - Video institucional + "Sobre Nosotros" */}
-      {/* ⭐ MOVIDO: Video más arriba para generar confianza temprano */}
-      <AboutSection />
-      
-      {/* 4. COBERTURA - Países que atienden */}
-      <Countries />
-      
-      {/* 5. CONVERSIÓN PRINCIPAL - Formulario de cotización */}
-      {/* ⭐ MOVIDO: Formulario más arriba, después de generar confianza */}
+
+      {/* 4. Prueba de que existe lo que busca */}
+      <ProductGrid />
+
+      {/* 5. Prueba social */}
+      <Reviews />
+
+      {/* 6. Conversion: el formulario llega con el cliente ya convencido */}
       <section id="contacto">
         <ContactForm />
       </section>
-      
-      {/* 6. REFUERZO - Categorías de productos */}
-      <ProductCategories />
-      
-      {/* 7. PRUEBA SOCIAL - Testimonios refuerzan la decisión */}
-      <Reviews />
-      
-      {/* 8. SERVICIOS - Valor agregado */}
+
+      {/* 7. Valor agregado */}
       <ServicesSection />
-      
-      {/* 9. FACILIDADES - Métodos de pago */}
+
+      {/* 8. Cobertura en detalle */}
+      <Countries />
+
+      {/* 9. Respaldo institucional */}
+      <AboutSection />
+
+      {/* 10. Facilidades de pago */}
       <PaymentOptions />
-      
-      {/* 10. EXPLORACIÓN - Galería de productos */}
-      <ProductGrid />
-      
-      {/* 11. RESOLUCIÓN DE DUDAS - FAQ al final */}
+
+      {/* 11. Ultimas dudas antes de decidir */}
       <FAQSection />
     </>
   )

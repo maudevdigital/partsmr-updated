@@ -106,7 +106,7 @@ export default function Hero() {
 
   return (
     <section
-      className={`${montserrat.className} relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] -mt-[64px] overflow-hidden z-0`}
+      className={`${montserrat.className} relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] overflow-hidden z-0`}
     >
       <div className="absolute inset-0 w-full h-full">
         {slides.map((slide, index) => (
