@@ -3,37 +3,23 @@ import { PROMESAS, CIFRAS, PAISES } from '../lib/constants'
 
 // Franja de confianza entre el navbar y el hero.
 //
-// Va arriba a proposito: responde las tres dudas que frenan una compra de
-// repuestos a distancia (si llega hasta donde estoy, cuanto demora, que pasa si
-// sale malo) antes de que el visitante decida quedarse o irse. Comparte el
-// fondo del header para leerse como una extension suya y no como otra seccion.
+// Responde las tres dudas que frenan una compra a distancia (cobertura, plazo
+// y garantia) sin robarle altura al hero. Se mantiene deliberadamente en una
+// sola linea: cada pixel que crece aqui es un pixel que el hero pierde en la
+// primera pantalla, y el hero es el que carga el mensaje principal.
 //
 // El pt-16 compensa el header, que es fixed y no ocupa espacio en el flujo.
-// Es compacta a proposito: si crece, empuja el hero fuera de la primera
-// pantalla y se pierde el mensaje principal.
 
 const BENEFICIOS = [
-  {
-    icono: Truck,
-    texto: `Envíos a ${PAISES.length} países`,
-    detalle: PAISES.map((p) => p.name).join(' · '),
-  },
-  {
-    icono: Clock,
-    texto: `Importación en ${PROMESAS.plazoImportacion}`,
-    detalle: 'Plazo estimado desde la confirmación',
-  },
-  {
-    icono: ShieldCheck,
-    texto: `Garantía de ${PROMESAS.garantia}`,
-    detalle: 'En cada repuesto despachado',
-  },
+  { icono: Truck, texto: `Envíos a ${PAISES.length} países` },
+  { icono: Clock, texto: `Importación en ${PROMESAS.plazoImportacion}` },
+  { icono: ShieldCheck, texto: `Garantía de ${PROMESAS.garantia}` },
 ]
 
 const TRAYECTORIA = [
-  { valor: CIFRAS.anios, unidad: 'años importando' },
-  { valor: CIFRAS.piezas, unidad: 'piezas despachadas' },
-  { valor: CIFRAS.clientes, unidad: 'clientes atendidos' },
+  { valor: CIFRAS.anios, unidad: 'años' },
+  { valor: CIFRAS.piezas, unidad: 'piezas' },
+  { valor: CIFRAS.clientes, unidad: 'clientes' },
 ]
 
 export default function BarraConfianza() {
@@ -42,40 +28,29 @@ export default function BarraConfianza() {
       className="bg-[#0f172a] pt-16 border-b border-white/10"
       aria-label="Garantías, cobertura y trayectoria"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 lg:gap-8">
-          {/* Promesas */}
-          <ul className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 flex-1">
-            {BENEFICIOS.map(({ icono: Icono, texto, detalle }) => (
-              <li key={texto} className="flex items-center gap-2.5">
-                <span className="shrink-0 rounded-md bg-[#ff8a00] p-1.5">
-                  {/* Tinta sobre naranja: 7.56:1. En blanco seria 2.36:1. */}
-                  <Icono className="w-4 h-4 text-[#0f172a]" strokeWidth={2.5} />
-                </span>
-                <span className="min-w-0">
-                  <span className="block text-sm font-semibold text-white leading-tight">
-                    {texto}
-                  </span>
-                  <span className="block text-[11px] text-white/50 truncate">
-                    {detalle}
-                  </span>
-                </span>
-              </li>
-            ))}
-          </ul>
+      {/* Scroll horizontal en movil en vez de apilar: apilar multiplicaria la
+          altura justo donde la pantalla es mas escasa. */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center gap-x-5 sm:gap-x-8 overflow-x-auto py-2.5 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {BENEFICIOS.map(({ icono: Icono, texto }) => (
+            <span
+              key={texto}
+              className="flex items-center gap-2 whitespace-nowrap shrink-0"
+            >
+              <Icono className="w-4 h-4 text-[#ff8a00]" strokeWidth={2.5} />
+              <span className="text-[13px] font-medium text-white/90">{texto}</span>
+            </span>
+          ))}
 
-          {/* Trayectoria */}
-          <dl className="flex items-center justify-around lg:justify-end gap-5 sm:gap-7 border-t lg:border-t-0 lg:border-l border-white/10 pt-3 lg:pt-0 lg:pl-8">
+          <span className="hidden lg:block h-4 w-px bg-white/15 shrink-0" aria-hidden="true" />
+
+          <dl className="flex items-center gap-x-5 sm:gap-x-6 lg:ml-auto shrink-0">
             {TRAYECTORIA.map(({ valor, unidad }) => (
-              <div key={unidad} className="text-center lg:text-right">
+              <div key={unidad} className="flex items-baseline gap-1.5 whitespace-nowrap">
                 <dt className="sr-only">{unidad}</dt>
-                <dd>
-                  <span className="block text-lg sm:text-xl font-bold text-[#ff8a00] leading-none">
-                    {valor}
-                  </span>
-                  <span className="block text-[11px] text-white/60 mt-1 whitespace-nowrap">
-                    {unidad}
-                  </span>
+                <dd className="flex items-baseline gap-1.5">
+                  <span className="text-[13px] font-bold text-[#ff8a00]">{valor}</span>
+                  <span className="text-[13px] text-white/60">{unidad}</span>
                 </dd>
               </div>
             ))}
