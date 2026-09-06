@@ -22,8 +22,8 @@ export const EMPRESA = {
   horario: {
     // El sitio prometia atencion 24/7 en cuatro lugares mientras el footer
     // decia horario de oficina. Este es el dato real.
-    texto: 'Lunes a viernes, 09:00 a 18:00 (hora de Chile)',
-    corto: 'Lun a Vie, 09:00–18:00',
+    texto: 'Lunes a viernes de 09:00 a 18:00 y sábados de 09:00 a 13:00 (hora de Chile)',
+    corto: 'Lun a Vie 09:00–18:00 · Sáb 09:00–13:00',
   },
 } as const
 

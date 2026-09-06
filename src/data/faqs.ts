@@ -32,6 +32,6 @@ export const FAQS: Faq[] = [
   {
     pregunta: '¿Cómo puedo contactar servicio al cliente?',
     respuesta:
-      'Escríbenos por WhatsApp, teléfono o a ventas@partsmr.com. Atendemos de lunes a viernes de 09:00 a 18:00 (hora de Chile) y respondemos toda cotización en menos de 24 horas hábiles.',
+      'Escríbenos por WhatsApp, teléfono o a ventas@partsmr.com. Atendemos de lunes a viernes de 09:00 a 18:00 y sábados de 09:00 a 13:00 (hora de Chile) y respondemos toda cotización en menos de 24 horas hábiles.',
   },
 ]

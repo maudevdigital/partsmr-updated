@@ -245,7 +245,7 @@ export default function ContactForm() {
 
         {/* Datos personales */}
         <input {...register('nombre')} required placeholder="Nombre" className={inputStyle} />
-        <input {...register('apellido')} required placeholder="Apellido" className={inputStyle} />
+        <input {...register('apellido')} placeholder="Apellido (opcional)" className={inputStyle} />
         <input
           {...register('correo', {
             pattern: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
@@ -388,9 +388,10 @@ export default function ContactForm() {
         <div>
           <input
             {...register('modelo')}
-            required
             placeholder={
-              modelosSugeridos.length ? `Modelo (ej: ${modelosSugeridos[0]})` : 'Modelo'
+              modelosSugeridos.length
+                ? `Modelo (opcional, ej: ${modelosSugeridos[0]})`
+                : 'Modelo (opcional)'
             }
             list={modelosSugeridos.length ? 'modelos-sugeridos' : undefined}
             autoComplete="off"
@@ -406,7 +407,11 @@ export default function ContactForm() {
             </datalist>
           )}
         </div>
-        <input {...register('chasis')} required placeholder="N° de Chasis o Patente" className={inputStyle} />
+        <input
+          {...register('chasis')}
+          placeholder="N° de Chasis o Patente (opcional, agiliza tu cotización)"
+          className={inputStyle}
+        />
         <input
           {...register('año', {
             pattern: {
@@ -414,8 +419,7 @@ export default function ContactForm() {
               message: 'Debe ser un año de 4 dígitos',
             },
           })}
-          required
-          placeholder="Año"
+          placeholder="Año (opcional)"
           maxLength={4}
           inputMode="numeric"
           className={inputStyle}

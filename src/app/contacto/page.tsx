@@ -92,7 +92,7 @@ export default function ContactoPage() {
               {
                 icon: <Clock className="text-orange-500 w-6 h-6 mt-1" />,
                 title: 'Horario de atención',
-                content: 'Lunes a viernes, 09:00 a 18:00 (hora de Chile)',
+                content: 'Lun a Vie 09:00–18:00 · Sáb 09:00–13:00 (hora de Chile)',
               },
             ].map((item, i) => (
               <div key={i} className="flex items-start gap-4">
