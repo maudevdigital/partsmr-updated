@@ -8,6 +8,7 @@ import * as Select from '@radix-ui/react-select'
 import { ChevronUpDownIcon, CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
+import Image from 'next/image'
 import { marcasPorTipo, OTRA_MARCA } from '../data/marcas'
 import { modelosPorMarca } from '../data/modelos'
 
@@ -17,12 +18,12 @@ const montserrat = Montserrat({
 })
 
 const paises = [
-  { nombre: 'Chile', codigo: '+56', placeholder: '9 1234 5678', length: 9 },
-  { nombre: 'USA', codigo: '+1', placeholder: '123 456 7890', length: 10 },
-  { nombre: 'Paraguay', codigo: '+595', placeholder: '961 123 456', length: 9 },
-  { nombre: 'Bolivia', codigo: '+591', placeholder: '712 34567', length: 8 },
-  { nombre: 'Perú', codigo: '+51', placeholder: '912 345 678', length: 9 },
-  { nombre: 'Argentina', codigo: '+54', placeholder: '11 2345 6789', length: 10 },
+  { nombre: 'Chile', codigo: '+56', placeholder: '9 1234 5678', length: 9, bandera: '/flags/bandera-chile.webp' },
+  { nombre: 'USA', codigo: '+1', placeholder: '123 456 7890', length: 10, bandera: '/flags/bandera-usa.webp' },
+  { nombre: 'Paraguay', codigo: '+595', placeholder: '961 123 456', length: 9, bandera: '/flags/bandera-paraguay.webp' },
+  { nombre: 'Bolivia', codigo: '+591', placeholder: '712 34567', length: 8, bandera: '/flags/bandera-bolivia.webp' },
+  { nombre: 'Perú', codigo: '+51', placeholder: '912 345 678', length: 9, bandera: '/flags/bandera-peru.webp' },
+  { nombre: 'Argentina', codigo: '+54', placeholder: '11 2345 6789', length: 10, bandera: '/flags/bandera-argentina.webp' },
 ]
 
 export default function ContactForm() {
@@ -268,7 +269,23 @@ export default function ContactForm() {
             }}
           >
             <Select.Trigger className="relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:border-transparent">
-              <Select.Value placeholder="Selecciona tu país" />
+              {/* Contenido propio en vez de Select.Value: asi el campo cerrado
+                  muestra la misma bandera y prefijo que la lista abierta. */}
+              <Select.Value placeholder="Selecciona tu país">
+                {pais && (
+                  <span className="flex items-center gap-2.5">
+                    <Image
+                      src={pais.bandera}
+                      alt=""
+                      width={22}
+                      height={16}
+                      className="rounded-sm shrink-0 object-cover"
+                    />
+                    <span>{pais.nombre}</span>
+                    <span className="text-xs text-gray-500 tabular-nums">{pais.codigo}</span>
+                  </span>
+                )}
+              </Select.Value>
               <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
               </Select.Icon>
@@ -288,12 +305,22 @@ export default function ContactForm() {
                     <Select.Item
                       key={paisItem.nombre}
                       value={paisItem.nombre}
-                      className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-900 cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 focus:text-indigo-900 outline-none"
+                      className="relative flex items-center gap-3 pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
                     >
-                      <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                        <CheckIcon className="h-4 w-4 text-indigo-600" />
+                      <Select.ItemIndicator className="absolute left-2.5 inline-flex items-center">
+                        <CheckIcon className="h-4 w-4 text-[#c2410c]" />
                       </Select.ItemIndicator>
+                      <Image
+                        src={paisItem.bandera}
+                        alt=""
+                        width={22}
+                        height={16}
+                        className="rounded-sm shrink-0 object-cover"
+                      />
                       <Select.ItemText>{paisItem.nombre}</Select.ItemText>
+                      <span className="ml-auto text-xs text-gray-500 tabular-nums">
+                        {paisItem.codigo}
+                      </span>
                     </Select.Item>
                   ))}
                 </Select.Viewport>
@@ -365,10 +392,10 @@ export default function ContactForm() {
                     <Select.Item
                       key={m}
                       value={m}
-                      className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-900 cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 focus:text-indigo-900 outline-none"
+                      className="relative flex items-center pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
                     >
                       <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                        <CheckIcon className="h-4 w-4 text-indigo-600" />
+                        <CheckIcon className="h-4 w-4 text-[#c2410c]" />
                       </Select.ItemIndicator>
                       <Select.ItemText>{m}</Select.ItemText>
                     </Select.Item>
@@ -376,10 +403,10 @@ export default function ContactForm() {
                   {/* Salida para marcas fuera del catalogo: no perdemos la cotizacion. */}
                   <Select.Item
                     value={OTRA_MARCA}
-                    className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-600 italic cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 outline-none"
+                    className="relative flex items-center pl-9 pr-3 py-2.5 rounded-md text-sm text-gray-600 italic cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6]"
                   >
                     <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
-                      <CheckIcon className="h-4 w-4 text-indigo-600" />
+                      <CheckIcon className="h-4 w-4 text-[#c2410c]" />
                     </Select.ItemIndicator>
                     <Select.ItemText>Otra marca…</Select.ItemText>
                   </Select.Item>
