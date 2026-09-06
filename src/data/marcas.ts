@@ -49,3 +49,53 @@ export function marcasPorTipo(tipo?: string): string[] {
   if (!tipo || !(tipo in MARCAS)) return []
   return [...MARCAS[tipo as TipoVehiculo]].sort((a, b) => a.localeCompare(b, 'es'))
 }
+
+// Logos disponibles en /public/brand, por tipo de vehiculo. Solo 26 de las 75
+// marcas tienen logo propio; para el resto el selector dibuja la inicial, de
+// modo que todas las filas conserven la misma altura y alineacion.
+const LOGOS: Record<TipoVehiculo, Record<string, string>> = {
+  auto: {
+    Audi: 'audi-auto',
+    BMW: 'bmw-auto',
+    Chery: 'chery-auto',
+    Chevrolet: 'chevrolet-auto',
+    Ford: 'ford-auto',
+    'Great Wall': 'great-auto',
+    Haval: 'haval-auto',
+    'Mercedes-Benz': 'mercedes-auto',
+    Porsche: 'porsche-auto',
+    Volkswagen: 'volks-auto',
+  },
+  camion: {
+    Foton: 'foton-camion',
+    Freightliner: 'frei-camion',
+    Higer: 'higer-camion',
+    JAC: 'jac-camion',
+    'Mercedes-Benz': 'mercedes-camion',
+    Scania: 'scania-camion',
+    Volvo: 'volvo-camion',
+  },
+  maquinaria: {
+    Bobcat: 'bobcat-maquina',
+    Caterpillar: 'cat-maquina',
+    'John Deere': 'deere-maquina',
+    Doosan: 'doosan-maquina',
+    JCB: 'jcb-maquina',
+    Komatsu: 'komatsu-maquina',
+    Sany: 'sany-maquina',
+    Volvo: 'volvo-maquina',
+    XCMG: 'xcmg-maquina',
+  },
+}
+
+const CARPETA: Record<TipoVehiculo, string> = {
+  auto: 'car',
+  camion: 'truck',
+  maquinaria: 'machinery',
+}
+
+export function logoDeMarca(tipo: string | undefined, marca: string): string | null {
+  if (!tipo || !(tipo in LOGOS)) return null
+  const archivo = LOGOS[tipo as TipoVehiculo][marca]
+  return archivo ? `/brand/${CARPETA[tipo as TipoVehiculo]}/${archivo}.webp` : null
+}

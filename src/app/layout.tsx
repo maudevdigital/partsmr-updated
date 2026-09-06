@@ -86,7 +86,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         {/* End Google Tag Manager */}
       </head>
       <body
-        className={`${montserrat.variable} font-sans antialiased bg-[#f9fafb] text-[#0f172a] overflow-x-hidden`}
+        className={`${montserrat.variable} font-sans antialiased bg-[#f9fafb] text-[#0f172a] [overflow-x:clip]`}
       >
         {/* Google Tag Manager (noscript) */}
         <noscript>

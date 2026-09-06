@@ -9,7 +9,7 @@ import { ChevronUpDownIcon, CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@h
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
 import Image from 'next/image'
-import { marcasPorTipo, OTRA_MARCA } from '../data/marcas'
+import { marcasPorTipo, OTRA_MARCA, logoDeMarca } from '../data/marcas'
 import { modelosPorMarca } from '../data/modelos'
 
 const montserrat = Montserrat({
@@ -25,6 +25,31 @@ const paises = [
   { nombre: 'Perú', codigo: '+51', placeholder: '912 345 678', length: 9, bandera: '/flags/bandera-peru.webp' },
   { nombre: 'Argentina', codigo: '+54', placeholder: '11 2345 6789', length: 10, bandera: '/flags/bandera-argentina.webp' },
 ]
+
+
+// Recuadro identificador de la marca: logo si lo hay, inicial si no. Tamaño
+// fijo para que todas las filas de la lista queden alineadas.
+function MarcaVisual({ tipo, marca }: { tipo?: string; marca: string }) {
+  const logo = logoDeMarca(tipo, marca)
+  if (logo) {
+    return (
+      <span className="w-6 h-5 shrink-0 flex items-center justify-center">
+        <Image
+          src={logo}
+          alt=""
+          width={24}
+          height={20}
+          className="max-w-full max-h-full object-contain"
+        />
+      </span>
+    )
+  }
+  return (
+    <span className="w-6 h-5 shrink-0 flex items-center justify-center rounded bg-gray-100 text-[10px] font-bold text-gray-500">
+      {marca.charAt(0)}
+    </span>
+  )
+}
 
 export default function ContactForm() {
   const {
@@ -372,7 +397,18 @@ export default function ContactForm() {
                     ? 'Selecciona la marca'
                     : 'Primero elige el tipo de carrocería'
                 }
-              />
+              >
+                {marcaSeleccionada && (
+                  <span className="flex items-center gap-2.5">
+                    {marcaSeleccionada !== OTRA_MARCA && (
+                      <MarcaVisual tipo={tipoSeleccionado} marca={marcaSeleccionada} />
+                    )}
+                    <span>
+                      {marcaSeleccionada === OTRA_MARCA ? 'Otra marca…' : marcaSeleccionada}
+                    </span>
+                  </span>
+                )}
+              </Select.Value>
               <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
                 <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
               </Select.Icon>
@@ -392,7 +428,7 @@ export default function ContactForm() {
                     <Select.Item
                       key={m}
                       value={m}
-                      className="relative flex items-center pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
+                      className="relative flex items-center gap-3 pl-9 pr-3 py-2.5 rounded-md text-sm text-[#0f172a] cursor-pointer select-none outline-none data-[highlighted]:bg-[#fff4e6] data-[state=checked]:font-semibold"
                     >
                       <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
                         <CheckIcon className="h-4 w-4 text-[#c2410c]" />

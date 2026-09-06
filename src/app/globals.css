@@ -77,12 +77,18 @@
    ============================================================ */
 html {
   scrollbar-gutter: stable;
+  /* Se declara tambien aqui para navegadores que aplican la reserva al
+     elemento que efectivamente scrollea. */
+  overflow-y: scroll;
 }
 
 body[data-scroll-locked] {
   /* Solo se anula la compensacion de ancho. El bloqueo de scroll en si se
-     respeta: es intencional que la pagina no se mueva detras del menu. */
+     respeta: es intencional que la pagina no se mueva detras del menu.
+     react-remove-scroll usa margin o padding segun el caso, asi que se
+     neutralizan ambos. */
   margin-right: 0 !important;
+  padding-right: 0 !important;
 }
 
 body {
