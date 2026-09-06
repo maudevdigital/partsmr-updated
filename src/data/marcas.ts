@@ -133,6 +133,24 @@ const VECTORES: Record<string, string> = {
   BMW: 'bmw',
   Porsche: 'porsche',
   Volkswagen: 'volkswagen',
+  // Obtenidos de Wikimedia Commons, todos en dominio publico o CC0, y
+  // verificados uno a uno: la busqueda automatica devolvia emblemas historicos
+  // o de empresas predecesoras. Se descartaron el de Dodge (emblema antiguo de
+  // Dodge Brothers), el de International (correspondia a International
+  // Harvester) y el de Kobelco (archivo que no renderiza).
+  Dongfeng: 'dongfeng',
+  'Land Rover': 'landrover',
+  Hino: 'hino',
+  'UD Trucks': 'udtrucks',
+  JLG: 'jlg',
+  Kubota: 'kubota',
+  Liebherr: 'liebherr',
+  LiuGong: 'liugong',
+  Manitou: 'manitou',
+  Shantui: 'shantui',
+  Takeuchi: 'takeuchi',
+  'Wacker Neuson': 'wackerneuson',
+  Komatsu: 'komatsu',
 }
 
 export function logoDeMarca(tipo: string | undefined, marca: string): string | null {
