@@ -106,7 +106,7 @@ export default function Hero() {
 
   return (
     <section
-      className={`${montserrat.className} relative w-screen h-[100vh] sm:h-[95vh] md:h-[100vh] overflow-hidden z-0`}
+      className={`${montserrat.className} relative w-screen h-[80vh] min-h-[480px] lg:h-[calc(100vh-9rem)] lg:min-h-[560px] overflow-hidden z-0`}
     >
       <div className="absolute inset-0 w-full h-full">
         {slides.map((slide, index) => (
@@ -143,16 +143,16 @@ export default function Hero() {
         <AnimatePresence mode="wait">
           <motion.div
             key={slides[current].tipo}
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -30 }}
-            transition={{ duration: 0.6 }}
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.3 }}
             className="max-w-4xl"
           >
             <h1 className="text-xl sm:text-3xl md:text-5xl font-bold leading-tight mb-2 drop-shadow-lg">
               {slides[current].titulo}
             </h1>
-            <p className="text-xs sm:text-sm md:text-lg mb-4 text-gray-300 drop-shadow">
+            <p className="text-xs sm:text-sm md:text-lg mb-4 text-white/90 drop-shadow-md">
               {slides[current].subtitulo}
             </p>
             <Link
@@ -171,7 +171,7 @@ export default function Hero() {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.6 }}
+              transition={{ duration: 0.3 }}
               className="absolute bottom-32 sm:bottom-24 z-30 w-full flex flex-col items-center px-4"
             >
               <p className="text-white text-xs sm:text-sm font-medium mb-2 opacity-80">
