@@ -9,6 +9,7 @@ import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
 import { marcasPorTipo, OTRA_MARCA } from '../data/marcas'
+import { modelosPorMarca } from '../data/modelos'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -37,6 +38,7 @@ export default function ContactForm() {
   const tipoSeleccionado = watch('tipo')
   const marcaSeleccionada = watch('marca')
   const marcasDisponibles = marcasPorTipo(tipoSeleccionado)
+  const modelosSugeridos = modelosPorMarca(marcaSeleccionada)
   const mensaje = watch('mensaje') || ''
   const [pais, setPais] = useState<typeof paises[number] | null>(null)
   const [telefono, setTelefono] = useState('')
@@ -383,7 +385,27 @@ export default function ContactForm() {
           />
         )}
 
-        <input {...register('modelo')} required placeholder="Modelo" className={inputStyle} />
+        <div>
+          <input
+            {...register('modelo')}
+            required
+            placeholder={
+              modelosSugeridos.length ? `Modelo (ej: ${modelosSugeridos[0]})` : 'Modelo'
+            }
+            list={modelosSugeridos.length ? 'modelos-sugeridos' : undefined}
+            autoComplete="off"
+            className={inputStyle}
+          />
+          {/* Sugerencias, no lista cerrada: el campo sigue aceptando cualquier
+              modelo que el cliente escriba. */}
+          {modelosSugeridos.length > 0 && (
+            <datalist id="modelos-sugeridos">
+              {modelosSugeridos.map((m) => (
+                <option key={m} value={m} />
+              ))}
+            </datalist>
+          )}
+        </div>
         <input {...register('chasis')} required placeholder="N° de Chasis o Patente" className={inputStyle} />
         <input
           {...register('año', {
