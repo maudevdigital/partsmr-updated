@@ -14,27 +14,10 @@ const montserrat = Montserrat({
 
 const slides = [
   {
-    tipo: 'Auto',
-    fondo: '/hero/hero-auto.webp',
-    titulo: 'Tu auto merece repuestos certificados',
-    subtitulo: 'Cotiza rápido y recibe con envío express garantizado.',
-    marcas: [
-      { src: '/brand/car/mercedes-auto.webp', nombre: 'Mercedes-Benz', width: 40, height: 35 },
-      { src: '/brand/car/bmw-auto.webp', nombre: 'BMW', width: 35, height: 30 },
-      { src: '/brand/vector/audi.svg', nombre: 'Audi', width: 42, height: 28 },
-      { src: '/brand/car/porsche-auto.webp', nombre: 'Porsche', width: 30, height: 30 },
-      { src: '/brand/vector/toyota.svg', nombre: 'Toyota', width: 36, height: 30 },
-      { src: '/brand/car/chevrolet-auto.webp', nombre: 'Chevrolet', width: 60, height: 35 },
-      { src: '/brand/car/ford-auto.webp', nombre: 'Ford', width: 60, height: 35 },
-      { src: '/brand/car/volks-auto.webp', nombre: 'Volkswagen', width: 37, height: 35 },
-    ],
-    cta: { texto: 'Cotiza Ahora', href: '#contacto' },
-  },
-  {
     tipo: 'Maquinaria',
     fondo: '/hero/hero-maquinaria.webp',
-    titulo: 'Componentes robustos para maquinaria pesada',
-    subtitulo: 'Optimiza tu operación con piezas listas para faena.',
+    titulo: 'Repuestos para maquinaria pesada',
+    subtitulo: 'Motores, culatas y cadenas de oruga para excavadoras, cargadores y bulldozers.',
     marcas: [
       { src: '/brand/machinery/cat-maquina.webp', nombre: 'Caterpillar', width: 55, height: 35 },
       { src: '/brand/machinery/komatsu-maquina.webp', nombre: 'Komatsu', width: 70, height: 35 },
@@ -50,8 +33,8 @@ const slides = [
   {
     tipo: 'Camión',
     fondo: '/hero/hero-camion.webp',
-    titulo: 'Repuestos premium para flotas de camiones',
-    subtitulo: 'Cotiza hoy y recibe tu repuesto con envío a seis países.',
+    titulo: 'Repuestos para camiones de carga',
+    subtitulo: 'Turbos, embragues, radiadores y línea de motor para flotas de transporte.',
     marcas: [
       { src: '/brand/truck/mercedes-camion.webp', nombre: 'Mercedes-Benz', width: 40, height: 35 },
       { src: '/brand/truck/volvo-camion.webp', nombre: 'Volvo', width: 50, height: 35 },
@@ -63,6 +46,23 @@ const slides = [
       { src: '/brand/vector/daf.svg', nombre: 'DAF', width: 38, height: 28 },
     ],
     cta: { texto: 'Cotiza para tu Flota', href: '#contacto' },
+  },
+  {
+    tipo: 'Auto',
+    fondo: '/hero/hero-auto.webp',
+    titulo: 'Repuestos para autos y camionetas',
+    subtitulo: 'Línea de motor completa: culatas, pistones, empaquetaduras y kits de reparación.',
+    marcas: [
+      { src: '/brand/car/mercedes-auto.webp', nombre: 'Mercedes-Benz', width: 40, height: 35 },
+      { src: '/brand/car/bmw-auto.webp', nombre: 'BMW', width: 35, height: 30 },
+      { src: '/brand/vector/audi.svg', nombre: 'Audi', width: 42, height: 28 },
+      { src: '/brand/car/porsche-auto.webp', nombre: 'Porsche', width: 30, height: 30 },
+      { src: '/brand/vector/toyota.svg', nombre: 'Toyota', width: 36, height: 30 },
+      { src: '/brand/car/chevrolet-auto.webp', nombre: 'Chevrolet', width: 60, height: 35 },
+      { src: '/brand/car/ford-auto.webp', nombre: 'Ford', width: 60, height: 35 },
+      { src: '/brand/car/volks-auto.webp', nombre: 'Volkswagen', width: 37, height: 35 },
+    ],
+    cta: { texto: 'Cotiza Ahora', href: '#contacto' },
   },
   {
     tipo: 'SymxAi',

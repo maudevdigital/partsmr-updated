@@ -205,7 +205,7 @@ export default function ContactForm() {
           <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
           <p className="text-orange-500 text-sm font-semibold">Equipo disponible ahora</p>
         </div>
-        <h2 className="text-4xl font-bold text-[#0f172a]">¿Buscas un repuesto?</h2>
+        <h2 className="text-4xl font-bold text-[#0f172a]">Cotiza tu repuesto en 24 horas</h2>
         <p className="text-lg text-gray-700">
           Completa el formulario y nos pondremos en contacto contigo a la brevedad. Trabajamos con repuestos para:
         </p>

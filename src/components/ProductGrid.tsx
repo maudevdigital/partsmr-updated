@@ -56,10 +56,10 @@ export default function ProductGrid() {
           </p>
         </div>
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-4 leading-snug">
-          Miles de Repuestos en un solo lugar
+          Motor, transmisión, frenos y filtros
         </h2>
         <p className="text-gray-600 text-base sm:text-lg max-w-2xl mx-auto text-center mb-12">
-          Encuentra todo lo que necesitas para tus vehículos y maquinaria
+Culatas, pistones, empaquetaduras y kits de reparación, además de los componentes de mayor rotación en cada tipo de equipo.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">

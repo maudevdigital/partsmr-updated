@@ -21,7 +21,7 @@ export default function AboutSection() {
             <p className="text-[#FF8A00] font-bold">Sobre Nosotros</p>
           </div>
           <h2 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
-            Variedad de soluciones y servicio <span className="text-[#FF8A00]">de Excelencia</span>
+            Importamos repuestos para <span className="text-[#c2410c]">maquinaria, camiones y autos</span>
           </h2>
           <p className="text-base sm:text-lg text-gray-700 mb-6">
             En PartsMR, nos adaptamos a tus necesidades. Nuestra experiencia con empresas y clientes
