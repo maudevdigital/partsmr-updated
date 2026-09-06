@@ -157,7 +157,7 @@ export default function Hero() {
             </p>
             <Link
               href={slides[current].cta.href}
-              className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-2 rounded-lg transition"
+              className="inline-block mb-8 text-sm sm:text-base md:text-lg bg-[#ff8a00] hover:bg-[#e67a00] text-[#0f172a] font-semibold px-5 py-2 rounded-lg transition"
             >
               {slides[current].cta.texto}
             </Link>

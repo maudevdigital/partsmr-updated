@@ -69,7 +69,7 @@ Correo: ventas@partsmr.com
           </div>
           <button
             onClick={handleCopy}
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md w-full hover:bg-orange-600 transition flex items-center justify-center gap-2 shadow-md"
+            className="bg-[#ff8a00] text-[#0f172a] font-semibold px-6 py-2 rounded-md w-full hover:bg-orange-600 transition flex items-center justify-center gap-2 shadow-md"
           >
             {copied ? (
               <>
@@ -105,7 +105,7 @@ Correo: ventas@partsmr.com
           </div>
           <a
             href="https://www.webpay.cl/form-pay/262952"
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-full hover:bg-orange-600 transition shadow-md"
+            className="bg-[#ff8a00] text-[#0f172a] font-semibold px-6 py-2 rounded-md block text-center w-full hover:bg-orange-600 transition shadow-md"
           >
             Paga Ahora
           </a>
@@ -128,7 +128,7 @@ Correo: ventas@partsmr.com
           </div>
           <a
             href="https://paypal.me/partsmr"
-            className="bg-orange-500 text-white font-semibold px-6 py-2 rounded-md block text-center w-full hover:bg-orange-600 transition shadow-md"
+            className="bg-[#ff8a00] text-[#0f172a] font-semibold px-6 py-2 rounded-md block text-center w-full hover:bg-orange-600 transition shadow-md"
           >
             Paga Ahora
           </a>

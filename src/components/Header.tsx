@@ -190,7 +190,7 @@ export default function Header() {
               onMouseLeave={() => setShowPhoneDropdown(false)}
             >
               <button
-                className="flex items-center gap-1.5 bg-orange-500 text-white text-sm font-medium px-3.5 py-1.5 rounded-md hover:bg-orange-600 transition-all duration-200"
+                className="flex items-center gap-1.5 bg-[#ff8a00] text-[#0f172a] text-sm font-medium px-3.5 py-1.5 rounded-md hover:bg-orange-600 transition-all duration-200"
               >
                 <Phone size={14} />
                 Asistencia

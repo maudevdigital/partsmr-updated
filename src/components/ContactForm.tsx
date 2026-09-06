@@ -228,7 +228,7 @@ export default function ContactForm() {
                 }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition ${
                   tipoSeleccionado === tipo.value
-                    ? 'bg-orange-500 text-white border-orange-500'
+                    ? 'bg-[#ff8a00] text-[#0f172a] border-[#ff8a00]'
                     : 'bg-white text-zinc-700 border-zinc-300 hover:border-orange-400'
                 }`}
               >
@@ -463,7 +463,7 @@ export default function ContactForm() {
                 ? 'bg-gray-300 text-gray-600 cursor-not-allowed'
                 : success
                 ? 'bg-green-500 text-white'
-                : 'bg-orange-500 hover:bg-orange-600 text-white transform hover:scale-[1.02]'
+                : 'bg-[#ff8a00] hover:bg-[#e67a00] text-[#0f172a] transform hover:scale-[1.02]'
             }`}
           >
             {loading ? (

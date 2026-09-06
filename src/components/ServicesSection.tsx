@@ -41,7 +41,7 @@ export default function ServicesSection() {
         </p>
         <a
           href="/servicios"
-          className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 hover:scale-105"
+          className="inline-flex items-center gap-2 bg-[#ff8a00] hover:bg-[#e67a00] text-[#0f172a] font-semibold px-6 py-3 rounded-lg shadow-lg transition-all duration-200 hover:scale-105"
         >
           Ver Servicios
           <ArrowRight className="w-5 h-5" />

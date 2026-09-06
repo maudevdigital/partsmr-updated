@@ -45,12 +45,23 @@ export const metadata = {
   },
 }
 
+// Pinta la barra superior del navegador en movil con el mismo azul del header,
+// para que la interfaz del sistema se continue con el sitio en vez de cortarse
+// con la franja gris por defecto. El segundo valor cubre a quien tenga el
+// telefono en modo oscuro.
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#0f172a' },
+    { media: '(prefers-color-scheme: dark)', color: '#0f172a' },
+  ],
+}
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="es">
       <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-
         {/* Google Tag Manager */}
         <Script id="gtm-script" strategy="afterInteractive">
           {`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':

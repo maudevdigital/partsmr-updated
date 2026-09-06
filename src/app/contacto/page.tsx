@@ -257,7 +257,7 @@ export default function ContactoPage() {
               type="submit"
               disabled={mensaje.length < 20 || rating === 0}
               className={clsx(
-                'w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-4 rounded-md transition shadow-lg flex items-center justify-center gap-2',
+                'w-full bg-[#ff8a00] hover:bg-[#e67a00] text-[#0f172a] font-semibold px-6 py-4 rounded-md transition shadow-lg flex items-center justify-center gap-2',
                 mensaje.length < 20 || rating === 0 ? 'opacity-50 cursor-not-allowed' : 'hover:scale-[1.02] transform'
               )}
             >

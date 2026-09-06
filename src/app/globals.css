@@ -1,23 +1,61 @@
 @import "tailwindcss";
 
+/* ============================================================
+   Paleta PartsMR
+   ------------------------------------------------------------
+   El naranja es la identidad de la marca y se conserva: en el
+   rubro de maquinaria pesada el naranja es el codigo de color
+   del sector (Caterpillar, JCB, Komatsu, Volvo CE).
+
+   Lo que se corrige es el CONTRASTE. Medido contra blanco:
+     #ff8a00 como texto ....... 2.36:1  insuficiente
+     texto blanco sobre naranja  2.36:1  insuficiente
+     #0f172a sobre naranja ..... 7.56:1  correcto
+     #c2410c como texto ........ 5.18:1  correcto
+   WCAG AA exige 4.5:1 para texto normal. De ahi la separacion
+   entre el naranja de SUPERFICIE y el naranja de TEXTO: son
+   usos distintos y no pueden ser el mismo tono.
+   ============================================================ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Marca: para fondos, bordes y acentos. Nunca para texto sobre blanco. */
+  --marca: #ff8a00;
+  --marca-hover: #e67a00;
+  --marca-suave: #fff4e6;
+  --marca-borde: #ffd9a8;
+
+  /* Naranja legible como texto sobre fondo claro (5.18:1). */
+  --marca-texto: #c2410c;
+
+  /* Color que va ENCIMA del naranja: oscuro, no blanco (7.56:1). */
+  --sobre-marca: #0f172a;
+
+  /* Tinta y superficies */
+  --tinta: #0f172a;
+  --tinta-suave: #4b5563;
+  --tinta-tenue: #6b7280;
+  --superficie: #ffffff;
+  --superficie-alt: #f9fafb;
+  --borde: #e5e7eb;
+
+  --background: var(--superficie);
+  --foreground: var(--tinta);
 }
 
 @theme inline {
+  --color-marca: var(--marca);
+  --color-marca-hover: var(--marca-hover);
+  --color-marca-suave: var(--marca-suave);
+  --color-marca-texto: var(--marca-texto);
+  --color-tinta: var(--tinta);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* Se elimino el bloque prefers-color-scheme: dark que ponia el body en negro.
+   El sitio esta construido con fondos claros fijos en cada componente, asi que
+   solo oscurecia el fondo detras de un contenido claro. Un modo oscuro real
+   exige revisar cada componente, no invertir dos variables. */
 
 body {
   background: var(--background);

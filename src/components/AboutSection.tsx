@@ -47,7 +47,7 @@ export default function AboutSection() {
 
           <a
             href="/sobre-nosotros"
-            className="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-6 py-3 rounded-lg transition shadow-md hover:shadow-lg"
+            className="inline-flex items-center gap-2 bg-[#ff8a00] hover:bg-[#e67a00] text-[#0f172a] font-semibold px-6 py-3 rounded-lg transition shadow-md hover:shadow-lg"
           >
             Conócenos
           </a>

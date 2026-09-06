@@ -1,4 +1,5 @@
 import Hero from '../components/Hero'
+import BarraConfianza from '../components/BarraConfianza'
 import Benefits from '../components/Benefits'
 import Countries from '../components/Countries'
 import ProductCategories from '../components/ProductCategories'
@@ -16,6 +17,9 @@ export default function Home() {
     <>
       {/* 1. CAPTURA INICIAL - Hero con CTA claro */}
       <Hero />
+
+      {/* Plazos, cobertura y garantia: lo primero al bajar del hero. */}
+      <BarraConfianza />
       
       {/* 2. GENERACIÓN DE CONFIANZA - Beneficios clave */}
       <Benefits />
