@@ -8,8 +8,11 @@ import { PROMESAS, CIFRAS, PAISES } from '../lib/constants'
 // sola linea: cada pixel que crece aqui es un pixel que el hero pierde en la
 // primera pantalla, y el hero es el que carga el mensaje principal.
 //
-// No lleva compensacion por el header: el propio Header ya renderiza un spacer
-// de h-16 al final. Agregar pt-16 aqui duplicaba ese espacio.
+// Flota SOBRE el hero en lugar de ocupar su propio espacio: fondo translucido
+// con desenfoque, para que la fotografia se vea a traves y la franja no se
+// lea como una segunda barra de navegacion pegada al navbar. Al no estar en el
+// flujo, tampoco le resta altura al hero.
+// El posicionamiento lo pone el contenedor en page.js.
 
 const BENEFICIOS = [
   { icono: Truck, texto: `Envíos a ${PAISES.length} países` },
@@ -26,7 +29,7 @@ const TRAYECTORIA = [
 export default function BarraConfianza() {
   return (
     <section
-      className="bg-[#0f172a] border-b border-white/10"
+      className="bg-[#0f172a]/55 backdrop-blur-md border-b border-white/10"
       aria-label="Garantías, cobertura y trayectoria"
     >
       {/* Scroll horizontal en movil en vez de apilar: apilar multiplicaria la
@@ -39,7 +42,7 @@ export default function BarraConfianza() {
               className="flex items-center gap-2 whitespace-nowrap shrink-0"
             >
               <Icono className="w-4 h-4 text-[#ff8a00]" strokeWidth={2.5} />
-              <span className="text-[11px] font-semibold uppercase tracking-wider text-white/90">
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-white drop-shadow">
                 {texto}
               </span>
             </span>
@@ -53,7 +56,7 @@ export default function BarraConfianza() {
                 <dt className="sr-only">{unidad}</dt>
                 <dd className="flex items-baseline gap-1.5">
                   <span className="text-[12px] font-bold text-[#ff8a00]">{valor}</span>
-                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/60">
+                  <span className="text-[11px] font-semibold uppercase tracking-wider text-white/80 drop-shadow">
                     {unidad}
                   </span>
                 </dd>

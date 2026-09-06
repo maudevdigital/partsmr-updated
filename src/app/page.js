@@ -21,11 +21,16 @@ import Reviews from '../components/Reviews'
 export default function Home() {
   return (
     <>
-      {/* Cobertura, plazos y garantia: bajo el navbar, antes de todo. */}
-      <BarraConfianza />
+      {/* La franja de confianza se superpone al hero en vez de empujarlo: asi
+          la fotografia se ve detras y el hero conserva toda su altura. */}
+      <div className="relative">
+        <div className="absolute inset-x-0 top-0 z-30">
+          <BarraConfianza />
+        </div>
 
-      {/* 1. Captura: propuesta de valor y CTA principal */}
-      <Hero />
+        {/* 1. Captura: propuesta de valor y CTA principal */}
+        <Hero />
+      </div>
 
       {/* 2. Necesidad: las tres verticales del negocio */}
       <ProductCategories />

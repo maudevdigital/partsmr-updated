@@ -5,7 +5,7 @@ import { useRef, useState } from 'react'
 import { Truck, Car, PackageCheck, Check, Zap, Mail } from 'lucide-react'
 import IconExcavadora from './ui/IconExcavadora'
 import * as Select from '@radix-ui/react-select'
-import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
+import { ChevronUpDownIcon, CheckIcon, ChevronUpIcon, ChevronDownIcon } from '@heroicons/react/20/solid'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
 import { marcasPorTipo, OTRA_MARCA } from '../data/marcas'
@@ -275,7 +275,14 @@ export default function ContactForm() {
             </Select.Trigger>
 
             <Select.Portal>
-              <Select.Content className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+              <Select.Content
+                position="popper"
+                sideOffset={6}
+                className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50 w-[var(--radix-select-trigger-width)] max-h-[min(18rem,var(--radix-select-content-available-height))]"
+              >
+                <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
+                  <ChevronUpIcon className="h-4 w-4" />
+                </Select.ScrollUpButton>
                 <Select.Viewport className="p-1">
                   {paises.map((paisItem) => (
                     <Select.Item
@@ -290,6 +297,9 @@ export default function ContactForm() {
                     </Select.Item>
                   ))}
                 </Select.Viewport>
+                <Select.ScrollDownButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
+                  <ChevronDownIcon className="h-4 w-4" />
+                </Select.ScrollDownButton>
               </Select.Content>
             </Select.Portal>
           </Select.Root>
@@ -342,8 +352,15 @@ export default function ContactForm() {
             </Select.Trigger>
 
             <Select.Portal>
-              <Select.Content className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50">
-                <Select.Viewport className="p-1 max-h-72">
+              <Select.Content
+                position="popper"
+                sideOffset={6}
+                className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50 w-[var(--radix-select-trigger-width)] max-h-[min(18rem,var(--radix-select-content-available-height))]"
+              >
+                <Select.ScrollUpButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
+                  <ChevronUpIcon className="h-4 w-4" />
+                </Select.ScrollUpButton>
+                <Select.Viewport className="p-1">
                   {marcasDisponibles.map((m) => (
                     <Select.Item
                       key={m}
@@ -367,6 +384,9 @@ export default function ContactForm() {
                     <Select.ItemText>Otra marca…</Select.ItemText>
                   </Select.Item>
                 </Select.Viewport>
+                <Select.ScrollDownButton className="flex items-center justify-center h-6 bg-white text-gray-500 cursor-default">
+                  <ChevronDownIcon className="h-4 w-4" />
+                </Select.ScrollDownButton>
               </Select.Content>
             </Select.Portal>
           </Select.Root>
