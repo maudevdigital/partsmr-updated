@@ -1,24 +1,32 @@
 import type { Metadata } from 'next'
+import DetalleServicios from '../../components/DetalleServicios'
 
 // La pagina de esta ruta es un componente cliente y por eso no puede exportar
 // metadata; el layout si. Sin esto las ocho paginas del sitio compartian el
 // titulo y la descripcion de la home, y competian entre si en los resultados.
 export const metadata: Metadata = {
-  title: 'Servicios de Importación y Asesoría Técnica',
+  title: 'Overhaul, Reparación y Fortificación de Maquinaria Pesada',
   description:
-    'Te ayudamos a identificar la pieza correcta, gestionamos la importación y despachamos a seis países. Asesoría técnica especializada en maquinaria y transporte.',
+    'Overhaul y semioverhaul de excavadoras y cargadores, reparación de componentes hidráulicos, fortificación de baldes con placas antidesgaste y acreditación para faenas mineras.',
   alternates: {
     canonical: '/servicios',
   },
   openGraph: {
     title: 'Servicios de Importación y Asesoría Técnica | PartsMR',
     description:
-      'Te ayudamos a identificar la pieza correcta, gestionamos la importación y despachamos a seis países. Asesoría técnica especializada en maquinaria y transporte.',
+      'Overhaul y semioverhaul de excavadoras y cargadores, reparación de componentes hidráulicos, fortificación de baldes con placas antidesgaste y acreditación para faenas mineras.',
     url: '/servicios',
     type: 'website',
   },
 }
 
 export default function Layout({ children }: { children: React.ReactNode }) {
-  return <>{children}</>
+  return (
+    <>
+      {children}
+      {/* Contenido indexable y marcado Service: la pagina es componente
+          cliente y no puede aportarlos por si misma. */}
+      <DetalleServicios />
+    </>
+  )
 }
