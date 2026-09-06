@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getAdminDb } from '../../../lib/firebase-admin'
 import { FieldValue } from 'firebase-admin/firestore'
+import { verificarLimite, obtenerIp } from '../../../lib/rate-limit'
 
 // Escritura de reseñas del formulario de /contacto.
 // Vive en el servidor para que las reglas de Firestore puedan quedar cerradas.
@@ -9,6 +10,15 @@ export const runtime = 'nodejs'
 const MAX_COMENTARIO = 300
 
 export async function POST(req: NextRequest) {
+  // Nadie deja tres reseñas legitimas en media hora.
+  const limite = verificarLimite(`resena:${obtenerIp(req)}`, 3, 30 * 60 * 1000)
+  if (!limite.permitido) {
+    return NextResponse.json(
+      { ok: false, error: 'Demasiadas solicitudes. Intenta mas tarde.' },
+      { status: 429, headers: { 'Retry-After': String(limite.reintentarEn) } }
+    )
+  }
+
   try {
     const data = await req.json()
 

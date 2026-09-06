@@ -2,8 +2,21 @@ import { NextRequest, NextResponse } from 'next/server'
 import nodemailer from 'nodemailer'
 import { getAdminDb } from '../../../lib/firebase-admin'
 import { FieldValue } from 'firebase-admin/firestore'
+import { verificarLimite, obtenerIp } from '../../../lib/rate-limit'
 
 export async function POST(req: NextRequest) {
+  // Un cliente real no pide mas de un par de cotizaciones seguidas.
+  const limite = verificarLimite(`cotizacion:${obtenerIp(req)}`, 5, 10 * 60 * 1000)
+  if (!limite.permitido) {
+    return NextResponse.json(
+      {
+        ok: false,
+        error: 'Demasiadas solicitudes. Intenta nuevamente en unos minutos.',
+      },
+      { status: 429, headers: { 'Retry-After': String(limite.reintentarEn) } }
+    )
+  }
+
   const data = await req.json()
 
   // Honeypot validation - if 'website' field is filled, it's a bot
