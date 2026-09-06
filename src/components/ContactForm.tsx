@@ -7,6 +7,7 @@ import * as Select from '@radix-ui/react-select'
 import { ChevronUpDownIcon, CheckIcon } from '@heroicons/react/20/solid'
 import { trackConversion } from '../lib/gtag'
 import { Montserrat } from 'next/font/google'
+import { marcasPorTipo, OTRA_MARCA } from '../data/marcas'
 
 const montserrat = Montserrat({
   subsets: ['latin'],
@@ -33,6 +34,8 @@ export default function ContactForm() {
   } = useForm()
 
   const tipoSeleccionado = watch('tipo')
+  const marcaSeleccionada = watch('marca')
+  const marcasDisponibles = marcasPorTipo(tipoSeleccionado)
   const mensaje = watch('mensaje') || ''
   const [pais, setPais] = useState<typeof paises[number] | null>(null)
   const [telefono, setTelefono] = useState('')
@@ -100,8 +103,16 @@ export default function ContactForm() {
       }
     }
 
+    // Si la marca no estaba en el catalogo, lo que vale es lo que escribio el
+    // cliente. Se envia una sola 'marca' para que el correo y el registro
+    // queden legibles, sin un "Otra" suelto.
+    const { marcaOtra, ...datosSinMarcaOtra } = cleanedData
+    const marcaFinal =
+      cleanedData.marca === 'Otra' && marcaOtra ? marcaOtra : cleanedData.marca
+
     const formData = {
-      ...cleanedData,
+      ...datosSinMarcaOtra,
+      marca: marcaFinal,
       telefono: `${pais.codigo} ${telefono}`,
       pais: pais.nombre,
       website: honeypot, // Include honeypot field for backend validation
@@ -206,7 +217,12 @@ export default function ContactForm() {
               <button
                 key={tipo.value}
                 type="button"
-                onClick={() => setValue('tipo', tipo.value, { shouldValidate: true })}
+                onClick={() => {
+                  setValue('tipo', tipo.value, { shouldValidate: true })
+                  // Las marcas dependen del tipo: una marca de auto no aplica a maquinaria.
+                  setValue('marca', '')
+                  setValue('marcaOtra', '')
+                }}
                 className={`flex items-center gap-2 px-4 py-2 rounded-full border text-sm font-medium transition ${
                   tipoSeleccionado === tipo.value
                     ? 'bg-orange-500 text-white border-orange-500'
@@ -295,7 +311,77 @@ export default function ContactForm() {
         )}
 
         {/* Vehículo */}
-        <input {...register('marca')} required placeholder="Marca" className={inputStyle} />
+        <div className="sm:col-span-2">
+          <label className="text-sm font-medium mb-1 text-[#0f172a]">Marca</label>
+          <Select.Root
+            value={marcaSeleccionada || undefined}
+            disabled={!tipoSeleccionado}
+            onValueChange={(val) => {
+              setValue('marca', val, { shouldValidate: true })
+              if (val !== OTRA_MARCA) setValue('marcaOtra', '')
+            }}
+          >
+            <Select.Trigger
+              className={`relative w-full cursor-default rounded-lg bg-white border border-gray-300 py-3 pl-4 pr-10 text-left shadow-sm hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-[#FF8A00] focus:border-transparent ${
+                !tipoSeleccionado ? 'opacity-60 cursor-not-allowed' : ''
+              }`}
+            >
+              <Select.Value
+                placeholder={
+                  tipoSeleccionado
+                    ? 'Selecciona la marca'
+                    : 'Primero elige el tipo de carrocería'
+                }
+              />
+              <Select.Icon className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
+                <ChevronUpDownIcon className="h-5 w-5 text-gray-400" />
+              </Select.Icon>
+            </Select.Trigger>
+
+            <Select.Portal>
+              <Select.Content className="overflow-hidden bg-white rounded-lg shadow-lg border border-gray-200 z-50">
+                <Select.Viewport className="p-1 max-h-72">
+                  {marcasDisponibles.map((m) => (
+                    <Select.Item
+                      key={m}
+                      value={m}
+                      className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-900 cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 focus:text-indigo-900 outline-none"
+                    >
+                      <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
+                        <CheckIcon className="h-4 w-4 text-indigo-600" />
+                      </Select.ItemIndicator>
+                      <Select.ItemText>{m}</Select.ItemText>
+                    </Select.Item>
+                  ))}
+                  {/* Salida para marcas fuera del catalogo: no perdemos la cotizacion. */}
+                  <Select.Item
+                    value={OTRA_MARCA}
+                    className="relative flex items-center px-8 py-2 rounded-md text-sm text-gray-600 italic cursor-pointer select-none hover:bg-indigo-100 hover:text-indigo-900 focus:bg-indigo-100 outline-none"
+                  >
+                    <Select.ItemIndicator className="absolute left-2 inline-flex items-center">
+                      <CheckIcon className="h-4 w-4 text-indigo-600" />
+                    </Select.ItemIndicator>
+                    <Select.ItemText>Otra marca…</Select.ItemText>
+                  </Select.Item>
+                </Select.Viewport>
+              </Select.Content>
+            </Select.Portal>
+          </Select.Root>
+          <input type="hidden" {...register('marca', { required: true })} />
+          {errors.marca && (
+            <p className="text-red-500 text-sm mt-2 font-medium">⚠️ Selecciona la marca</p>
+          )}
+        </div>
+
+        {marcaSeleccionada === OTRA_MARCA && (
+          <input
+            {...register('marcaOtra', { required: true })}
+            required
+            placeholder="¿Cuál marca?"
+            className={`${inputStyle} sm:col-span-2`}
+          />
+        )}
+
         <input {...register('modelo')} required placeholder="Modelo" className={inputStyle} />
         <input {...register('chasis')} required placeholder="N° de Chasis o Patente" className={inputStyle} />
         <input

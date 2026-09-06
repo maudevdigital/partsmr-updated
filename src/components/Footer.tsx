@@ -124,7 +124,7 @@ export default function Footer() {
           <p>
             Desarrollado por{' '}
             <a
-              href="https://maudev.digital"
+              href="https://maudev.cl"
               target="_blank"
               rel="noopener noreferrer"
               className="text-gray-400 hover:text-white underline underline-offset-2 transition"
