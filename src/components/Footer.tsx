@@ -120,7 +120,10 @@ export default function Footer() {
       {/* Créditos */}
       <div className="border-t border-white/5 pt-4">
         <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center text-[11px] text-gray-500 text-center md:text-left gap-2">
-          <p>© {new Date().getFullYear()} PartsMR. Todos los derechos reservados.</p>
+          <div className="space-y-0.5">
+            <p>© {new Date().getFullYear()} PartsMR. Todos los derechos reservados.</p>
+            <p>PARTSMR Chile | MR Enterprise Group LLC · Wyoming, USA</p>
+          </div>
 
           {/* Enlaces legales: presentes y accesibles, sin competir con la
               navegacion comercial. */}
